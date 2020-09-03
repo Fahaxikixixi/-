@@ -1,0 +1,45 @@
+/* pages/demo03/demo03.wxss */
+
+.containers {
+    background: #ffffff;
+}
+
+.block {
+    margin-bottom: 20rpx;
+    padding: 20rpx;
+}
+
+.block image {
+    display: block;
+    width: 100%;
+    height: 400rpx;
+    border-radius: 10rpx;
+    margin-bottom: 20rpx;
+}
+
+.block .title {
+    margin-bottom: 10rpx;
+    font-size: 33rpx;
+}
+
+.block .botton {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 40rpx;
+    font-size: 24rpx;
+}
+
+.block .botton .txt {
+    color: #999;
+}
+
+.block .botton .btn {
+    color: #ffffff;
+    background: #FF8D1D;
+    width: 20%;
+    height: 50rpx;
+    line-height: 50rpx;
+    border-radius: 50rpx;
+    text-align: center;
+}

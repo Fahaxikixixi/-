@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //生成器其实就是一个特殊的函数，是一种对异步编程的新的解决方案
+        //以前实现异步  都是用回调函数
+
+        function* fn() {
+            // console.log('SOGOOO!');
+            let one = yield '4AM'
+            console.log(one);
+
+            // console.log('SOGOOO!!');
+            // yield 'PGS GOGOGO'
+            // // console.log('SOGOOO!!!');
+            // yield 'NO.1'
+            // console.log('SOGOOO!!!!');
+        }
+        let fnn = fn()
+        fnn.next()
+        fnn.next()
+            // fnn.next()
+            // fnn.next()
+            // fnn.next()
+
+
+
+        //-------------------------------------------------------
+
+        // function* fn() {
+        //     console.log('SOGOOO!');
+        //     yield '4AM',
+        //     console.log('SOGOOO!!');
+        //     yield 'PGS GOGOGO'
+        //     console.log('SOGOOO!!!');
+        //     yield 'NO.1'
+        //     console.log('SOGOOO!!!!');
+        // }
+        // let fnn = fn()
+        // console.log(fnn);
+        // // fnn.next()
+        // console.log(fnn.next())
+        // console.log(fnn.next())
+        // console.log(fnn.next())
+        // console.log(fnn.next());
+
+        // html:16 SOGOOO!
+        // html:27 {value: "4AM", done: false}
+        // html:18 SOGOOO!!
+        // html:28 {value: "PGS GOGOGO", done: false}
+        // html:20 SOGOOO!!!
+        // html:29 {value: "NO.1", done: false}
+        // html:22 SOGOOO!!!!
+        // html:30 {value: undefined, done: true}
+
+        // fnn.next()
+        // fnn.next()
+        // fnn.next()
+        // fnn.next();
+        //fn {<suspended>}
+        // html:16 SOGOOO!
+        // html:18 SOGOOO!!
+        // html:20 SOGOOO!!!
+        // html:22 SOGOOO!!!!
+
+        // console.log('-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- - ');
+        // for (let v of fn()) {
+        //     console.log(v);
+        // };
+        // html:16 SOGOOO!
+        // html:35 4AM
+        // html:18 SOGOOO!!
+        // html:35 PGS GOGOGO
+        // html:20 SOGOOO!!!
+        // html:35 NO.1
+        // html:22 SOGOOO!!!!
+    </script>
+</body>
+
+</html>

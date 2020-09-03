@@ -1,0 +1,63 @@
+<!--pages/goos_ detail/index.wxml-->
+<!--轮播图--->
+<view class="detail_swiper">
+    <swiper autoplay    circular indicator-dots>
+        <swiper-item class="" item-id=""
+        wx:for="{{goodsObj.pics}}"
+        wx:key="pics_id"
+        bindtap="handlePrevewImage"
+        data-url="{{item.pics_mid}}">
+            <image class="" src="{{item.pics_mid}}" mode="widthFix" lazy-load="false" binderror="" bindload="">
+                
+            </image>
+        </swiper-item>
+    </swiper>
+</view>
+<!--价格标题--->
+<view class="goods_price">￥{{goodsObj.goods_price}}</view>
+<view class="goods_name_row">
+    <view class="goods_name">{{goodsObj.goods_name}}</view>
+    <view class="goods_collect">
+        <text class="iconfont icon-shoucang"></text>
+        <view class="collect_text">收藏</view>
+    </view>
+
+</view>
+
+
+<!--图文详情--->
+<view class="goods_info">
+    <view class="goods_info_title">图文详情</view>
+    <view class="goods_info_content">
+        <!--数据是写好布局的，所以要用富文本，直接渲染就是代码了--->
+        <rich-text class="" nodes="{{goodsObj.goods_introduce}}">
+            
+        </rich-text>
+
+    </view>
+</view>
+
+
+<!--底部工具栏--->
+<view class="btm_tool">
+    <view class="tool_item">
+        <view class="iconfont icon_kefu"></view>
+        <view>客服</view>
+        <button open-type="contact"></button>
+    </view>
+     <view class="tool_item">
+        <view class="iconfont icon_fx"></view>
+        <view >分享</view>
+        <button open-type="share"></button>
+    </view>
+     <navigator url="/pages/cart/index"  open-type="switchTab" class="tool_item">
+        <view class="iconfont icon_gwc"></view>
+        <view >购物车</view>
+    </navigator>
+     <view class="tool_item btn_cart"   bindtap="handleCartAdd">
+       加入购物车
+    </view>
+     <view class="tool_item btn_buy">
+      立即购买
+    </view>
+</view>

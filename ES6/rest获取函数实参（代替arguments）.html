@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // //ES5前arguments
+        function fn() {
+            console.log(arguments);
+        }
+        fn('21Y', 'SOGOOO') //Arguments(2)  输出一个含有两个参数的对象
+
+        // //ES6  rest
+        function fn1(...args) {
+            console.log(args);
+        }
+        fn1('21Y', 'SOGOOO') // ["21Y", "SOGOOO"]  输出一个含有两个参数的数组
+
+
+
+        //ES6  rest
+        function fn2(a, b, ...args) {
+            console.log(a);
+            console.log(b);
+            console.log(args);
+        }
+        fn2('21Y', 'SOGOOO', '0116', 'kk') // ["21Y", "SOGOOO"]  输出一个含有两个参数的数组
+    </script>
+</body>
+
+</html>

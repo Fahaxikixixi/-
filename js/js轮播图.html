@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+        
+        a,
+        li {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        ul li {
+            float: left;
+        }
+        
+        .box {
+            position: relative;
+            width: 500px;
+            height: 250px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .left,
+        .right {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            top: 100px;
+            height: 50px;
+            width: 30px;
+            line-height: 50px;
+            text-indent: 8px;
+            margin: 0 auto;
+            display: none;
+            z-index: 999;
+        }
+        
+        .right {
+            right: 0;
+        }
+        
+        .imglist {
+            position: absolute;
+            width: 500%;
+        }
+        
+        .item {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 99;
+        }
+        
+        .item li {
+            float: left;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            margin: 0 2px;
+        }
+        
+        img {
+            width: 500px;
+            height: 250px;
+        }
+        
+        .current {
+            background-color: #ffff !important;
+        }
+        
+        .s {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            margin-top: 100px;
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <a class="left">
+            <</a>
+                <a class="right">></a>
+                <ul class="imglist">
+                    <li>
+                        <a href="#"><img src="./img/1.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="./img/6.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="./img/1.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="./img/6.jpg" alt=""></a>
+                    </li>
+
+                </ul>
+                <ol class="item">
+
+                </ol>
+    </div>
+    <div class="s">12</div>
+
+    <script>
+        window.addEventListener('load', function() {
+            var box = document.querySelector('.box');
+            var prev = document.querySelector('.left');
+            var next = document.querySelector('.right');
+            var ullist = document.querySelector('.imglist');
+            var olitem = document.querySelector('.item');
+            var boxWidth = box.offsetWidth
+
+
+            //鼠标移出事件
+            box.addEventListener('mouseleave', function() {
+                prev.style.display = 'none';
+                next.style.display = 'none';
+                //鼠标移出后启动定时器，因为第一次加载页面时就已经启动下面的定时器，所以这里timer  不需要加  var 声明
+                timer = setInterval(function() {
+                    //手动调用 下一张按钮的点击事件
+                    next.click();
+                }, 4000);
+            });
+
+            //鼠标移入事件
+            box.addEventListener('mouseenter', function() {
+                prev.style.display = 'block';
+                next.style.display = 'block';
+                //鼠标移入后清除定时器
+                clearInterval(timer);
+                timer = null;
+            })
+
+
+            for (var i = 0; i < ullist.children.length; i++) {
+                var lis = document.createElement('li');
+                olitem.appendChild(lis)
+                olitem.children[i].setAttribute('index', i)
+                olitem.children[i].ins = i;
+                lis.addEventListener('click', function() {
+                    for (var i = 0; i < olitem.children.length; i++) {
+                        olitem.children[i].className = '';
+                    }
+                    var as = 1;
+                    this.className = 'current';
+                    //拿到当前点击的li的索引号
+                    var index = this.getAttribute('index');
+                    //当我们点击了某个li之后，就把这个li的索引号给num ,circle(两个都是全局变量) 这样就不会有点击li之后 在点击下一张按钮不能正常切换图片的bug
+                    num = index
+                    circle = index
+                    var len = index * boxWidth
+                    animate(ullist, -len)
+
+                })
+            }
+            olitem.children[0].className = 'current';
+
+
+
+
+            //克隆第一张图片（li）放到ul最后面
+            //无缝轮播图实现1：复制第一个到最后
+            var first = ullist.children[0].cloneNode(true);
+            ullist.appendChild(first)
+
+
+            //控制图片移动
+            var num = 0;
+            //控制小点的显示（左右按钮都需要所以是全局变量）
+            var circle = 0;
+
+            //节流阀的应用;  现只有对切换上一张图片设置了节流阀（节流阀作用：不会因为你一直点击按钮而一直切换图片，而是等你点击切换一次完成之后才可以点击下一个切换）
+            //在封装的动画函数里的回调函数添加了 flag=ture;  所以是动画结束之后才会获得true
+            var flag = true;
+            //控制图片切换上一张和小圆圈的显示
+            prev.addEventListener('click', function() {
+                //节流阀的控制
+                if (flag) {
+                    //关闭节流阀
+                    flag = false;
+                    if (num == 0) {
+                        num = ullist.children.length - 1;
+                        //不进行动画先迅速到达最后一张复制的照片后在通过 num的值进行动画切换到第四张图片和对应的小点
+                        ullist.style.left = -num * boxWidth + 'px';
+                    }
+                    num--;
+                    circle--;
+                    if (circle < 0) {
+                        circle = olitem.children.length - 1;
+                    }
+                    //if判断三元表达式写法
+                    // circle = circle < 0 ? olitem.children.length - 1 : circle;
+
+                    lisplay();
+                    // for (var i = 0; i < olitem.children.length; i++) {
+                    //     olitem.children[i].className = ''
+                    // }
+                    // console.log(circle)
+                    // olitem.children[circle].className = 'current'
+                    // animate(ullist, -num * boxWidth，function(){
+                    //打开节流阀
+                    // flag=true;
+                    //});
+
+
+                }
+            })
+
+
+
+
+            //控制图片切换下一张和小圆圈的显示
+            next.addEventListener('click', function() {
+                num++;
+                circle++;
+
+
+                //无缝轮播图实现2：
+                if (num == ullist.children.length) {
+
+                    ullist.style.left = 0;
+                    num = 1;
+                }
+                //判断circle是否加到 ol子元素个数 4 ，是的话就circle=0
+                if (circle == olitem.children.length) {
+                    circle = 0;
+                }
+                //排他思想，先将全部的ol下的子元素的类清除，然后在给对应circle值的元素添加类
+                for (var i = 0; i < olitem.children.length; i++) {
+                    olitem.children[i].className = ''
+                }
+
+                //给对应circle值的ol下子元素添加current类
+                olitem.children[circle].className = 'current';
+                //使用封装的动画函数
+                animate(ullist, -num * boxWidth);
+            })
+
+
+            //轮播图最后一步：通过定时器让图片自动轮播
+            var timer = setInterval(function() {
+                //手动调用 下一张按钮的点击事件
+                next.click();
+            }, 4000);
+
+
+
+
+            //因为切换图片后li 的小点显示是一样的，所以可以将其封装在一个函数里
+            function lisplay() {
+                for (var i = 0; i < olitem.children.length; i++) {
+                    olitem.children[i].className = '';
+                }
+                console.log(circle)
+                olitem.children[circle].className = 'current';
+                animate(ullist, -num * boxWidth, function() {
+                    //打开节流阀
+                    flag = true;
+                });
+            }
+
+
+
+            //封装动画函数(定时器的使用)
+            function animate(obj, target, callback) {
+
+                clearInterval(obj.ani);
+                obj.ani = setInterval(function() {
+
+                    var step = (target - obj.offsetLeft) / 5;
+                    //三元表达式  如果大于0 执行 ： 左边  反之
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step)
+                    if (obj.offsetLeft == target) {
+                        clearInterval(obj.ani);
+
+                        if (callback) {
+                            callback();
+                        }
+                        //if判断的另一种写法
+                        //callback&&callback();  ==> 如果有callback传入就是true， 是true就会执行看右边的内容
+                        //&& 属于布尔值逻辑判断，  False and True ，判断为Faslse。这里面有一个特性，当第一个值为False的时候，就不会去判断第二个值了，而是直接返回False，只有第一值为true的时候，才会继续判断第二个值
+                    }
+                    obj.style.left = obj.offsetLeft + step + 'px';
+                }, 150)
+            }
+
+        })
+    </script>
+</body>
+
+</html>

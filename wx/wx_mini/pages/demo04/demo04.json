@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "btn-component": "/components/btn/btn"
+    },
+    "navigationBarTitleText": "联系我们"
+}

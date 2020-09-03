@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [1, 2, 3, 4];
+        var arr1 = [4, 5, 6, 7, 8];
+        var obj = {
+            name: 'pp',
+            age: 10,
+            tt: 'ii'
+        };
+        var objs = {
+            name: 'qq',
+            age: 01,
+            tt: 'oo'
+        }
+
+        // var obj1 = [...obj,
+        //     ...objs
+        // ];
+        var obj1 = {...obj,
+            ...objs
+        }
+
+        //数组==>直接将两个数组合并
+        var arry = [...arr, ...arr1];
+        console.log(arry); //[1, 2, 3, 4,4, 5, 6, 7, 8]
+
+
+        var arry1 = [arr, arr1];
+        console.log(arry1); //[Array(4), Array(4)]==>0: (4) [1, 2, 3, 4] 1: (4) [5, 6, 7, 8]
+
+
+        var arry2 = [...arr];
+        console.log(arry2); //[1, 2, 3, 4]
+
+
+        var arry3 = [arr];
+        console.log(arry3); //[Array(4)]==>0: (4) [1, 2, 3, 4]
+
+        //对象相当于没用
+        console.log(obj1);
+        console.log(objs);
+
+
+
+        ///
+
+        function fn(n, m = 2) {
+            return n + m
+        }
+        console.log(fn(...[2]));
+
+
+        //
+        const bigbang = ['GD', 'TOP', 'TY']
+
+        function fnn() {
+            console.log(arguments);
+        }
+        fnn(...bigbang)
+
+
+        //数组的拷贝
+        const art = ['Z', 'G', 'G']
+        const arrt = [...art]
+        console.log(arrt) //
+    </script>
+</body>
+
+</html>

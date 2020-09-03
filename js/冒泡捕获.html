@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .father {
+            width: 400px;
+            height: 400px;
+            background-color: cornflowerblue;
+            margin: 0 auto;
+        }
+        
+        .son {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: darkcyan;
+        }
+        
+        .s {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            background-color: darkgoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="son">
+            <div class="s"></div>
+        </div>
+    </div>
+
+
+    <script>
+        var father = document.querySelector('.father')
+        var son = document.querySelector('.son')
+        var s = document.querySelector('.s')
+
+        father.addEventListener('click', function(e) {
+            alert('father')
+        })
+        son.addEventListener('click', function(e) {
+            alert('son')
+            e.stopPropagation();
+        })
+        s.addEventListener('click', function(e) {
+
+            alert('s')
+        })
+
+
+
+
+        for (var i = 0; i < 3; i++) {
+            setTimeout(function() {
+                console.log(i)
+            });
+        };
+        for (var i = 0; i < 3; i++) {
+
+        };
+        console.log(i);
+    </script>
+</body>
+
+</html>

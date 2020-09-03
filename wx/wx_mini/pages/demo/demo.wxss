@@ -1,0 +1,157 @@
+/* pages/demo/demo.wxss */
+
+
+/*-----------轮播图-------------*/
+
+swiper,
+swiper-item,
+swiper image {
+    width: 100%;
+    height: 400rpx;
+}
+
+.swiper {
+    position: relative;
+}
+
+.indicatorDots {
+    position: absolute;
+    right: 20rpx;
+    bottom: 20rpx;
+}
+
+.indicatorDots view {
+    width: 20rpx;
+    height: 20rpx;
+    background: #ccc;
+    border-radius: 20rpx;
+    float: left;
+    margin: 0 10rpx;
+    transition: width 0.5s;
+    /*轮播图指示点 切换动画*/
+}
+
+.indicatorDots view.active {
+    background: #FF8D1D;
+    width: 36rpx;
+}
+
+
+/*-----------show-------------*/
+
+.show {
+    display: flex;
+    
+    justify-content: space-around;
+    background: #fff;
+    padding: 20rpx;
+    margin-top: 20rpx;
+}
+
+.show>view {
+    width: 20%;
+    text-align: center;
+    font-size: 28rpx;
+}
+
+.show>view image {
+    width: 100%;
+    height: 100rpx;
+    display: block;
+}
+
+
+/*-----------block1-------------*/
+
+.block1 {
+    background: #fff;
+    margin-top: 20rpx;
+}
+
+.top {
+    height: 100rpx;
+    line-height: 100rpx;
+    position: relative;
+}
+
+.top .line {
+    width: 32%;
+    background: #ccc;
+    height: 4rpx;
+}
+
+.same {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+
+.top .title {
+    width: 26%;
+    background: #fff;
+    text-align: center;
+    font-size: 32rpx;
+}
+
+
+/*-----------block2--------------*/
+
+.block2 {
+    margin-top: 20rpx;
+}
+
+.block2,
+.block2 image {
+    width: 100%;
+    height: 400rpx;
+    display: block;
+}
+
+
+/*-----------block3--------------*/
+
+.block3 {
+    padding: 20rpx;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.block3 image {
+    width: 49%;
+    display: block;
+}
+
+
+/*-----------block4--------------*/
+
+.block4 {
+    background: #fff;
+    margin-top: 20rpx;
+}
+
+.block4 .down {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    /*超过父级盒子宽度换行*/
+    border-top: 2rpx solid #ccc;
+    padding: 20rpx;
+}
+
+.block4 .down view {
+    width: 48%;
+    border-radius: 6rpx;
+    overflow: hidden;
+    border: 2rpx solid #ccc;
+    margin-top: 20rpx;
+}
+
+.block4 .down view image {
+    width: 100%;
+    height: 300rpx;
+    display: block;
+}

@@ -1,0 +1,37 @@
+/* components/btn/btn.wxss */
+
+@import "/iconfont/iconfont.wxss";
+.btnBox {
+    width: 20rpx;
+    position: fixed;
+    right: 60rpx;
+    bottom: 20rpx;
+}
+
+.btnBox .block {
+    width: 70rpx;
+    height: 70rpx;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    margin-bottom: 20rpx;
+    box-shadow: 0 0 5rpx;
+    text-align: center;
+    line-height: 70rpx;
+}
+
+.block .iconfont {
+    font-size: 50rpx;
+    color: #666;
+}
+
+.icon1::before {
+    content: "\e6a1";
+}
+
+.icon2::before {
+    content: "\e6de";
+}
+
+.icon3::before {
+    content: "\e6a7";
+}

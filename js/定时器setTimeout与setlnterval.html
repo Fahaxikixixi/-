@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //会自动停下
+        setTimeout(function() {
+            console.log('我是setTimeout定时器')
+        }, 2000)
+        setTimeout(fn, 1000)
+
+        function fn() {
+            // alert('我是setTimeout定时器')
+            console.log('我是setTimeout定时器')
+        }
+        var set = setTimeout(fn, 5000)
+        var set = setTimeout(fn, 5000)
+
+
+        //一直重复循环，不通过 clearInterval来停止定时器不会停
+        setInterval(function() {
+            // alert('我是setInterval定时器')
+            clearInterval
+            console.log('我是setInterval定时器')
+        }, 1000)
+    </script>
+</body>
+
+</html>

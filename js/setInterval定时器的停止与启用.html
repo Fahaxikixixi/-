@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="begin">开始定时器</button>
+    <button class="stop">停止定时器</button>
+    <script>
+        var begin = document.querySelector('.begin');
+        var stop = document.querySelector('.stop');
+        var times = null; //因为定时器是一个对象，所以这样写 times 也是一个对象类型
+        console.log(typeof(times))
+        begin.addEventListener('click', function() {
+            times = setInterval(function() {
+                console.log('定时器启动了')
+            }, 1000)
+        })
+        stop.addEventListener('click', function() {
+            clearInterval(times)
+            console.log('定时器停止了')
+        })
+    </script>
+</body>
+
+</html>

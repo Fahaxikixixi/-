@@ -1,0 +1,76 @@
+﻿localStorage 本地存储，刷新页面不会丢失数据
+    本地存储只能存储字符串格式，需要把对象转换成字符串JSON.stringify(data)
+例：
+var todolist = [{
+    title:'水电费发顺丰',
+    done:'false'
+},{
+    title:'sss',
+    done:'false'
+}]
+
+1.将数据转换成字符串保存本地
+方法： localStorage.setItem("数据保存是自己设定的文件名"，json.stringfy(todolist))
+
+2.获取保存的本地数据， 需要把里面的字符串转换为对象格式 ：json.parse()
+var data =  localStorage.setItem("数据保存是自己设定的文件名"，json.stringfy(todolist))
+方法： localStorage.setItem
+
+data = json.parse(data)
+例：
+    console.log(data[0].title)  打印了水电费发顺丰
+
+
+键盘敲击事件  .keyCode()   回车键（13）
+
+
+数组的splice(从那个位置开始删除，删除几个元素)方法   根据索引号删除相关数据
+
+
+on()  
+	正常使用：例：$('.search-item').click(function()
+
+	事件委托：例：$('.mid').on('click','.search-item',function()  将事件绑定给父元素（触发事件的为类名为search-item元素），然后在后面写上触发事件元素类名或者id 
+
+
+元素获取：
+    1.获取固有属性： .prop()
+    2.获取自定义属性： .attr() 
+	当后面带有函数时，函数（）内两个值代表的含义 ：选择器的 index 值和当前属性值
+	
+
+eq() 方法将同一元素都可以通过索引号找到
+
+js遍历数组方法之一：
+	foreach（） 
+	数组名.foreach(function(){});
+
+
+jq遍历数组方法之一：
+	each()
+	$.each（）
+
+:eq() 选择器选取带有指定 index 值的元素。  index=索引号（从0开始）；
+
+
+token : 搞清楚token的作用和使用方式 ，
+
+.offset（） 设置元素偏移量（上下左右 ）
+    例：1. $(".two").offset().top;
+	2. 
+	$("button").click(function(){
+   		$("p").offset(function(n,c){
+    		newPos=new Object();
+        	newPos.left=c.left+100;
+       		newPos.top=c.top+100;
+        	return newPos;
+    	});
+  });
+
+scroll（） 事件适用于所有可滚动的元素和 window 对象（浏览器窗口）。
+
+例： $("div").scroll(function() {
+   	 $("span").text(x+=1);
+      });
+
+scrollTop() 方法返回或设置匹配元素的滚动条的垂直位置。

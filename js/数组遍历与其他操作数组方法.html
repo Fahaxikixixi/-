@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            /* width: 100px; */
+            height: 120px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <p>1-----------------------------------------------------------------------------------------------</p>
+    <div id="math"></div>
+    <p>2----------------------------------------------------------------------------------------------</p>
+    <div id="math-2"></div>
+    <p>3---------------------------------------------------------------------------------------------</p>
+    <div id="math-3">
+        <p>向数组添加内容 push() 方法</p>
+        <input type="button" onclick="pushgo()" value="go">
+        <p id="pushgo"></p>
+        <p id="pushgo-1"></p>
+    </div>
+    <p>4----------------------------------------------------------------------------------------------</p>
+    <div id="math-4">
+        <p>向数组添加内容 length</p>
+        <input type="button" onclick="length()" value="go">
+        <p id="arr-length"></p>
+    </div>
+    <p>5---------------------------------------------------------------------------------------------</p>
+    <div id="math-5">
+        <p id="pop"></p>
+        <p id="pop-1"></p>
+        <p id="pop-2"></p>
+    </div>
+    <p>6------------------------------------------------------------------------------------------</p>
+    <div id="math-6">
+        <p>拼接数组，将自定义元素添加到现有数组的指定区域，其他元素所对应的索引改变 2-0 在第二个P_looo 开始紧贴着添加 2-1loki将会被挤掉不显示</p>
+        <input type="button" id="splice" value="go" onclick="splice()">
+        <p id="splice-1"></p>
+        <p id="splice-2"></p>
+
+    </div>
+    <p>7-----------------------------------------------------------------------------------------</p>
+    <div id="math-7">
+        <p>拼接数组，删除元素 0-1 逐个删除 0-2一次两个 类推</p>
+        <input type="button" id="splice" value="go" onclick="splice1()">
+
+        <p id="splice-3"></p>
+    </div>
+    <script>
+        // for循环 
+        var arr = ['jiangxi', 'fujian', 'beijing', 'shanghai'],
+            text = '';
+        for (var i = 0; i < arr.length; i++) {
+
+            text = text + "<li>" + arr[i] + "</li>";
+        }
+        document.getElementById('math').innerHTML = text;
+
+
+
+        // forEach() 方法   数组名.forEach();
+        var arr = ['jiangxi', 'fujian', 'beijing', 'shanghai'],
+            text = '';
+        arr.forEach(Myfunction);
+        document.getElementById('math-2').innerHTML = text;
+
+        function Myfunction(arr) { //括号内需要参数来接受数组的值
+            text += "<p>" + arr + "</p>"; //需要参数来接受数组的值
+        };
+
+
+        //向数组添加内容 push()  方法  （在原有元素的后方添加）  unshift()  (在原有元素的前面添加)
+        var arr = ['jiangxi', 'fujian', 'beijing', 'shanghai'],
+            text = '';
+        document.getElementById('pushgo').innerHTML = arr;
+
+        function pushgo() {
+            //arr.push("guangdong");
+            // var at = arr.push("<li>" + "guangdong" + "</li>");
+            document.getElementById('pushgo-1').innerHTML = arr.push("guangdong"); //这样输出的是数组内容增加之后的长度
+            // document.getElementById('pushgo').innerHTML = arr;
+        };
+
+        //向数组添加内容 length
+        var arrt = ['jiangxi', 'fujian', 'beijing', 'shanghai'];
+        document.getElementById('arr-length').innerHTML = arr;
+
+        function length() {
+            arr[arr.length] = "guangdong";
+
+            document.getElementById('arr-length').innerHTML = arr;
+        };
+        console.log(typeof arrt)
+
+
+        //将数组删除内容 pop()  方法（删除数组的最后一个元素）
+        var arrt = ['jiangxi', 'fujian', 'beijing', 'shanghai'];
+        document.getElementById('pop').innerHTML = arrt;
+
+        arrt.pop();
+        document.getElementById('pop-2').innerHTML = arrt.pop(); //输出的是被删除的内容   这样写也会删除一个内容
+        document.getElementById('pop-1').innerHTML = arrt;
+        console.log(typeof arrt)
+
+        // 拼接数组，将自定义元素添加到现有数组的指定区域，其他元素所对应的索引改变   2-0 在第二个P_looo 开始紧贴着添加   2-1loki将会被挤掉不显示
+
+        var axi = ["Mack", "P_looo", "Loki", "Pio", "ZGG"];
+        document.getElementById('splice-1').innerHTML = axi;
+
+        function splice() {
+            axi.splice(2, 1, "forever11", "am");
+            document.getElementById("splice-2").innerHTML = axi;
+
+        };
+
+        // 拼接数组，删除元素  0-1 逐个删除  0-2一次两个 类推
+        var axi = ["Mack", "P_looo", "Loki", "Pio", "ZGG"];
+        document.getElementById('splice-1').innerHTML = axi;
+
+        function splice1() {
+
+            axi.splice(0, 2);
+            document.getElementById("splice-3").innerHTML = axi;
+        };
+    </script>
+</body>
+
+</html>

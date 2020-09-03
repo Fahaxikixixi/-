@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let t0 = Symbol()
+        let t1 = Symbol('sogooo')
+        console.log(t0);
+        console.log(t1);
+
+        let t2 = Symbol()
+        let t3 = Symbol()
+
+        console.log(t2 === t3);
+
+        let t4 = Symbol.for('q')
+        let t5 = Symbol.for('q')
+        console.log(t4, typeof t4);
+        console.log(t4 === t5);
+    </script>
+</body>
+
+</html>

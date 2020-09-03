@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .search {
+            position: relative;
+            height: 178px;
+            margin: 100px
+        }
+        
+        .con {
+            display: none;
+            position: absolute;
+            top: -40px;
+            width: 170px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            padding: 5px 0;
+            font-size: 18px;
+            line-height: 20px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            color: #333;
+        }
+        
+        .con::before {
+            content: ' ';
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 28px;
+            left: 18px;
+            border: 8px solid #000;
+            border-style: solid dashed dashed;
+            border-color: #fff transparent transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search">
+        <div class="con">123</div>
+        <input type=" text" placeholder="请输 入您的快递单号" class="jd ">
+    </div>
+
+    <script>
+        var con = document.querySelector('.con');
+        var inp = document.querySelector('.jd');
+        //该案例不适合用 keydown  keypress  ，
+        //因为按键内容还没有进入到输入框，按下就立马触发了事件，所以会导致上下的内容不一致
+        inp.addEventListener('keyup', function() {
+                console.log(this.value)
+                if (this.value == '') {
+                    con.style.display = 'none';
+
+                } else {
+                    con.innerText = this.value;
+                    con.style.display = 'block';
+                }
+            })
+            //当我们失去焦点是隐藏盒子
+        inp.addEventListener('blur', function(e) {
+                con.style.display = 'none'
+            })
+            //当我们获得焦点时（输入框内容不为空）显示盒子
+        inp.addEventListener('focus', function(e) {
+            if (this.value !== '') {
+                con.style.display = 'block'
+            }
+        })
+    </script>
+
+</body>
+
+</html>

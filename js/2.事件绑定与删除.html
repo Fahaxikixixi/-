@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style></style>
+</head>
+
+<body>
+    <button>传统事件绑定</button>
+    <button>方法监听事件绑定1</button>
+    <button>方法监听事件绑定2</button>
+    <button>方法监听事件绑定多个绑定</button>
+    <button>传统事件删除</button>
+    <button>方法监听事件删除</button>
+    <button>方法监听事件删除其他元素的绑定事件</button>
+    <script>
+        var btn = document.querySelectorAll('button')
+            //传统事件绑定
+        btn[0].onclick = function() {
+                alert('传统事件绑定')
+
+            }
+            //方法监听事件绑定方式1
+        btn[1].addEventListener('click', function() {
+                alert('方法监听事件绑定方式1')
+            })
+            //方法监听事件绑定方式2
+        btn[2].addEventListener('click', fu)
+
+        function fu() {
+            alert('方法监听事件绑定方式2')
+        }
+        //方法监听事件绑定多个绑定
+        btn[3].addEventListener('click', function() {
+            alert('方法监听事件绑定多个绑定111')
+        })
+        btn[3].addEventListener('click', function() {
+            alert('方法监听事件绑定多个绑定222')
+        })
+        btn[3].addEventListener('click', fi)
+
+        function fi() {
+            alert('方法监听事件绑定多个绑定333')
+        }
+        //传统事件删除
+        btn[4].onclick = function() {
+                alert('传统事件删除')
+                btn[4].onclick = null
+            }
+            //方法监听事件删除
+        btn[5].addEventListener('click', fn)
+
+        function fn() {
+            alert('方法监听事件删除')
+            btn[5].removeEventListener('click', fn)
+        }
+        //方法监听事件删除其他元素的绑定事件
+        btn[6].addEventListener('click', ff)
+
+        function ff() {
+            alert('方法监听事件删除其他元素的绑定事件')
+            btn[6].removeEventListener('click', ff)
+            btn[5].removeEventListener('click', fn)
+            btn[3].removeEventListener('click', fi)
+            btn[2].removeEventListener('click', fu)
+        }
+    </script>
+</body>
+
+</html>

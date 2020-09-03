@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    手机号：<input type="number"><button>发送</button>
+    <script>
+        var btn = document.querySelector('button')
+        var i = 5;
+
+        setInterval(() =>
+            console.log(1), 1000);
+
+        btn.addEventListener('click', function() {
+            //disabled = true  ==> 让按钮禁用
+            btn.disabled = true;
+            var times = setInterval(function() {
+                if (i == 0) {
+                    clearInterval(times)
+                    btn.innerText = '发送'
+                    btn.disabled = false;
+                    i = 5; //不重新赋值第二次点击i=0（第一次点击完i--  之后 i=0）  就不能失效了
+                } else {
+                    btn.innerText = "还剩" + i + "秒";
+                    i--;
+                }
+
+            }, 1000)
+
+
+        })
+    </script>
+</body>
+
+</html>

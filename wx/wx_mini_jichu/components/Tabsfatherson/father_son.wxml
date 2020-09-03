@@ -1,0 +1,30 @@
+<!--components/Tabs_father_son/father_son.wxml-->
+
+
+
+<view>
+    {{aaa}}
+</view>
+
+<view class="tabs">
+    <view class="tabs_title">
+        <!-- 这样写死不利于在多个页面复用 -->
+        <!--
+            <view class="title_item active">首页</view>
+            <view class="title_item">原创</view>
+            <view class="title_item">分类</view>
+            <view class="title_item">关于</view> -->
+        <view class="tabs_item {{item.isActive?'active':''}}" data-index="{{index}}" bindtap="hanldeItemTap" wx:for="{{tabs}}" wx:key="id">
+        {{item.name}}
+        </view>      
+    </view>
+    <view class="tabs_content">
+    <!-- 
+        slot 标签  其实就是一个占位符   插槽
+        等到 父组件调用   子组件的时候  再传递  标签过来  这些被传递的标签
+        就会他替换  slot 插槽的位置
+     -->
+    <slot></slot>
+    </view>
+</view>
+  

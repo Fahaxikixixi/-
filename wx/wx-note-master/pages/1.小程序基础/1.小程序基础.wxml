@@ -1,0 +1,31 @@
+<text>text相当于span标签</text>
+<view>view标签相当于div</view>
+<view>wx小程序的语法与vue语法相类似</view>
+<!-- 数据绑定 -->
+<view>{{obj.name}}</view>
+<view>{{obj.age}}</view>
+<!-- 在属性里设置,这里必须使用data- 开头 -->
+<view data-title="{{obj.info}}">...</view>
+<!-- 循环遍历 -->
+<!-- 
+wx:for="{{数组或对象}}" wx:for-item="item" wx:for-index="index"
+如果有嵌套循环时wx:for-item\wx:for-index的值不能重名，
+当只有一层嵌套时wx:for-item\wx:for-index可以省略不写，默认值为item/index
+如果循坏的是一个普通的数组wx:key的值可以设置为 *this 
+注意：wx:key不需要加{{}}
+-->
+<view wx:for="{{list}}" wx:key="*this">索引：{{index}} --- 项：{{item}}</view>
+<!-- 如果想渲染一组数据但又不想生成多个标签可以使用block标签 -->
+<view>
+  <block wx:for="{{list}}" wx:key="*this">{{item}}、</block>
+</view>
+
+<!-- 条件渲染 -->
+<!-- 
+  条件渲染有 wx:if和hidden两种方式，它们的使用方法分别对应vue中的v-if和v-show,
+  唯一不同的是在小程序的语法中写值需要使用 {{}}
+  wx:if也可以搭配wx:elseif/wx:else使用
+ -->
+<view wx:if="{{true}}">hidden</view>
+<view hidden>hidden1</view>
+<view hidden="{{false}}">hidden2</view>

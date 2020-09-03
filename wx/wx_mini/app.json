@@ -1,0 +1,53 @@
+{
+    "pages": [
+
+        "pages/demo/demo",
+        "pages/demo02/demo02",
+        "pages/demo03/demo03",
+        "pages/demo04/demo04",
+        "pages/map/map",
+        "components/btn/btn",
+
+
+        "pages/demo01/demo01",
+
+        "pages/index/index",
+        "pages/logs/logs"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "list": [{
+            "pagePath": "pages/demo/demo",
+            "text": "首页",
+            "iconPath": "img/icon_32.png",
+            "selectedIconPath": "img/icon_32s.png"
+        }, {
+            "pagePath": "pages/demo02/demo02",
+            "text": "热销产品",
+            "iconPath": "img/icon_26.png",
+            "selectedIconPath": "img/icon_26s.png"
+        }, {
+            "pagePath": "pages/demo03/demo03",
+            "text": "商品特惠",
+            "iconPath": "img/icon_25.png",
+            "selectedIconPath": "img/icon_25s.png"
+        }, {
+            "pagePath": "pages/demo04/demo04",
+            "text": "联系我们",
+            "iconPath": "img/icon_42.png",
+            "selectedIconPath": "img/icon_42s.png"
+        }],
+        "color": "#000000",
+        "selectedColor": "#FF8D1D",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff"
+
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
+}

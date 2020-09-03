@@ -1,0 +1,9 @@
+
+<view>wx:for 渲染对象</view>
+<!-- 当对象同意索引下大于两个值时，index 和 item 需要更改为其他值，仅当同一索引下1个值或数组是 不需要更改index.item -->
+<view wx:for="{{person}}" wx:key="mes" wx:for-index="ins" wx:for-item="its">
+ <view>{{ins}}----{{its.mes}}</view>
+</view>
+<view>-----------分割线------------</view>
+<view>wx:for 渲染数组</view>
+<view wx:for="{{arr}}" wx:key="zgg">{{index}}---{{item}}</view>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>这是一段不能被选中和被复制的文字</div>
+</body>
+<script>
+    var div = document.querySelector('div');
+    //先是只有div里面的内容不能被选中和弹出右键菜单，写成document.addEventListener  或者window.addEventListener整个页面都不会有右键弹框
+
+    // 该事件是一个不让鼠标右键菜单弹出的       contextmenu（主要控制上下文菜单显示）
+    div.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        })
+        //该事件是不让文字可以选中
+    div.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    })
+</script>
+
+</html>

@@ -1,0 +1,7 @@
+/* pages/事件/事件.wxss */
+input{
+  width: 100px;
+  height: 20px;
+  border: 1px solid red;
+  padding: 3px;
+}

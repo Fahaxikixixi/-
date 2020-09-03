@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-ajax</title>
+</head>
+
+<body>
+    <input type="button" value="点击" id="btn">
+    <p>使用vscode 开启的服务器获取的本地项目列表</p>
+    <div id="Person"></div>
+    <div id="Person1"></div>
+    <p>json 数组和对象类型输出的区别</p>
+    <div id="Person2"></div>
+    <div id="Person3"></div>
+    <p>foreach 方式一</p>
+    <div id="foreach"></div>
+    <p>foreach 方式二（可重点查看）</p>
+    <div id="foreach0"></div>
+    <p>foreach 方式二（含对象）</p>
+    <div id="foreach1"></div>
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+    <!-- <script src="./myJson.php"></script> -->
+    <script type="text/javascript">
+        // var div = document.querySelector('#showInfo')
+
+        //json有待学习----------------------------------------
+        //----json成功了，详细数据查看Person1.json 文件----------------------------------------------
+        $(function() {
+
+
+            $("#btn").click(function() {
+                $.ajax({
+                    url: "http://127.0.0.1:5501", //VScode  预览时会开辟一个服务器  这个地址会根据电脑连接的网络不通而更改
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) {
+
+                        console.log(data) //输出的是从Person.json获取到的数据
+
+
+
+                        var dataname = data[1];
+                        var dataskill = data[4];
+                        $('#Person').html("Person1对象取值:" + dataname);
+                        $('#Person1').html("Person1数组取值:" + dataskill);
+
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+            $("#btn").click(function() {
+                $.ajax({
+                    url: "Person1.json",
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) {
+
+                        console.log(data) //输出的是从Person.json获取到的数据
+
+                        //从这两条和json可以看出来 1. 数组存数据的才需要通过索引来获取对应的数据  2.对象存放数据的则不需要通过索引而是一层一层的往下找
+                        console.log(data.list.sk0.name) // 输出P——looo
+                        console.log(data.per[1].name)
+
+
+                        var dataname = data.list.sk0.name;
+                        var dataskill = data.per[1].name;
+                        $('#Person2').html("Person1对象取值:" + dataname);
+                        $('#Person3').html("Person1数组取值:" + dataskill);
+
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+
+
+
+            //foreach方法使用 遍历数组-----------------------------------------
+            $("#btn").click(function() {
+                $.ajax({
+                    url: "Person1.json",
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) {
+
+                        console.log(data) //输出的是从Person.json获取到的数据
+                        var res = data.xs;
+                        var block = '';
+                        // console.log(res);
+                        res.forEach((e, i, over, a) => {
+                            //
+                            console.log(e); //输出的是获取到的  数据（单个逐个输出）
+                            console.log(i); //输出 数据对应的索引值
+                            console.log(over); //输出的是获取到的整个数据
+                            console.log(a) //输出undefined  ==> 可知  最多写三个值
+
+
+                            //正常写法
+                            // block += "<a href=''>" + e + "</a>";
+                            //es6  写法
+                            block += `<a href=''> ${e}</a>`;
+                            $('#foreach').html(block)
+                        });
+
+
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+            //方式二---------------------------------------------
+            $("#btn").click(function() {
+                $.ajax({
+                    url: "Person1.json",
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) {
+
+                        // console.log(data) //输出的是从Person.json获取到的数据
+                        var res = data.xs;
+                        var block = '';
+                        // console.log(res);
+                        res.forEach(fn);
+
+                        console.log(fn)
+
+
+                        //正常写法
+                        // block += "<a href=''>" + e + "</a>";
+                        //es6  写法
+                        // block += `<a href=''> ${e}</a>`;
+                        $('#foreach0').html(block);
+
+                        function fn(res) {
+                            //正常写法
+                            // block += "<a href=''>" + res + "</a>";
+                            //es6  写法
+                            block += `<a href=''> ${res}</a>`;
+                        }
+
+
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+
+
+            //含对象的写法方式-------------------------------------
+            $("#btn").click(function() {
+                $.ajax({
+                    url: "Person1.json",
+                    dataType: "json",
+                    type: "get",
+                    success: function(data) {
+
+                        console.log(data) //输出的是从Person.json获取到的数据
+                        var res = data.per;
+                        var block = '';
+                        // console.log(res);
+                        res.forEach(e => {
+                            console.log(e)
+
+                            block += `<a href='#'>${e.name}</a><a href='#'>${e.skill}</a><a href='#'>${e.friend}</a>`;
+                            $('#foreach1').html(block)
+
+                        });
+
+
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+
+
+            // php未完善，失败了， 还有待学习-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+            // $(function() {
+
+            //     $("#btn").click(function() {
+            //         $.ajax({
+            //             url: "myJson.php",
+            //             dataType: "php",
+            //             type: "get",
+            //             success: function(data) {
+            //                 // alert(data);
+            //                 console.log(data)
+            //                 console.log(data.name) //小强
+            //                 var dataname = data.name;
+            //                 var dataskill = data.skill;
+            //                 div.innerHTML = dataname + dataskill;
+            //                 //$("#showInfo").html(data);
+            //             },
+            //             error: function(e) {
+            //                 console.log(e);
+            //             }
+            //         });
+            //     });
+
+
+
+        });
+    </script>
+</body>
+
+</html>

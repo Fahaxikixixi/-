@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="123">
+</body>
+<script>
+    var btn = document.querySelector('input')
+    console.log(btn.value)
+
+    btn.onclick = function() {
+        if (this.value == '123') {
+            console.log(11)
+            this.value = '321'
+        } else
+            this.value = '123'
+    }
+
+
+
+
+    // function fn(e) {
+    //     console.log(e)
+    //         // console.log(btn.value)
+    //     if (this.value = '123') {
+    //         console.log(11)
+    //         this.value = '321'
+    //     }
+    // }
+</script>
+
+</html>

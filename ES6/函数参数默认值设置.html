@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1.
+        function fn({
+            name,
+            Oing,
+            es
+        }) {
+            console.log(name);
+            console.log(Oing);
+            console.log(es);
+        }
+        fn({
+            name: 'SOGOO',
+            Oing: 'loot',
+            es: 'qio'
+        })
+
+        //输出  SOGOO
+        //      loot
+        //      qio
+
+        //2参数默认值设置
+        function fn({
+            name,
+            Oing,
+            es = '007'
+        }) {
+            console.log(name);
+            console.log(Oing);
+            console.log(es);
+        }
+        fn({
+            name: 'SOGOO',
+            Oing: 'loot',
+
+        })
+
+        //  
+        function fn1({
+            name = 'ZGG',
+            Oing,
+            es
+        }) {
+            console.log(name);
+            console.log(Oing);
+            console.log(es);
+        }
+        fn1({
+
+            Oing: 'loot',
+            es: 'qio'
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .first {
+            position: absolute;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+        }
+        
+        .next {
+            position: absolute;
+            left: 0;
+            top: 150px;
+            width: 100px;
+            height: 100px;
+            background-color: cadetblue;
+        }
+        
+        p {
+            position: absolute;
+            background-color: darkcyan;
+            left: 0;
+            top: 300px;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .sliderbar {
+            position: relative;
+            width: 60px;
+            height: 50px;
+            right: -1230px;
+            background-color: darkgreen;
+            text-align: center;
+            line-height: 42px;
+        }
+        
+        .con {
+            position: absolute;
+            left: 0px;
+            top: 0;
+            width: 200px;
+            height: 50px;
+            background-color: darkgreen;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="first">1</div>
+    <span class="next">2</span>
+    <p>3</p>
+    <div class="sliderbar">
+        <span class="go"><-</span>
+        <div class="con">问题反馈</div>
+    </div>
+    <script>
+        var div = document.querySelector('.first')
+        var box = document.querySelector('.sliderbar')
+        var con = document.querySelector('.con')
+        var span = document.querySelector('.next')
+        var p = document.querySelector('p')
+        var spans = document.querySelector('.go')
+
+        animate(div, 200)
+        animate(span, 300)
+        animates(p, 300)
+            // 1.动画函数封装
+            //第一个参数：元素   第二个参数：移动的目标位置
+        function animate(obj, target) {
+            console.log(obj)
+            console.log(target)
+                //这样写，就不会出现重复点击一直启动定时器的bug
+            clearInterval(obj.tim)
+                //这样就可给不同的元素指定了不同的定时器
+            obj.tim = setInterval(function() {
+                if (obj.offsetLeft > target) {
+                    clearInterval(obj.tim)
+                }
+                obj.style.left = obj.offsetLeft + 20 + 'px'
+            }, 1000)
+        }
+        //2.动画缓动效果
+        //核心算法: (目标值-现在的位置)/10 做为每次移动的距离 步长
+        function animates(obj, target, callback) {
+            console.log(callback)
+            clearInterval(obj.tim)
+            obj.tim = setInterval(function() {
+                if (obj.offsetLeft >= target) {
+                    clearInterval(obj.tim)
+                } else {
+                    obj.style.left = obj.offsetLeft + (target - obj.offsetLeft) / 5 + 'px'
+                }
+            }, 30)
+        }
+
+        // 3. 封装动画函数， 添加了回调函数
+        box.addEventListener('mouseenter', function() {
+            animater(con, -160, function() {
+                spans.innerHTML = '->';
+            })
+        });
+        box.addEventListener('mouseleave', function() {
+            animater(con, 0, function() {
+                spans.innerHTML = '<-'
+            })
+
+        })
+
+        box.addEventListener('click', function() {
+
+            })
+            //callback 是自定义设置的回调函数     
+        function animater(obj, target, callback) {
+            clearInterval(obj.tim)
+
+            obj.tim = setInterval(function() {
+                //将相除之后的值变为整数
+                // Math.ceil( ) >天花板函数（即小数部分直接舍去，并向正数部分进1） 当括号里是8.1，-11.5时，将会输出9，-11。
+                //Math.floor（）地板函数（小数部分直接舍去） > 当括号里是8.1时，将会输出8
+                var step = (target - obj.offsetLeft) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step) //>>判断step是否大于0  大于0 执行：左边  小于0 执行：右边 执行完之后重新赋值给step
+                console.log(step)
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.tim)
+                        //声明如果有回调函数的话就执行回调函数，
+                        //因为是 ==target之后 ，所有会等动画定时器执行完之后再执行函数
+                        //相当于回调函数
+                    if (callback) {
+                        callback()
+                    }
+                }
+                //动画的缓动效果
+                obj.style.left = obj.offsetLeft + step + 'px'
+            }, 15);
+        }
+    </script>
+</body>
+
+</html>

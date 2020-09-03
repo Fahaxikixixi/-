@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            height: 100px;
+            width: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        ul {
+            position: absolute;
+            list-style: none;
+            width: 1200px;
+            top: 0;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        img {
+            height: 100px;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li>
+                <a><img src="./img/1.jpg"></a>
+            </li>
+            <li>
+                <a><img src="./img/2.jpg"></a>
+            </li>
+            <li>
+                <a><img src="./img/3.jpg"></a>
+            </li>
+            <li>
+                <a><img src="./img/2.jpg"></a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var uls = document.querySelector('ul')
+        var imgs = document.querySelectorAll('img')
+        var li = document.querySelectorAll('li')
+        var s = -300 + 'px';
+        // console.log(imgs[1])
+        // 
+        // console.log(lis)
+
+        function ani() {
+            if (uls.style.marginLeft == s) {
+                var ss = uls.removeChild(li[1])
+                uls.style.marginLeft = 0
+
+                // uls.appendChild(ls)
+            } else {
+                uls.style.marginLeft = s;
+
+                console.log(li[3])
+            }
+        }
+        // setInterval(ani, 2000)
+    </script>
+</body>
+
+</html>

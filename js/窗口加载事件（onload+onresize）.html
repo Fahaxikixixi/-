@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 100px;
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        //因为div标签写在了script 标签上面，所有需要 窗口加载事件  load
+        // load 事件是在页面元素加载完成之后才执行的   所以js代码写在 div前面也没关系
+
+        //写法1  
+
+        window.addEventListener('load', function() {
+            var div = document.querySelector('div')
+            window.addEventListener('resize', function() {
+                console.log(innerWidth);
+                if (innerWidth <= 800) {
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block'
+                }
+            })
+        })
+
+        //写法2
+        window.onload = function() {
+            var div = document.querySelector('div')
+            if (innerWidth >= 800) {
+                div.style.backgroundColor = '#cccc';
+            }
+        }
+    </script>
+    <div></div>
+</body>
+
+</html>

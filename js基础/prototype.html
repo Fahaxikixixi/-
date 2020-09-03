@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function Foo(name, age) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sayname = function() {
+        //         console.log(this.name)
+        //     };
+        //     this.ages = tests;
+
+        //     //retrun this;   //默认有这一行。new一个构造函数，返回一个对象
+        // }
+
+        // Foo.prototype.met = function() {
+        //     console.log(this.name)
+
+        // }
+
+        // function tests(xt) {
+        //     // console.log(this);    
+        //     // console.log(1)
+        //     this.x = 1;
+
+
+        // }
+
+        // var fn1 = new Foo('smyhvae', 26);
+        // var fn2 = new Foo('vae', 30); //new 多个实例对象
+
+        // console.log(fn1.age)
+        // console.log(fn1)
+        // console.log(fn2)
+        // fn1.sayname()
+        // fn2.sayname()
+
+        // console.log(fn1.sayname())
+        // console.log(fn2.sayname())
+
+        // fn1.met();
+        // fn2.met();
+
+
+        // console.log(fn1.ages)
+        // var test = new tests('xt')
+        // console.log(test.x)
+
+
+        //call  apply
+
+        // function dog() {
+        //     this.sound = "汪汪汪";
+        // }
+        // dog.prototype.bark = function() {
+        //     alert(this.sound);
+        // }
+
+        var cat = {
+                sound: '喵喵喵'
+            }
+            // var dogg = new dog()
+            // console.log(dogg.sound)
+            // dogg.bark();
+            // dog.prototype.bark.call(cat);
+            // dogg.bark.call(cat);
+
+
+
+        // function Dog() {
+        //     this.sound = "汪汪汪";
+        // }
+        // Dog.prototype.bark = function(words) {
+        //     alert(this.sound + "  " + words);
+        // }
+        // var dog = new Dog();
+        // dog.bark("有小偷"); //alert:汪汪汪   有小偷
+        // Dog.prototype.bark.call(cat, "饿了"); //alert：喵喵喵   饿了
+
+
+
+
+
+
+        //创建方法
+        function Foo(name) {
+            this.name = name;
+        }
+
+        Foo.prototype.alertName = function() { // 既然 Foo.prototype 是普通的对象，那也允许给它添加额外的属性 alertName
+            console.log(this.name);
+        }
+
+
+        var fn = new Foo('smyhvae');
+
+        fn.printName = function() {
+            console.log(this.name);
+        }
+
+        //测试
+        // fn.printName(); //输出结果：smyhvae
+        // fn.alertName(); //输出结果：smyhvae
+        // console.log(fn)
+
+        // for (var item in fn) {
+        //     if (fn.hasOwnProperty(item)) {
+        //         console.log(item);
+        //     }
+        // }
+
+        fn.toString(); //去 fn._proto_._proto_ 中查找 toString()方法
+
+
+        //-----------------------------------------------------
+        function Person() {}
+
+        //p--->Person.prototype--->Object.prototype--->null
+        var p = new Person();
+        //构造函数的**原型**是否在 p 对象的原型链上！
+        console.log(p instanceof Person);
+
+
+
+        //------------------------------------------------------
+        //动物
+
+        // function Animal() {
+        //     this.eat = function() {
+        //         console.log('animal eat')
+        //     }
+        // }
+        // //狗
+        // function Dog() {
+        //     this.bark = function() {
+        //         console.log('dog bark')
+        //     }
+        // }
+        // Dog.prototype = new Animal()
+        //     //哈士奇
+        // var hashiqi = new Dog()
+        // console.log(Dog.prototype)
+        // console.log(Dog())
+        // hashiqi.bark()
+
+
+        //---------------------------------------------------
+        //Person构造函数
+        // function Person() {
+        //     name = 'Person';
+        //     this.height = '160cm';
+        // }
+        // //在其原型对象中添加age属性
+        // Person.prototype.age = '18';
+        // //Person的实例p1
+        // var p1 = new Person();
+
+        // console.log(p1.age); //18
+        // console.log(p1.name); //undefined
+        // console.log(p1.height); //160cm
+
+
+        //---------------------------------------------------
+        //父类构造函数
+        // function Super() {
+        //     this.color = ['red', 'black', 'blue'];
+        // }
+        // //子类构造函数
+        // function Sub() {}
+        // //子类继承父类
+        // Sub.prototype = new Super();
+
+        // //新建一个子类的实例
+        // var ins1 = new Sub();
+        // ins1.color.push('green');
+
+        // var ins2 = new Sub();
+        // //因为color为一个引用对象，ins1和ins2的color都指向同一个地址，修改一个就会修改所有实例的color
+        // console.log(ins2.color); //'red,belck,blue,green'
+        // console.log(Super); //ƒ Super() {this.color = ['red', 'black', 'blue'];}
+        // console.log(Sub); //ƒ Sub() {}
+        // console.log(Sub.prototype); //Super {color: Array(4)} ==>color: (4) ["red", "black", "blue", "green"]; __proto__: Object
+        // console.log(ins1.color[1]); //black
+        // console.log(ins2); //Sub {} ==>  __proto__: Super   ==>    color: (4) ["red", "black", "blue", "green"];__proto__: Object
+
+
+
+
+        //父类构造函数
+        function Super() {
+            this.color = ['red', 'black', 'blue'];
+        }
+        //子类构造函数
+        function Sub() {
+            //调用父类构造函数实现继承
+            Super.call(this);
+
+        }
+
+        //新建一个子类的实例
+        var ins1 = new Sub();
+        ins1.color.push('green');
+        ins1.color; //'red,belck,blue,green'
+
+        //在实例ins2上重新执行Super构造函数，重新初始化对象，ins2拥有自己的color属性
+        var ins2 = new Sub();
+        console.log(ins2.color); //'red,belck,blue'
+        console.log(Sub)
+    </script>
+</body>
+
+</html>

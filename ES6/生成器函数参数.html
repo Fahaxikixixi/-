@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //可进行传参
+        function* fn(arg) {
+            console.log(arg);
+            const one = yield 1;
+            console.log(one)
+            const two = yield 2;
+            console.log(two)
+            const three = yield 3;
+            console.log(three)
+        }
+        let iterator = fn('SOGOOO')
+
+
+        //next  内也可以进行传参
+        //next 函数的参数将作为上一个 yield 的返回结果 
+        console.log(iterator.next('BBB'));
+        console.log(iterator.next('CCC'));
+        console.log(iterator.next('DDD'));
+        console.log(iterator.next('EEE'));
+        console.log(iterator.next('FFF'));
+    </script>
+</body>
+
+</html>

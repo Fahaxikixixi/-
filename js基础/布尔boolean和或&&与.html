@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //非布尔值进行**与或运算**时，会先将其转换为布尔值，然后再运算，但返回结果是**布尔值**。
+
+
+        // 与&&
+        var result = 5 > 6 && 6 > 2; // 运算过程：true && true;
+        console.log('result：' + result); //输出 flash
+
+        var re = 5 < 6 && 6 < 2; // 运算过程：true && true;
+        console.log('re：' + re); //输出 flash
+
+        var re = 5 < 6 && 6 > 2; // 运算过程：true && true;
+        console.log('re：' + re); //输出 true
+
+
+        // 或||
+        var res = 5 < 6 || 6 < 2; // 运算过程：true && true;
+        console.log('res：' + res); //输出 true
+
+        var res = 5 > 6 || 6 > 2; // 运算过程：true && true;
+        console.log('res：' + res); //输出 true
+
+
+
+        //利用&& 进行短路运算
+        //1.如果第一个值为false，则不会执行后面的内容。
+        //2.如果第一个值为 true，则继续执行第二条语句，并返回第二个值。
+
+
+        const a1 = 'qianguyihao';
+        //第一个值为true，会继续执行后面的内容
+        a1 && alert('看 a1 出不出来'); // 可以弹出 alert 框
+
+        const a2 = undefined;
+        //第一个值为false，不会继续执行后面的内容
+        a2 && alert('看 a2 出不出来'); // 不会弹出 alert 框
+
+
+        //利用|| 进行短路运算
+        //1.如果第一个值为true，则不会执行后面的内容。
+        //2.如果第一个值为 false，则继续执行第二条语句，并返回第二个值
+
+        let errorMsg = ''; // 前端的文案提示
+
+        if (result && result.retCode != 0) {
+            // 接口返回异常码时
+            errorMsg = result.msg || '活动太火爆，请稍后再试'; // 文案提示信息，优先用 接口返回的msg字段，其次用 '活动太火爆，请稍后再试' 这个文案兜底。
+        }
+
+        if (!result) {
+            // 接口挂掉时
+            errorMsg = '网络异常，请稍后再试';
+        }
+    </script>
+</body>
+
+</html>

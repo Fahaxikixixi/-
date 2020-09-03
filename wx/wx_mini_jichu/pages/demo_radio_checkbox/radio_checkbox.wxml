@@ -1,0 +1,36 @@
+<!-- 
+    radio  单选框标签
+    1 radio 标签  必须要和  父元素 radio-group（是个标签）来使用
+    2 value  选中的单选框的值
+    3 需要给radio-group 绑定 change事件
+    4 也可以设置color 改变需要改变的单选框的颜色
+
+ -->
+<radio-group bindchange="change">
+    <radio color="red" value="man">男</radio>
+    <radio value="won">女</radio>
+    <radio class="" value="" checked="t"  disabled="disabled"  color=""></radio>
+  
+        
+  
+      
+</radio-group>
+<view>你选中的是:{{gender}}</view>
+    
+
+
+<!-- 
+    checkbox  复选框标签
+    1 checkbox 标签  必须要和  父元素 checkbox-group（是个标签）来使用
+    2 value  选中的单选框的值
+    3 需要给checkbox-group 绑定 change事件
+    4 也可以设置color 改变需要改变的单选框的颜色
+
+ -->
+
+ <checkbox-group bindchange="checkbox">
+     <checkbox class="" value="{{item.value}}"  wx:for="{{list}}" wx:key="id"   color="">{{item.name}}</checkbox>
+
+ </checkbox-group>
+   <view>选中的选项{{checkboxvalue}}</view>
+     

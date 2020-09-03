@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p></p>
+    <script>
+        // var p = document.querySelector('p')
+        // console.log(location.search) //==>  ?uname=P_looooo
+
+        // //subset('起始的位置',截取几个字符) 位置从开始，截取几个不写的话就是截取起始位置到最后
+        // var par = location.search.substr(1); //==> uname=P_looooo
+        // console.log(par)
+        //     // 利用 = 设置我分割标志，将字符串分割为数组
+        // var arr = par.split('=')
+        // var arrs = par.split('&')
+        // console.log(arr)
+        // p.innerHTML = arr[1] + arrs[1] + ',' + '做咩啊！';
+
+
+
+        //---------------------------------------------------------
+
+        var p = document.querySelector('p')
+        console.log(location.search) //==>  ?uname=P_looooo
+
+        //subset('起始的位置',截取几个字符) 位置从开始，截取几个不写的话就是截取起始位置到最后
+        var par = location.search.substr(1); //==> uname=P_looooo
+        console.log(par)
+            // 利用 = 设置我分割标志，将字符串分割为数组
+            // var arr = par.split('=')
+        var arrs = par.split('&')
+        var arr = arrs[0].split('=')
+        console.log(arrs)
+        p.innerHTML = arr[1] + ',' + '做咩啊！'
+    </script>
+</body>
+
+</html>

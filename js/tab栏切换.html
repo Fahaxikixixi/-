@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    ul {
+        display: flex;
+        width: 100%;
+    }
+    
+    .tab_list li {
+        height: 39px;
+        width: 100%;
+        line-height: 39px;
+        padding: 0 20px;
+        text-align: center;
+        cursor: pointer;
+        list-style: none;
+        background-color: antiquewhite;
+    }
+    
+    .tab_list .current {
+        background-color: #c81623;
+        color: #fff;
+    }
+    
+    .item {
+        display: none;
+    }
+</style>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价</li>
+                <li>手机社区</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div class="item" style="display: block;">商品介绍模板内容</div>
+            <div class="item">规格与包装模块内容</div>
+            <div class="item">售后保障模块内容</div>
+            <div class="item">商品评价模块内容</div>
+            <div class="item">手机社区模块内容</div>
+        </div>
+    </div>
+    <script>
+        var libtn = document.getElementsByTagName('li');
+        var item = document.getElementsByClassName('item')
+
+
+        for (var i = 0; i < libtn.length; i++) {
+
+            //给每个li添加一个自定义属性
+            libtn[i].setAttribute('data-id', i);
+
+            libtn[i].onclick = function() {
+
+                for (var i = 0; i < item.length; i++) {
+                    libtn[i].style.backgroundColor = 'antiquewhite';
+                    libtn[i].style.color = '#000';
+                    item[i].style.display = "none";
+
+                }
+                this.style.backgroundColor = '#c81623';
+                this.style.color = '#fff';
+
+                //获取当前点击的li 的自定义属性data-id的值
+                var index = this.getAttribute('data-id')
+
+                //通过获取的值获得对应的div
+                item[index].style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>

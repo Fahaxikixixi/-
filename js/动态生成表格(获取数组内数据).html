@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 500px;
+            margin: 100px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        
+        td,
+        th {
+            border: 1px solid #3333;
+        }
+        
+        thead tr {
+            height: 40px;
+            background-color: #ccc;
+        }
+        
+        tbody tr {
+            height: 40px;
+            border: 1px solid #3333;
+        }
+    </style>
+</head>
+
+<body>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>科目</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+    <script>
+        var datas = [{
+            name: 'go',
+            subject: 'javascript',
+            score: 700
+        }, {
+            name: 'go',
+            subject: 'javascript',
+            score: 70
+        }, {
+            name: 'ZGG',
+            subject: 'javascript',
+            score: 100
+        }, {
+            name: 'Forever',
+            subject: 'javascript',
+            score: 100
+        }, {
+            name: 'P_looo',
+            subject: 'javascript',
+            score: 99
+        }];
+        console.log(datas.length)
+        var tbody = document.getElementById('tb');
+
+        for (var i = 0; i < datas.length; i++) { //有几条数据就输出创建几个tr行标签
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+
+            for (var k in datas[i]) { //for循环出列（和数据有关系）
+                console.log(k);
+                // console.log(datas[i][k])
+                var td = document.createElement('td');
+                td.innerHTML = datas[i][k];
+                tr.appendChild(td);
+            }
+            var td = document.createElement('td')
+            td.innerHTML = "<a href='javascript:;'>删除</a>"
+            tr.appendChild(td)
+        }
+        var as = document.querySelectorAll('a')
+        for (var i = 0; i < as.length; i++) {
+            as[i].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode)
+            }
+        }
+    </script>
+</body>
+
+</html>

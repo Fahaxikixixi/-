@@ -1,0 +1,11 @@
+<!-- 使用组件时需要在json文件中"usingComponents"声明组件 -->
+<!-- 使用组件的时候直接把组件名当作标签使用 -->
+<!-- 父组件向子组件传递数据通过数据绑定的形式，然后在子组件的js文件中的properties接收此数据 -->
+<!-- 子组件传递过来的方法名需要加上bind -->
+<Tabs tabdata="{{tabs}}" bindhandle="handle">
+  <!-- 直接在tabs标签中把模版传给子组件插槽显示 -->
+  <block wx:if="{{tabs[0].isActive}}">第1页</block>
+  <block wx:elif="{{tabs[1].isActive}}">第2页</block>
+  <block wx:elif="{{tabs[2].isActive}}">第3页</block>
+  <block wx:elif="{{tabs[3].isActive}}">第4页</block>
+</Tabs>

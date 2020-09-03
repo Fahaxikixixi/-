@@ -1,0 +1,63 @@
+数组和对象的区别
+        在 JavaScript 中，数组使用数字索引。
+
+        在 JavaScript 中，对象使用命名索引。
+
+        数组是特殊类型的对象，具有数字索引。
+
+
+JavaScript 对象:
+    
+    1.JavaScript 对象用花括号来书写。
+    对象属性是 name:value 对，由逗号分隔。
+    例：var person = {firstName:"Bill", lastName:"Gates", age:62, eyeColor:"blue"};
+
+JavaScript 数组:
+
+   1. var cars = ["Porsche", "Volvo", "BMW"];
+   在 JavaScript 中数组即对象。
+
+typeof:
+    1.typeof 运算符对数组返回 "object"，因为在 JavaScript 中数组属于对象。
+    2.在 JavaScript 中，没有值的变量，其值是 undefined。typeof 也返回 undefined。
+    3.null:   在 JavaScript 中，null 的数据类型是对象。
+    4.
+        typeof 运算符把对象、数组或 null 返回 object。
+        typeof 运算符会把函数返 返回function。
+
+function 函数:
+
+    例子 : toCelsius 引用的是函数对象，而 toCelsius() 引用的是函数结果。
+         函数：   function toCelsius(f) {
+                    return (5/9) * (f-32);
+                    }
+                    document.getElementById("demo").innerHTML = toCelsius;
+        结果：
+            function toCelsius(f) { return (5/9) * (f-32); }
+
+this:
+        在函数定义中，this 引用该函数的“拥有者”。
+                var person = {
+                        firstName: "Bill",
+                        lastName : "Gates",
+                        id       : 678,
+                        fullName : function() {
+                            return this.firstName + " " + this.lastName;
+                        }
+                        };
+
+事件：
+            onchange	HTML 元素已被改变
+            onclick	用户点击了 HTML 元素
+            onmouseover	用户把鼠标移动到 HTML 元素上
+            onmouseout	用户把鼠标移开 HTML 元素
+            onkeydown	用户按下键盘按键
+            onload	浏览器已经完成页面加载
+
+比值函数：  function(a, b){return a-b} 
+
+例子:
+        （数组排序sort() 方法以字母顺序对数组进行排序：）
+
+        var points = [40, 100, 1, 5, 25, 10];
+        points.sort(function(a, b){return a - b});   (a-b >0 就会输出由大到小，a-b < 0 就会输出由小到大)

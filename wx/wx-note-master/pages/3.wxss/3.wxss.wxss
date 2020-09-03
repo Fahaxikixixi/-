@@ -1,0 +1,31 @@
+/* pages/wxss/wxss.wxss */
+/* 小程序独有单位: rpx 它可以根据屏幕宽度自适应,默认100%宽度为750rpx
+也就是说假如设计搞的width是750px的，那么设计稿中的1px=1rpx;
+*/
+.rpx{
+  width: 750rpx;
+  height: 200rpx;
+  background-color: red;
+}
+/* 如果设计稿的width不符合规范则需把设计搞的width等比例扩大或者缩小成750px就行了，
+也就是说 设计稿中的1px=750rpx/设计稿总width
+例如设计稿的width为 375px,那么
+设计稿1px=750rpx/375px=2rpx，为了提高效率可以通过calc来计算，
+公式为 ： calc(750rpx*设计稿元素的width/设计稿总width)
+如下就是在页面上显示出 375总宽设计稿中200px宽高的盒子
+*/
+.rpx2{
+  width: calc(750rpx*200/375);
+  height: calc(750rpx*200/375);
+  background-color: green;
+}
+/* 样式导入 
+可以通过 @import 来引入wxss 文件，路径只能写相对路径，例如：
+@import "../index/index.wxcss"
+*/
+
+/* 
+小程序中不支持通配符的使用，例如：
+*{margin:0}
+这样的写法不支持
+*/

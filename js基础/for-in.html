@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .try {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="try"></div>
+</body>
+<script>
+    var trys = document.querySelector('.try')
+    var per = {
+        name: 'P_looo',
+        eag: 18,
+        goinId: '001'
+    }
+    for (var i in per) {
+        console.log('属性名：' + i)
+        console.log('属性值：' + per[i])
+    }
+
+    //---------------------------------------------
+    var pers = [{
+            name: 'P_looo',
+            eag: 18,
+            goinId: '001'
+        }, {
+            name: 'P_lyyy',
+            eag: 18,
+            goinId: '002'
+        }, {
+            name: 'P_lccc',
+            eag: 18,
+            goinId: '003'
+        }, {
+            name: 'P_lzzz ',
+            eag: 18,
+            goinId: '004'
+        }
+
+
+    ];
+    console.log(pers[1].name)
+    for (var i in pers) {
+        console.log(i) //i 为索引
+        console.log(pers[i])
+        console.log(pers[i].name + '-' + pers[i].goinId);
+        var name;
+        name += pers[i].name + '-' + pers[i].goinId;
+        trys.innerText = name + '-';
+    }
+</script>
+
+</html>

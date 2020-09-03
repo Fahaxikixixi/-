@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // push方法为数组添加内容，最后面插入
+        var ar = ['zgg', 'P_looo', '4am'];
+        var ar1 = ar.push('no.1', 'god');
+        console.log(ar)
+        console.log(ar1);
+        // pop() 方法删除数组内容  ==> 是从最后一个开始删除的(引用索引时),也可以指定 
+        var ars = ar.pop(1)
+        var ars1 = ar.pop('no.1')
+        console.log(ars);
+        console.log(ar);
+        //unshift() 方法 最前面插入
+        //shift()：删除数组中的**第一个**元素，返回结果为**被删除的元素**。
+        //concat() 多个数组混合
+
+        const arr1 = [1, 2, 3];
+        const arr2 = ['a', 'b', 'c'];
+        const arr3 = ['千古壹号', 'vae'];
+
+        const result1 = arr1.concat(arr2);
+
+        const result2 = arr2.concat(arr1, arr3);
+
+        console.log('arr1 =' + JSON.stringify(arr1));
+        console.log('arr2 =' + JSON.stringify(arr2));
+        console.log('arr3 =' + JSON.stringify(arr3));
+
+        console.log('result1 =' + JSON.stringify(result1));
+        console.log('result2 =' + JSON.stringify(result2));
+
+        //foreach() 遍历数组
+        let myArr = ['王一', '王二', '王三'];
+
+        myArr.forEach((item, index, arr) => {
+            console.log('item:' + item);
+            console.log('index:' + index);
+            console.log('arr:' + JSON.stringify(arr));
+            console.log('----------');
+        });
+
+        // forEach() 通过参数 2、参数 3 修改原数组**：（标准做法）
+        // 1、数组的元素是基本数据类型
+        let numArr = [1, 2, 3];
+
+        numArr.forEach((item, index, arr) => {
+            arr[index] = arr[index] * 2;
+        });
+        console.log(JSON.stringify(numArr)); // 打印结果：[2,4,6]
+
+        // 2、数组的元素是引用数据类型时，直接修改对象
+        let objArr = [{
+            name: '千古壹号',
+            age: 28
+        }, {
+            name: '许嵩',
+            age: 34
+        }, ];
+
+        objArr.forEach((item, index, arr) => {
+            arr[index] = {
+                name: '小明',
+                age: '10',
+            };
+        });
+        console.log(JSON.stringify(objArr)); // 打印结果：[{"name":"小明","age":"10"},{"name":"小明","age":"10"}]
+
+        // 3、数组的元素是引用数据类型时，修改对象的某个属性
+        let objArr2 = [{
+            name: '千古壹号',
+            age: 28
+        }, {
+            name: '许嵩',
+            age: 34
+        }, ];
+
+        objArr2.forEach((item, index, arr) => {
+            arr[index].name = '小明';
+        });
+        console.log(JSON.stringify(objArr2)); // 打印结果：[{"name":"小明","age":28},{"name":"小明","age":34}]
+
+
+        //立即执行函数
+        (function(a, b) {
+            console.log("a = " + a);
+            console.log("b = " + b);
+        })(123, 456);
+
+
+        //-----------------------
+        function foo() {
+            console.log(arguments);
+            console.log(typeof arguments);
+        }
+
+        foo();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const banj = {
+            name: '4am',
+            stus: [
+                'ZGG',
+                'wel1ist',
+                'forever',
+                'xxlu'
+            ],
+            [Symbol.iterator]() {
+                let index = 0;
+                // let _this = this
+                return {
+                    next: () => {
+                        if (index < this.stus.length) {
+                            const result = {
+                                value: this.stus[index],
+                                done: false
+                            }
+                            index++;
+                            return result;
+                        } else {
+                            return {
+                                value: undefined,
+                                done: true
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        // a)创建一个指针对象，指向当前数据结构的起始位置
+        // b) 第一次调用对象的next方法，指针自动指向数据结构的第一个成员
+        // c) 接下来不断调用next方法，指针一直往后移动，直到指向最后一个成员
+        // d)每调用 next方法返回一个包含value和done属性的对象
+
+
+
+
+
+        //遍历这个对象
+        for (let v of banj) {
+            console.log(v);
+        }
+    </script>
+</body>
+
+</html>

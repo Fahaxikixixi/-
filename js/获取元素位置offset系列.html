@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 1300px;
+            height: 100px;
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        //返回数值不带单位
+        var div = document.querySelector('div')
+        console.log(window.pageX)
+        document.addEventListener('mouseup', function(e) {
+            // console.log(e)
+            // console.log(div.offsetTop)
+            var left = e.pageX;
+            var top = e.pageY;
+            var div_left = div.offsetLeft
+            var div_top = div.offsetTop
+
+            //返回自身包括padding、边框、内容区的宽度
+            var width = div.offsetWidth;
+            //返回自身包括padding.边框、内容区的高度
+            var height = div.offsetHeight;
+            console.log(e.pageY);
+            div.innerText = '点击时距离body的X坐标:' + left + '---' + '点击时距离body的Y坐标：' +
+                top + '---' + '宽度：' + width + '---' + '高度：' + height + '---' + '盒子距离body的y坐标：' +
+                div_top + '---' + '盒子距离body的x坐标：' + div_left + '---' + '盒子：' + div_top;
+
+        })
+    </script>
+</body>
+
+</html>

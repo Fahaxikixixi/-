@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./jq/jquery-1.11.3.min.js"></script>
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 200px;
+            background-color: bisque;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="first">
+        <p class="first-p"></p>
+    </div>
+    <div class="last">
+        <p class="last-p"></p>
+    </div>
+    <script>
+        //
+        $(function(){         
+            var todoList = [
+                {title:'江西',done:'false'},
+                {title:'北京',done:'false'},
+                {title:'上海',done:'false'},
+                {title:'广东',done:'ture'},
+                {title:'福建',done:'ture'}
+            ];
+            load();
+            function load(){
+                var todoCont = 0;
+                var doneCont = 0;
+                var doneStr = '';
+                var todoStr = '';
+                if(todoList && todoList.length > 0){
+                    todoList.forEach(function(data,i){
+                        console.log(data)
+                        if(data.done == 'false'){
+                            //已近完成
+                            doneStr =12;
+                            // doneStr = doneStr + " 
+                            //     <li>
+                            //         <input type="checkbox" index= '${i}'>
+                            //         <p id="p-${i}">${data.title}</p>    
+                            //         <a href="javascript:;">-</a>    
+                            //     </li>
+                            // "
+                            todoCont++;     
+                        }else{
+                            //正在进行 
+                            todoStr = "123"
+                            doneCont++;
+                        }
+                            $('.first').html(todoCont);
+                            $('.first-p').html(doneStr);
+                            $('.last-p').html(doneCont);
+                    })
+                }else{   
+                    $('.first').html('');
+                    $('.last').html('');
+                    $('.first-p').html(todoCont);
+                    $('.last-p').html(doneCont);
+
+                }
+            }
+
+        });
+
+
+    </script>
+</body>
+</html>

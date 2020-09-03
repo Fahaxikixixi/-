@@ -1,0 +1,56 @@
+<!--pages/demo/block_for_if.wxml-->
+<view>-----------wx:for-应用-----------</view>
+<view>
+    <view wx:for="{{demolist}}" wx:key="name" > {{index}}:{{item}}</view>
+</view>
+<view>-----------block-wx:for-应用-----------</view>
+ <block  wx:for="{{demolist}}" wx:key="name" >
+   {{index}}:{{item}}
+</block> 
+
+
+
+<!--
+    条件渲染
+    1.wx:if="{{true/false}}"
+        1.1 if, else , if else
+        wx:if
+        wx:elif
+        wx:else
+    2.hidden
+        2.1 在标签上直接加入属性hidden
+        2.2 hidden={{true/false}}
+    3.什么时候使用哪个标签
+        3.1 当标签不是频繁的切换显示，优先使用  wx:if
+            直接把标签从 页面结构给移除掉
+        3.2当标签频繁的切换显示的时候 优先使用  hidden
+            通过添加样式的方式来切换显示（相当于是将标签设置了 display：none 隐藏）
+            不能和dispaly这个属性同时一起使用不然hidden将失效（display：flex 也不行）
+--->
+
+<view>-----------wx:if-条件渲染-----------</view>
+
+
+<view>-----------wx:if-应用——1-----------</view>
+<view wx:if="{{true}}">可以输出：P_looo</view>
+ <view wx:if="{{false}}">可以输出：P_looo</view> <!--false 无法输出--->
+ 
+ 
+ <view>-----------wx:if-应用——2-----------</view>
+ <!--前两个有true时，第三个就不会执行显示，前两个都不是true则会显示第三个输出--->
+ <view wx:if="{{true}}">显示</view>
+ <view wx:elif="{{false}}">隐藏</view>
+ <view wx:else>隐藏/显示</view>
+
+
+  <view>-----------wx:if-应用——2.1-----------</view>
+ <!--前两个有true时，第三个就不会执行显示，前两个都不是true则会显示第三个输出--->
+ <view wx:if="{{false}}">隐藏</view>
+ <view wx:elif="{{false}}">隐藏</view>
+ <view wx:else>隐藏/显示</view>
+
+<view>-----------hidden-应用-----------</view>
+<view hidden>hidden</view>
+<view hidden="{{true}}">hidden隐藏</view>
+<view hidden="{{false}}">hidden显示</view>
+  

@@ -1,0 +1,22 @@
+<!--pages/demo04/demo04.wxml-->
+<view class="containers">
+     <view class="banner">
+        <image src="/img/6.jpg"></image>
+     </view>   
+     <view class="box">
+        <view class="block">
+            <view class="title">公司总部</view>
+            <view class="same">地址：xxx省xx市xx区xx路xx号</view>
+            <view class="same">邮编：xxxxxxxxxx</view>
+        </view>
+         <view class="block">
+            <view class="title">客服服务</view>
+            <view class="same">客服热线：020-0000000</view>
+            <view class="same">周一至周日：7:00-23:00</view>
+             <view class="same">邮箱：xxxx@163.com</view>
+        </view>
+     </view>
+     <btn-component bind:totop="toTop"></btn-component>
+    
+     
+</view>

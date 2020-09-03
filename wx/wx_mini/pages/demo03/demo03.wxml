@@ -1,0 +1,37 @@
+<!--pages/demo03/demo03.wxml-->
+<view class="containers">
+     <view class="block">
+        <image src="/img/6.jpg"></image>
+        <view class="title">网易云全天候在线中心 网抑云</view>
+        <view class="botton">
+            <view class="txt">网抑云 网易云  多频道可选</view>
+            <view class="btn">立即咨询</view>
+        </view>
+     </view>
+     <view class="block">
+        <image src="/img/5.jpg"></image>
+        <view class="title">网易云全天候在线中心 网抑云</view>
+        <view class="botton">
+            <view class="txt">网抑云 网易云  多频道可选</view>
+            <view class="btn">立即咨询</view>
+        </view>
+     </view>
+     <view class="block">
+        <image src="/img/6.jpg"></image>
+        <view class="title">网易云全天候在线中心 网抑云</view>
+        <view class="botton">
+            <view class="txt">网抑云 网易云  多频道可选</view>
+            <view class="btn">立即咨询</view>
+        </view>
+     </view>
+     <view class="block">
+        <image src="/img/5.jpg"></image>
+        <view class="title">网易云全天候在线中心 网抑云</view>
+        <view class="botton">
+            <view class="txt">网抑云 网易云  多频道可选</view>
+            <view class="btn">立即咨询</view>
+        </view>
+     </view>
+
+    <btn-component bind:totop="toTop"></btn-component>    
+</view>

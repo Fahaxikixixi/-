@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr = ['001', '002', '003', '004']
+
+        let iterator = arr[Symbol.iterator](); //创建了symbol 的iterator  方法  才能调用 next方法
+
+        //next 第一次调用  自动指向数据结构的第一个成员
+        //解下来不断调用next方法  会一直往后移动  直到指向最后一个成员
+
+        console.log(iterator.next()); //返回的是带有value  和 done  属性的对象  done：false
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next()); //最后一个返回 done：true ==> 指的是完成调用了  已经是最后一个
+    </script>
+</body>
+
+</html>

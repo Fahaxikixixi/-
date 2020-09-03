@@ -1,0 +1,46 @@
+{
+
+
+    "jxq": {
+        "jj": [
+            { "qid": "q1", "qname": "浔阳区" },
+            { "qid": "q2", "qname": "柴桑区" }
+        ],
+        "gz": [
+            { "qid": "q1", "qname": "赣江新区" },
+            { "qid": "q2", "qname": "gzq2" }
+        ]
+    },
+    "hnq": {
+        "zz": [
+            { "qid": "q1", "qname": "浔阳区" },
+            { "qid": "q2", "qname": "柴桑区" }
+        ],
+        "cs": [
+            { "qid": "q1", "qname": "csq1" },
+            { "qid": "q2", "qname": "csq2" }
+        ]
+    },
+    "fjq": {
+        "fz": [
+            { "qid": "q1", "qname": "浔阳区" },
+            { "qid": "q2", "qname": "柴桑区" }
+        ],
+        "xm": [
+            { "qid": "q1", "qname": "smq1" },
+            { "qid": "q2", "qname": "smq2" }
+        ]
+    },
+    "gdq": {
+        "sz": [
+            { "qid": "q1", "qname": "南山区" },
+            { "qid": "q2", "qname": "szq" }
+        ],
+        "gz": [
+            { "qid": "q1", "qname": "白云区" },
+            { "qid": "q2", "qname": "gzq" }
+        ]
+    }
+
+
+}

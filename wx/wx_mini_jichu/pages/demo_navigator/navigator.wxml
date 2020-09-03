@@ -1,0 +1,20 @@
+<!--
+    导航组件==>类似于超链接
+    0.块级元素 默认会换行
+    1.url     通过url 地址来跳转相应的页面 ==> 绝对路径 相对路径 都可以
+    2.target  要跳转到当前小程序 还是其他小程序的页面
+            self 默认值==> 当前小程序内的页面
+            miniProgram  ==>跳转到其他小程序的页面
+    3.open-type 跳转方式
+            3.1 navigate 默认值  保留当前页面（跳转后含有返回按钮），跳转到应用内的某个页面，但不能跳转到tabar页面
+            3.2 redirect        关闭当前页面，跳转到应用内的某个页面，但不能跳转到tabar页面
+            3.3 switchTab       跳转到tabbar页面，并关闭其他所有非tabbar页面
+            3.4 relaunch        关闭所有页面，打开到应用内的某个页面
+
+-->
+<navigator   url="/pages/demo_swiper/swiper" >跳转页面</navigator>
+<navigator  open-type="navigate" url="/pages/demo_swiper/swiper">跳转页面</navigator>
+<navigator  open-type="redirect" url="/pages/demo_swiper/swiper">跳转页面</navigator>
+<navigator  open-type="switchTab" url="/pages/demo_swiper/swiper">跳转页面</navigator>
+
+  

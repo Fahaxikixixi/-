@@ -1,0 +1,9 @@
+<!--components/btn/btn.wxml-->
+<view class="btnBox">
+<!--bindtap : 绑定事件--->
+    <view bindtap="toTopFn" class="block"><text class="iconfont icon1"></text></view>
+    <view bindtap="callFn" class="block"><text class="iconfont icon2"></text></view>
+    <view bindtap="jumpToMap" class="block"><text class="iconfont icon3"></text></view>
+    <!-- <view class="block iconfont icon3"></view>   该方式也可以 但不方便设置一些属性 会冲突  建议上面写法---> 
+</view>
+  

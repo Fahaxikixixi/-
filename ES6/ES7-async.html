@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function fn() {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             console.log(1)
+        //         }, 1000)
+        //     })
+        // }
+
+        //写法1   因为上面promise 内没有写成功的回调函数，导致  await 后的语句没有获得 返回值（请求值）===> 不会向下执行  所以 2 不会被打印
+        //   await 后面的语句  执行且获得返回值后  才会执行下面的语句 ===> async  await  使用之后就有点像 同步了  这也是该方法的重点
+        // async function fnasync() {
+        //     await fn();
+        //     console.log(2)
+        // }
+        // fnasync()
+        // 输出： 1    ==>因为这里调用了函数，定时器1s之后就会打印1  
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // function fn() {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             console.log(1)
+        //             resolve()
+
+        //         }, 1000)
+        //     })
+        // }
+
+
+        // 写法2    fn的 promise  内写了 resolve（） 成功获取了返回值  后执行 打印2
+
+        // async function fnasync() {
+        //     await fn();
+        //     console.log(2)
+        // }
+        // fnasync()
+
+        //输出  //  1
+        //   2
+
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        function fn() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log(1)
+                    resolve()
+
+                }, 1000)
+            })
+        }
+        // 3   这里  fnsaync 函数内 并没有写 await  所以  async 并没有什么作用
+        //          先输出2 是因为 定时器是异步的,异步的调用方式是    js 执行机制：    先将异步的回调函数跳过===>先执行同步代码===>返回检查是否有异步的回调函数===>执行异步回调函数
+        //          可见是先输出2  之后  才输出的 1
+        async function fnasync() {
+            fn();
+            console.log(2)
+        }
+        fnasync()
+
+        //输出      
+        //          2
+        //          1
+    </script>
+</body>
+
+</html>

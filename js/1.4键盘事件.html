@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //按键弹起时触发
+        document.addEventListener('keyup', function(e) {
+                // alert('按键松开弹起')
+                console.log('按键松开弹起')
+            })
+            //按下按键是触发    能识别功能键（和keypress相比优先执行）
+        document.addEventListener('keydown', function(e) {
+
+                console.log('我按下了按键')
+            })
+            //按键被按下时触发  但是不识别功能键 如ctrl shift 箭头等
+        document.addEventListener('keypress', function(e) {
+
+            console.log('我按下了按键')
+        })
+    </script>
+</body>
+
+</html>

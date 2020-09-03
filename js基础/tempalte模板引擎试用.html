@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>模板引擎</title>
+    <script src="./js/template-web.js"></script>
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+    <!-- 装模板的容器为script标签内, 注意需要设置id作为标记, script标签的type 属性得是 text/html -->
+
+    <script id="try" type="text/html">
+        <ul>
+
+            {{each na}}
+            <li>{{$value}}</li>
+            {{/each}} {{each naa value}}
+            <li>{{value}}</li>
+            {{/each}}
+
+        </ul>
+    </script>
+    <script id="try1" type="text/html">
+        <ul>
+            <%   for(var i=0;i<nas.length;i++){ %>
+                <li class="lis">
+                    {{nas[i]}}
+                    <%=nas[i]%>
+                </li>
+                <%  } %>
+
+        </ul>
+    </script>
+    <script id="tpl" type="text/html">
+        <h3>
+            <%= className %>
+        </h3>
+        <ul>
+            <% for(var i = 0; i< students.length;i++) { %>
+                <li style="color:#de3232">
+                    <%= i+1 %>.
+                        <%=students[i] %>
+                </li>
+                <% } %>
+
+                    {{each students value i}}
+
+                    <li>{{i}}--{{value}}</li>
+
+                    {{/each}} {{each students}}
+                    <li>{{$index}}--{{$value}}</li>
+                    {{/each}}
+
+        </ul>
+
+    </script>
+    <script>
+        var data = {
+            className: "xxx",
+            students: ["张飞", "刘备", "诸葛亮", "甄姬", "小乔", "汪汪"]
+        };
+
+        $(function() {
+
+            var html = template("tpl", data); // 第一个参数：模板所在的区域的id 
+            $("#demo").html(html);
+        })
+
+
+
+
+        //----------------------------------------------
+        var arr = {
+            na: {
+                name: 'P_looo',
+                age: 18
+            },
+            naa: {
+                name: 'Z_lyyy',
+                age: 19
+            }
+        };
+        $(function() {
+            var html = template("try", arr);
+            $("#demo1").html(html)
+        });
+
+
+
+        //-------------------------------------
+        var arrs = {
+            nas: ["P_looo", "ZGG01", "4AM", "icon"]
+        };
+        $(function() {
+            var html = template("try1", arrs);
+            $("#demo2").html(html)
+        });
+    </script>
+
+
+    <style>
+        li {
+            list-style-type: none;
+        }
+        
+        .lis {
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="demo"></div>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+</body>
+
+</html>

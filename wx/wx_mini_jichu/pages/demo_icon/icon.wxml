@@ -1,0 +1,24 @@
+<!--
+    小程序中的字体图标
+    1. type  图标类型
+        success|success_no_circle|info|warn|waiting|cancel|download|search|clear
+    2. size  图标大小（默认23）
+    3. color 图标的颜色
+
+-->
+<icon class="" size="23" type="success"  color=""></icon>
+<icon class="" size="60" type="success"  color="#000"></icon>
+
+
+<view>
+    <icon class="" size="23" type="success"  color=""></icon>
+    <icon class="" size="23" type="success_no_circle"  color=""></icon>
+    <icon class="" size="23" type="info"  color=""></icon>
+    <icon class="" size="23" type="warn"  color=""></icon>
+    <icon class="" size="23" type="waiting"  color=""></icon>
+    <icon class="" size="23" type="cancel"  color=""></icon>
+    <icon class="" size="23" type="download"  color=""></icon>
+    <icon class="" size="23" type="search"  color=""></icon>
+    <icon class="" size="23" type="clear"  color=""></icon>
+</view>
+  

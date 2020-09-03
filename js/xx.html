@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 500px;
+            margin: 100px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        
+        td,
+        th {
+            border: 1px solid #3333;
+        }
+        
+        thead tr {
+            height: 40px;
+            background-color: #ccc;
+        }
+        
+        tbody tr {
+            height: 40px;
+            border: 1px solid #3333;
+        }
+        
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>科目</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+    <script>
+        var datas = [{
+            name: 'go',
+            subject: 'javascript',
+            score: 700
+        }, {
+            name: 'go',
+            subject: 'javascript',
+            score: 70
+        }, {
+            name: 'ZGG',
+            subject: 'javascript',
+            score: 100
+        }, {
+            name: 'Forever',
+            subject: 'javascript',
+            score: 100
+        }, {
+            name: 'P_looo',
+            subject: 'javascript',
+            score: 99
+        }];
+        console.log(datas)
+        var tbody = document.querySelector('tbody');
+        for (var i = 0; i < datas.length; i++) {
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            for (var k in datas[i]) {
+                var td = document.createElement('td');
+                tr.appendChild(td);
+                td.innerText = datas[i][k];
+            }
+            var td = document.createElement('td');
+            tr.appendChild(td);
+            td.innerHTML = "<a>删除</a>";
+
+        }
+        for (var j = 0; j < datas.length; j++) {
+            var del = document.querySelectorAll('a');
+            del[j].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode)
+            }
+        }
+
+
+
+
+
+
+
+
+
+        // for (var i = 0; i < datas.length; i++) {
+        //     var tr = document.createElement('tr');
+        //     tbody.appendChild(tr);
+        //     for (var k in datas[i]) {
+        //         var td = document.createElement('td')
+        //         tr.appendChild(td)
+        //         td.innerHTML = datas[i][k]
+        //     }
+        //     var td = document.createElement('td')
+        //     td.innerHTML = "<a href='javascript:;'>删除</a>";
+        //     tr.appendChild(td)
+        // }
+
+        // for (var i = 0; i < datas.length; i++) {
+        //     var as = document.querySelectorAll('a')
+        //     as[i].onclick = function() {
+        //         tbody.removeChild(this.parentNode.parentNode)
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

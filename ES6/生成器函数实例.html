@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //异步编程  ==> 文件操作  网络操作（ajax，request） 数据库操作
+
+
+        //现在的实例要做的是：1s后控制台输出 111  再过  2s后控制台输出 222  再过  3s后控制台输出 333   一共6s
+
+        function one() {
+            setTimeout(() => {
+                console.log(111);
+                goplay.next();
+
+            }, 1000)
+        };
+
+        function two() {
+            setTimeout(() => {
+                console.log(222);
+                goplay.next();
+            }, 2000)
+        };
+
+        function three() {
+            setTimeout(() => {
+                console.log(333);
+                goplay.next();
+            }, 3000)
+        };
+
+        function* play() {
+
+            yield one();
+            yield two();
+            yield three();
+        }
+        let goplay = play()
+        goplay.next();
+    </script>
+</body>
+
+</html>

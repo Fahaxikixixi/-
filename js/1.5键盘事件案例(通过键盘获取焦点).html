@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            width: 200px;
+            height: 30px;
+            border-radius: 30px;
+            border: 1px solid rgb(106, 197, 133);
+            outline: none;
+            text-indent: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入内容">
+    <script>
+        var inp = document.querySelector('input');
+        document.addEventListener('keyup', function(e) {
+            console.log(e.keyCode)
+                //按下s键时获得焦点
+            if (e.keyCode == 83) {
+                //focus  获取输入框的焦点
+                inp.focus();
+
+            }
+        })
+    </script>
+</body>
+
+</html>

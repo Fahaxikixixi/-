@@ -1,0 +1,14 @@
+/* components/Tabs.wxss */
+.tab-title{
+  display: flex;
+  padding: 10rpx 0;
+}
+.tab-item{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.active{
+  border-bottom: 2rpx solid red;
+}

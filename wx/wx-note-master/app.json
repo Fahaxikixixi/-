@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/1.小程序基础/1.小程序基础",
+    "pages/6.页面的生命周期/6.页面的生命周期",
+    "pages/5.自定义组件/5.自定义组件",
+    "pages/4.组件/4.组件",
+    "pages/3.wxss/3.wxss",
+    "pages/2.事件/2.事件",
+    
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

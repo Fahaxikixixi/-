@@ -1,0 +1,33 @@
+<!--
+    1.需要给input标签绑定 input事件
+        绑定关键字  bindinput
+    2. 获取输入框的值
+        通过事件源对象来获取（默认写e）（相当于js函数事件对象）
+    3.把输入框的值 赋值到打扰中
+        不能直接写如下：
+            1.thsi.data.num=e.detail.value
+            2.this.num=e.detail.value
+        正确写法（小程序中）（写在函数内）
+            this.setData({
+                num:e.detail.value
+            })
+
+    4.给button 添加一个点击事件，手机里点击事件绑定不是onclick 
+        1.bindtap     ==> 点击事件绑定方法
+        2.无法在小程序的 事件函数中 直接传参  否则会将括号里的参数一起认定为是事件函数名而报错招不到函数
+        3.要想传参就需要设定自定义属性来进行参数传递
+            3.1（自定义属性写法==> data-xxx="{{zz}}"   data-  开头   xxx:为自定义属性名  zz:为自定义属性值 ）
+            3.2  若自定义属性的值  不写在 {{ }} 中  将会当成字符串
+        4.事件源中获取(事件对象中)  自定义属性
+    5.要获取js中page下data 中属性的值 ==> this.data.属性名
+
+-->
+<input type="text" bindinput="handleInput"/>
+
+<!--这里传参是为了区分那个是 + 那个是 -  -->
+<button bindtap="handletap" data-operation="1">+</button>
+<button bindtap="handletap" data-operation="-1">-</button>
+<view>
+    {{num}}
+</view>
+  

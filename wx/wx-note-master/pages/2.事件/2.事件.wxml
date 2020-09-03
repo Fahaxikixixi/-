@@ -1,0 +1,7 @@
+<!--pages/事件/事件.wxml-->
+<!-- 通过bindinput给input标签绑定事件 -->
+<input type="text" bindinput="handle"></input>
+<text>{{num}}</text>
+<!-- 通过bindtap给button添加事件，在小程序中不支持在绑定事件时直接传参，需要通过data-xxx 的自定义属性进行传参 -->
+<button bindtap="handle2" data-arg="{{1}}">+</button>
+<button bindtap="handle2" data-arg="{{-1}}">-</button>

@@ -1,0 +1,104 @@
+<!--pages/demo02/demo02.wxml-->
+<view class="containers">
+    <view class="block4">
+       <view class="top">
+          <view class="line same"></view>
+          <view class="title same">热卖</view>
+       </view>
+       <view class="down">
+          <view>
+              <image src="/img/5.jpg"></image>
+              <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/5.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+       </view>
+    </view>
+
+     <view class="block4">
+       <view class="top">
+          <view class="line same"></view>
+          <view class="title same">枕头</view>
+       </view>
+       <view class="down">
+          <view>
+              <image src="/img/5.jpg"></image>
+              <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/5.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+       </view>
+    </view>
+
+     <view class="block4">
+       <view class="top">
+          <view class="line same"></view>
+          <view class="title same">套件</view>
+       </view>
+       <view class="down">
+          <view>
+              <image src="/img/5.jpg"></image>
+              <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/5.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+       </view>
+    </view>
+
+     <view class="block4">
+       <view class="top">
+          <view class="line same"></view>
+          <view class="title same">被芯</view>
+       </view>
+       <view class="down">
+          <view>
+              <image src="/img/5.jpg"></image>
+              <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/5.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+          <view>
+              <image src="/img/6.jpg"></image>
+               <text>纯色家纺套件</text>
+          </view>
+       </view>
+    </view>
+
+    <btn-com bind:totop="toTop"></btn-com>
+</view>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Person  为构造函数  ==>  this指向的new 之后的实例   如果没有new 实例化 this指向的是window（调用函数的对象）
+        function Person(name, age, gender) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            //向对象中添加一个方法
+            this.sayName = function() {
+                console.log("我是" + this.name);
+            }
+
+        }
+
+        //每一个构造函数 都会自动生成一个prototype  原型
+        //原型 prototype
+        Person.prototype.sayBy = function() {
+            console.log(this.name)
+        };
+        //创建一一个Person的实例   
+        var per = new Person("孙悟空", 18, "男");
+        var per2 = new Person("猪八戒", 28, "男");
+
+        per.sayBy() //孙悟空
+        per2.sayBy() //猪八戒
+        per.sayName();
+        per2.sayName();
+    </script>
+</body>
+
+</html>

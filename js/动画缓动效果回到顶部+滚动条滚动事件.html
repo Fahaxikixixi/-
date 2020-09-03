@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        div {
+            height: 300px;
+            width: 500px;
+            margin: 0 auto;
+            background-color: cadetblue;
+            /* border: chocolate solid 1px; */
+        }
+        
+        ul {
+            position: fixed;
+            top: 200px;
+            left: 0;
+            list-style: none;
+            display: none;
+        }
+        
+        li {
+            height: 60px;
+            width: 200px;
+            line-height: 60px;
+            text-align: center;
+            background-color: cornflowerblue;
+            border: darkgoldenrod solid 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+    <div>7</div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>返回顶部</li>
+    </ul>
+    <script>
+        var s = document.querySelector('.s')
+        var div = document.querySelectorAll('div')
+        var ul = document.querySelector('ul')
+        var li = document.querySelectorAll('li')
+        var tops = div[1].offsetTop;
+
+
+
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                ul.style.display = 'block'
+            } else {
+                ul.style.display = 'none'
+            }
+        })
+
+        for (var i = 0; i < li.length; i++) {
+            li[i].setAttribute('index', i);
+            div[i].setAttribute('index', i);
+            li[i].addEventListener('click', function() {
+                var index = this.getAttribute('index');
+                var divindex = div[index].offsetTop;
+                // console.log(divindex)
+                // console.log(window.pageYOffset)
+                // window.scroll(0, divindex)
+                animater(window, divindex)
+            })
+        }
+        li[5].addEventListener('click', function() {
+            var index = this.getAttribute('index');
+            var divindex = div[0].offsetTop;
+            // console.log(index)
+            // window.scroll(0, divindex)
+            animater(window, 0)
+        })
+
+
+
+        //动画函数封装
+        function animater(obj, target, callback) {
+            clearInterval(obj.animate);
+            console.log(target)
+            obj.animate = setInterval(function() {
+
+                //缓动动画关键1
+                var step = (target - window.pageYOffset) / 10;
+
+                // console.log(step)
+                //缓动动画关键2
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+                if (window.pageYOffset == target) {
+
+                    clearInterval(obj.animate);
+
+                    if (callback) {
+
+                        callback();
+
+                    }
+                }
+                window.scroll(0, window.pageYOffset + step)
+
+            }, 30)
+        }
+    </script>
+</body>
+
+</html>

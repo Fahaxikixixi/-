@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [{
+            name: "p-z",
+            age: 18
+        }, {
+            name: "p-zz",
+            age: 19
+        }, {
+            name: "p-zzz",
+            age: 20
+        }, {
+            name: "p-zzzz",
+            age: 21
+        }];
+        // for...of是支持break、continue、 return的， 所以在功能上非常贴近原生的for
+        for (let val of arr) {
+            console.log(val)
+            console.log(val.name)
+            console.log(val.age)
+        }
+
+        //for in 
+        let arrt = {
+            name: 'P-zz',
+            age: 18,
+            size: 'z'
+        }
+        for (let vals in arrt) {
+            console.log(arrt[vals])
+        }
+
+
+        ///统计第一个默认参数前面的变量数
+        function foo(a, b, c) {
+            console.log(foo.length)
+        }
+        foo() // 3
+        function fool(a, b = 1, c) {
+            console.log(fool.length)
+        }
+        fool('a', 'c') // 1
+
+
+        //
+        let lo = {
+            fn: function() {
+                console.log(123)
+            }
+        }
+        console.log(lo.fn)
+    </script>
+</body>
+
+</html>

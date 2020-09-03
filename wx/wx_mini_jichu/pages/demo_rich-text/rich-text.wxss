@@ -1,0 +1,12 @@
+/* pages/demo_rich-text/rich-text.wxss */
+
+.apps-nav {
+    display: flex;
+    justify-content: space-between;
+    /* width: 100%; */
+    list-style-type: none;
+}
+
+.apps-nav li {
+    width: 25%;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let a = 11;
+        a = 0;
+        console.log(a);
+
+        // 报错
+        // const b = 123;
+        // b = 1;
+        // console.log(b)
+
+        //实现对const 内容的更改原理==> obj是对象  对象储存在堆里 而obj内的name等属性 是储存在栈里   当添加sex时
+        // 只是往栈里添加   并没有改变obj 对象指向的堆内存地址
+        const obj = {
+            name: "P_loo",
+            age: 18
+        }
+        obj.sex = 'ac';
+        console.log(obj)
+    </script>
+</body>
+
+</html>

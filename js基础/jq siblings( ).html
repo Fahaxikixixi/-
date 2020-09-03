@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+    <style>
+        ul {
+            display: flex;
+        }
+        
+        li {
+            width: 50px;
+            height: 50px;
+            background-color: cadetblue;
+            list-style-type: none;
+            margin-left: 5px;
+        }
+        
+        .listyle {
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+<script>
+    //siblings() 方法==>遍历作用    但也可以提现出js中的排他思想
+    $('ul li').on('click', function() {
+        $(this).addClass('listyle').siblings('li').removeClass('listyle')
+            // $(this).addClass('listyle').siblings('li')
+    });
+
+
+
+
+    //JQ链式编程的原理 因为对象里的this返回的是对象本身 jq本身就是对象  （如果不写return this  就会返回undefined）
+    let fun = {
+        fun1: function() {
+            console.log("fun1");
+            console.log(this)
+            return this;
+        },
+
+        fun2: function() {
+            console.log("fun2");
+            return this;
+        },
+
+        fun3: function() {
+            console.log("fun3");
+            return this;
+        }
+    }
+
+    fun.fun1().fun2().fun3();
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/ToDoList.css">
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+    <script src="./js/ToDoList.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <section class="setion">
+            <label for="title">ToDoList</label>
+            <input type="text" id="title" name="title" placeholder="添加ToDo" required>
+        </section>
+    </header>
+    <section class="setiontwo">
+        <h2>正在进行<span id="todocount"></span></h2>
+        <ol id="todolist" class="demo-box">
+
+        </ol>
+        <h2>已经完成<span id="donecount"></span></h2>
+        <ul id="donelist">
+
+        </ul>
+    </section>
+    <footer>
+        Copyright
+    </footer>
+</body>
+
+</html>

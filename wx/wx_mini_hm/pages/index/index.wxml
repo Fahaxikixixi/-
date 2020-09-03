@@ -1,0 +1,82 @@
+<view class="pyg_index">
+<!-- 搜索框 -->
+    <Searchinput></Searchinput>
+
+<!-- 轮播图 -->
+    <view class="index_swiper">
+
+<!-- 
+    1 swiper 标签存在默认的宽度和高度
+        100%*150px
+    2 image 标签也存在默认宽高
+        320px*240px
+    3  设计图片和轮播图
+        3.1 原图 750*340
+        3.2 让图片高度自适应 宽度100%
+ -->
+        <swiper autoplay circular indicator-dots>
+            <swiper-item 
+            wx:for="{{swiperList}}"
+            wx:key="goodsid">
+                <navigator class="" target="" url="" hover-class="navigator-hover" open-type="navigate">
+                    <image class="" src="{{item.image_src}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />               
+                </navigator>
+                                
+            </swiper-item>
+            
+        </swiper>
+    </view>
+    <!-- 轮播图结束 -->
+
+    <!-- 导航开始 -->
+    <view class="index_cate">
+        <navigator 
+        wx:for="{{catesList}}"
+        wx:key="name"
+        target="" 
+        url="" hover-class="navigator-hover" 
+        open-type="navigate">
+            <image  src="{{item.image_src}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+              
+        </navigator>
+          
+    </view>
+    <!-- 导航结束 -->
+    <!-- 楼层开始 -->
+   <view class="index_floor">
+       <view class="index_group"
+       wx:for="{{floorList}}"
+       wx:for-item="item1"
+       wx:for-index="index1"
+       wx:key="floortitle"
+       >  
+        <!-- 标题 -->
+         <view class="floor_title">
+            <image src="{{item1.floor_title.image_src}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+         </view>
+        <!-- 内容 -->
+         <view class="floor_list">
+            <navigator class="" target="" 
+            url="" hover-class="navigator-hover" 
+            open-type="navigate"
+            wx:for="{{item1.product_list}}"
+            wx:for-item="item2"
+            wx:for-index="index2"
+            wx:key="name"
+            >
+            <image src="{{item2.image_src}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+                
+            </navigator>
+               
+        </view>      
+       </view>
+         
+   </view>
+     
+
+    <!-- 楼层结束 -->
+      
+  
+</view>
+
+  

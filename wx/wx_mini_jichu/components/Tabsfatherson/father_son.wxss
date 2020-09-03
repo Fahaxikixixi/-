@@ -1,0 +1,12 @@
+/* components/Tabs_father_son/father_son.wxss */
+
+.tabs_title {
+    display: flex;
+    padding: 10rpx;
+    justify-content: space-between;
+}
+
+.active {
+    color: red;
+    border-bottom: red solid 1rpx;
+}

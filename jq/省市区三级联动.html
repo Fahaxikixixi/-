@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>省市区三级联动</title>
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+
+    <style>
+        .form-inline {
+            display: flex;
+        }
+        
+        .form-group select {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+    <div class="form-inline">
+        <div class="form-group">
+            <select class="form-control" id="province">
+                <option value="">请选择省份</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="city">
+                <option value="">请选择城市</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="area">
+                <option value="">请选择区县</option>
+            </select>
+        </div>
+    </div>
+</body>
+<script src="./js/template-web.js"></script>
+<!--省模板-->
+<script type="text/html" id="template">
+    <option value="">请选择省份</option>
+    {{each pre }}
+
+    <option value="{{$value.id}}">{{$value.name}}</option>
+    {{/each}}
+</script>
+<!---市模板--->
+<script type="text/html" id="citys">
+    <option value="">请选择城市</option>
+    {{each city}}
+
+    <option value="{{$value.xid}}">{{$value.xname}}</option>
+    {{/each}}
+</script>
+<!---区模板--->
+<script type="text/html" id="areas">
+    <option value="">请选择区县</option>
+    {{each area}}
+
+    <option value="{{$value.qid}}">{{$value.qname}}</option>
+    {{/each}}
+</script>
+<script>
+    var province = document.querySelector('#province');
+    var city = document.querySelector('#city');
+
+
+
+    $.ajax({
+        url: 'http://127.0.0.1:5500/三级联动-省.json',
+        dataType: 'json',
+        type: 'get',
+        success: function(res) {
+            console.log(res);
+            // console.log(res.city[0].name);
+            var html = template('template', {
+                pre: res.city
+            });
+            $('#province').html(html)
+        },
+        error: function() {
+            console.log('请求失败')
+        }
+    })
+
+
+
+    //下拉框选中改变时自动触发  onchange
+    province.onchange = function() {
+        //省份id
+        var pid = this.value;
+        // console.log(pid)
+        $.ajax({
+            url: 'http://127.0.0.1:5500/三级联动-市.json',
+            type: 'get',
+            dataType: 'json',
+            // data: {
+            //     id: pid
+            // },
+            success: function(data) {
+                console.log(pid)
+                    // console.log(data.this.value);
+                if (pid == 'jx') {
+                    var cityy = template('citys', {
+                        city: data.jx
+                    })
+                    $('#city').html(cityy);
+                    console.log(11)
+
+                } else if (pid == 02) {
+                    var cityy = template('citys', {
+                        city: data.hn
+                    })
+                    $('#city').html(cityy);
+                } else if (pid == 03) {
+                    var cityy = template('citys', {
+                        city: data.fj
+                    })
+                    $('#city').html(cityy);
+                } else if (pid == 04) {
+                    var cityy = template('citys', {
+                        city: data.gd
+                    })
+                    $('#city').html(cityy);
+                } else {
+                    $('#city').html("<option>请选择城市</option>");
+                    $('#area').html("<option>请选择区县</option>");
+                }
+            },
+            error: function(e) {
+                console.log('失败')
+            }
+        })
+    }
+
+
+
+    //
+    city.onchange = function() {
+        var x = this.value;
+        console.log(x);
+        $.ajax({
+            url: 'http://127.0.0.1:5500/三级联动-区.json',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data.jxq);
+                if (x == 'jj') {
+                    var area = template('areas', {
+                        area: data.jxq.jj
+                    })
+                    $('#area').html(area);
+                } else if (x == 'gz') {
+                    var area = template('areas', {
+                        area: data.jxq.gz
+                    })
+                    $('#area').html(area);
+                } else {
+                    $('#area').html("<option>请选择区县</option>");
+                }
+            },
+            error: function() {
+                console.log('请求失败了')
+            }
+        })
+    }
+</script>
+
+</html>

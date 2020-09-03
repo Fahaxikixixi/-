@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "btn-com": "/components/btn/btn"
+    },
+    "navigationBarTitleText": "热销产品"
+}

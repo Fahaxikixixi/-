@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 3000px;
+        }
+        
+        img {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./img/play.gif">
+    <script>
+        var imgs = document.querySelector('img')
+        document.addEventListener('mousemove', function(e) {
+            var x = e.pageX;
+            var y = e.pageY;
+            console.log(x);
+            console.log(y);
+            imgs.style.left = x - 50 + 'px';
+            imgs.style.top = y - 50 + 'px';
+        })
+    </script>
+</body>
+
+</html>

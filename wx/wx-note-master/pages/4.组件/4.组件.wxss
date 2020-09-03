@@ -1,0 +1,17 @@
+/* pages/4.组件/4.组件.wxss */
+.active{
+  background-color: red;
+}
+.baidu-img{
+  border: 1px solid red;
+  width: 200px;
+  height: 400px;
+  display: block;
+}
+swiper{
+  width: 100%;
+  height: calc(100vw*156/414);
+}
+image{
+  width: 100%;
+}

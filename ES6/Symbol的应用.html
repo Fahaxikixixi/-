@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let obj = {
+            name: 'sogooo',
+            up: () => {}
+        }
+        let method = {
+            up: Symbol(),
+            down: Symbol()
+        }
+        let sp = {
+            na: 'go'
+        }
+
+        obj[method.up] = function() {
+            console.log('up');
+        }
+        obj[method.down] = function() {
+            console.log('down');
+        }
+        obj[sp.na] = function() {
+            console.log(1);
+        }
+        obj[method.down]()
+    </script>
+</body>
+
+</html>

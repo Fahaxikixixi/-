@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "Tabs": "../../components/Tabs/Tabs",
+        "Tabs_father_son": "../../components/Tabsfatherson/father_son"
+    }
+}

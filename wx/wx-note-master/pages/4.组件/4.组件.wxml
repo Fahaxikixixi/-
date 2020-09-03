@@ -1,0 +1,76 @@
+<!-- 
+  hove-class  点击时添加class类
+  hover-stop-propagation  是否阻止事件冒泡
+-->
+<view hove-class="active" hover-stop-propagation="true"></view>
+<!-- 
+  text只能嵌套text标签
+  selectable  文本是否可选
+  decode  是否解码
+ -->
+<text selectable="true" decode="true">一&nbsp;二</text>
+
+<!-- 
+  默认宽320px，高240px,支持懒加载
+  lazy-load 是否支持懒加载
+  mode  图片拉伸的模式,具体看文档
+  常用拉伸方式：
+  widthFix  宽度不变，高度自动变化，保持原图宽高比不变
+  heightFix 高度不变，宽度自动变化，保持原图宽高比不变
+  scaleToFill 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素
+  aspectFit 保持纵横比缩放图片，使图片的横边能完全显示出来。
+  aspectFill  保持纵横比缩放图片，只保证图片的纵边能完全显示出来。横边多余的会被裁剪掉
+ -->
+<image class="baidu-img" src="http://img1.imgtn.bdimg.com/it/u=3448077537,2995348094&fm=15&gp=0.jpg" lazy-load="false" mode="widthFix"/>
+
+<!-- 
+  swiper默认width 100%,height 150px,无法实现内容撑开
+  swiper高度=100vw*原图高度/原图宽度
+  swiper属性：
+    autoplay 是否自动切换
+    interval  切换时间（毫秒）
+    circular  是否循环轮播
+    其它详情看文档
+ -->
+<swiper autoplay="true" interval="3000" circular="true">
+  <swiper-item><image mode="widthFix" src="//gw.alicdn.com/tfs/TB17emto4n1gK0jSZKPXXXvUXXa-1035-390.png"></image></swiper-item>
+  <swiper-item><image mode="widthFix" src="//gw.alicdn.com/tps/i4/TB1Vnc0bZKfxu4jSZPfSuv3dXXa.jpg"></image></swiper-item>
+  <swiper-item><image mode="widthFix" src="//gw.alicdn.com/imgextra/i3/1453939/O1CN01MWKDFu1ey6h8iJ109_!!1453939-0-lubanu.jpg"></image></swiper-item>
+</swiper>
+<!-- 
+  相当于a标签,但是这是块级元素
+  url 在本小程序内的跳转
+  target  跳转到当前小程序页面还是别的小程序页面
+  open-type 跳转方式
+  其它详情看文档
+ -->
+<navigator url="/pages/3.wxss/3.wxss">进入wxss</navigator>
+<!-- 
+  类似于vue中的v-html
+  也可以添加nodes属性绑定标签字符串或者对象数组
+ -->
+<rich-text nodes="{{html}}">
+  <!-- <div>hello</div> -->
+</rich-text>
+<!--
+  size  按钮大小
+  type  按钮样式类型
+  plain 是否镂空
+  open-type 微信开放能力(具体看文档)
+-->
+<button size="default" type="primary" plain="true" open-type="getUserInfo">按钮</button>
+<!-- 
+  type  icon的类型，有效值：success, success_no_circle, info, warn, waiting, cancel, download, search, clear
+  size  icon的大小
+  color 颜色
+ -->
+<icon type="success" size="60" color="#bbfs"></icon>
+<!-- 
+  radio 单选框，需要搭配radio-group使用。（复选框checkbox和单选框用法一样，需搭配checkbox-group使用）
+  radio-group是单项选择器,可以通过bindchange绑定change事件
+ -->
+<radio-group bindchange="change1">
+  <radio color="blue" checked value="man">男</radio>
+  <radio color="pink" value="woman">女</radio>
+  您当前选择的是{{sex}}
+</radio-group>

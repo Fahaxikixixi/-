@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // alert('只能输入92或97')
+        // var a = prompt();
+        // var b = 92;
+        // var c = 97;
+
+        // if (a == b) {
+        //     aa = prompt()
+        //     if (aa > 20) {
+        //         alert(aa * 2)
+        //     } else {
+        //         alert(aa * 1)
+        //     }
+        // } else if (a = c) {
+
+        // }
+
+
+
+
+        // for (var i = 1; i < 10; i++) {
+        //     for (var j = 1; j <= i; j++) {
+        //         document.write('<span>' + j + '*' + i + '=' + j * i + '</span>')
+        //     }
+        //     document.write('<br>')
+        // }
+
+
+        //冒泡排序
+        var arr = [5, 2, 6, 9, 8, 4, 7];
+        console.log(JSON.stringify(arr));
+        for (var i = 0; i < arr.length; i++) {
+
+            for (var j = 0; j < arr.length - i - 1; j++) {
+
+                if (arr[j] > arr[j + 1]) {
+
+                    var art = arr[j];
+
+                    arr[j] = arr[j + 1];
+
+                    arr[j + 1] = art;
+
+                }
+            }
+        }
+        console.log(JSON.stringify(arr));
+    </script>
+</body>
+
+</html>
