@@ -10424,6 +10424,7 @@ export const request = (params) => {
 | pwd                                             | 查看当前路径                                                 |
 | git init                                        | 把这个目录（当前进入的文件目录）变成git可以管理的仓库        |
 | git add readme.txt（txt是文件名，这里作为例子） | 将readme.txt添加到暂存区                                     |
+| git  add  .                                     | .   指的是文件夹下全部文件                                   |
 | git  commit                                     | 告诉git  把文件提交到仓库                                    |
 | git  commit   -m  "readme.txt提交"              | 提交注释                                                     |
 | git   status                                    | 查看是否还有文件未提交（更改了未提交也算）                   |
@@ -10439,6 +10440,8 @@ export const request = (params) => {
 | rm  b.txt                                       | 直接从版本库删除                                             |
 |                                                 |                                                              |
 |                                                 |                                                              |
+
+
 
 
 
