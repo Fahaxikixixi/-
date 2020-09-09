@@ -4038,56 +4038,9 @@ https://es6.ruanyifeng.com/
 
 > https://es6.ruanyifeng.com/
 
-## Array.find()
 
-> find() 方法返回通过测试函数的第一个数组元素的值。
->
-> 请注意此函数接受 3 个参数：（如下实例）
->
-> - 项目值
-> - 项目索引
-> - 数组本身
 
-```js
-//此例查找（返回）第一个大于 18 的元素（的值）：
-	var numbers = [4, 9, 16, 25, 29];
-    var first = numbers.find(myFunction);
 
-    function myFunction(value, index, array) {
-      return value > 18;
-    }
-//输出 25
-```
-
-## Array.findIndex()
-
-> findIndex() 方法返回通过测试函数的第一个数组元素的索引。
->
-> 请注意此函数接受 3 个参数：
->
-> - 项目值
-> - 项目索引
-> - 数组本身
-
-```js
-//此例确定大于 18 的第一个元素的索引：
-    var numbers = [4, 9, 16, 25, 29];
-    var first = numbers.findIndex(myFunction);
-
-    function myFunction(value, index, array) {
-      return value > 18;
-    }
-//输出  3
-```
-
-## Number.isInteger() 方法
-
-> 如果参数是整数，则 Number.isInteger() 方法返回 true。
-
-```js
-Number.isInteger(10);        // 返回 true
-Number.isInteger(10.5);      // 返回 false
-```
 
 
 
@@ -4098,12 +4051,285 @@ Number.isInteger(10.5);      // 返回 false
 > 不需要 function 关键字、return 关键字以及*花括号*。
 >
 > * 箭头功能没有自己的 this。它们不适合定义*对象方法*。
+> * 箭头函数不能用argument
 
 ```js
 const x = (x, y) => x * y;
 document.getElementById("demo").innerHTML = x(5, 5);
 //输出  25
 ```
+
+
+
+### 若要返回对象
+
+```js
+var fn5=(a,b)=>({num:a+b});
+console.log(fn5(2,5));  //{num: 7}
+//当我们想要返回一个对象时不能直接在箭头后直接加{num:a+b},因为大括号也代表函数体，所以要在对象外再加一个小括号
+```
+
+
+
+```js
+//在function中,this指向是由函数调用的时候决定的,箭头函数this的指向是由定义的时候决定的,箭头函数不能用argument,不能当做构造函数
+btn2.onclick=function(){
+  setTimeout(()=>{
+    console.log(this);//不需要在外面存this
+  },300)
+}
+```
+
+
+
+## 解构赋值
+
+
+
+### 对象解构
+
+
+
+```js
+ //对象解构赋值
+    let obj={
+      aa:1,
+      bb:2,
+      cc:3,
+      dd:4
+    }
+    var {aa,bb,cc,dd}=obj;  //console.log(aa);  //1
+    //对象的解构赋值变量名要与对象里的方法名一致,如果想重新定义变量名则用=链接，例如：
+    var {aa=num,bb,cc,dd}=obj;  //console.log(num)  //1
+
+```
+
+
+
+
+
+### 数组解构
+
+```js
+ //数组解构赋值
+    var [a,b,c,d]=[0,1,2,3];
+    //变量名和数组下标一一对应，也可以添加自定义变量比如[a,b,c,d,e=5],如果原数组有第五个值，则e的值优先取原数组的值。
+    console.log(b);//1
+```
+
+
+
+### 解构中的剩余模式
+
+
+
+```js
+ //解构赋值中的剩余模式
+    var [a1,b1,c1,...r]=[1,2,3,4,5,6]
+    console.log(a1,b1,c1,r)   //1, 2, 3, [4,5,6]
+    //这里的...r为剩余模式，r也是一个变量名可以任意取。
+```
+
+
+
+### 传参解构
+
+```js
+ // 传参的解构赋值   传参的时候可以通过{}赋值
+    function fn({f,g,h}){
+      console.log(f); //2
+      console.log(g); //3
+      console.log(h); //4
+    }
+    fn({f:2,g:3,h:4})
+```
+
+
+
+
+
+## 扩展运算符
+
+
+
+```js
+ //  ...arr  实际上是把  arr的每一项拆分开来了
+  //合并数组
+  var arr=[1,2];
+  var arr2=[3,4,5];
+  var arr3=[...arr,...arr2];
+  console.log(arr3)//[1,2,3,4,5]
+
+  //合并对象
+  var obj={a:1}
+  var obj2={b:23}
+  var obj3={...obj,...obj2};
+  console.log(obj3);//{a:1,b:23}
+
+  //利用...和Set结构进行数组去重
+  var arr4=[15,9,2,4,13,3,25,6,1,1,5,6,7,3,5,2,5,3];
+  var res=[...new Set(arr4)];
+  console.log(res)//[15, 9, 2, 4, 13, 3, 25, 6, 1, 5, 7]
+```
+
+## 字符串方法
+
+### 查看是否存在某个字符
+
+```js
+  var str='es6字符串方法';
+  console.log(str.includes('串')) //true  includes()判断字符串有是否存在'串';
+  console.log(str.startsWith('es6')) //true  startsWith()判断字符串是不是以'es6'开头的
+  console.log(str.endsWith('方法')) //true  endsWith()判断字符串是不是以'方法'结尾的
+
+```
+
+
+
+## Class
+
+> 1.**创建的类的类名 习惯性首字母大写**
+>
+> 2.类里面有个constructor 函数（构造器），可以接受传递过来的参数，同时返回实例对象
+>
+> 3.constructor 函数 只要new 生成实例时，就会调用这个函数，不写也会生成这个
+>
+> 4.生成实例必须写 new
+>
+> 5.**class 里面写函数不需要写function都是定义在类的prototype属性上面的**
+>
+> 6.**类里面写的函数方法之间不需要 逗号分隔**
+
+
+
+```js
+  //创建类
+        //类里面写函数都不需要加function
+        class On1 {
+            constructor(uname, age) { //uname  作为形参
+                this.uname = uname;
+                this.age = age
+            }
+            fn(a) {
+                console.log(a);
+            }
+        }
+        // console.log(typeof on1); //function
+
+        //创建实例对象
+        var t = new On1('SOGOOO', 18);
+        var t1 = new On1('21Y', 21);
+        // console.log(t); //on1{}   ===>里面包含constructor  类的构造函数
+        // console.log(typeof t); //object
+
+
+        console.log(t.uname + '-' + t.age); //SOGOOO-18
+        console.log(t1.uname + '-' + t1.age); //21Y- 21
+
+        t.fn(123); //123
+        t1.fn(456); //456
+```
+
+
+
+
+
+### 类的继承
+
+#### **extends关键字** 
+
+> 可以让子类继承父类的属性和方法
+
+```js
+//Father 代表父类  Son代表子类
+
+class Father {
+            constructor() {
+
+            }
+            money() {
+                console.log("SOGOOO");
+            }
+        }
+        class Son extends Father {
+
+        }
+        var son = new Son();
+        son.money();//SOGOOO
+```
+
+
+
+#### super关键字
+
+> 用于访问和调用对象父类上的函数，可以调用父类的构造函数，也可以调用父类的普通函数
+
+》》因为每个类的constructor 构造函数内的  this.  都是指向 当前类下的， 所以子类传递的参数只能在子类内，不能传递到父类的constructor 构造函数内， 只有使用super之后才能将参数从子类 constructor 构造函数 传递到 父类constructor 构造函数内
+
+
+
+```js
+//父类
+class Father {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y
+            }
+            sum() {
+                console.log(this.x + this.y);
+            }
+        }
+//子类
+        class Son extends Father {
+            constructor(x, y) {
+                super(x, y) //调用了父类的构造函数
+            }
+        }
+         var son = new Son(2, 1);
+        var son1 = new Son('SO', 'GOOO');
+        son.sum(); //3
+        son1.sum(); //SOGOOO
+```
+
+
+
+#### 子类调用父类方法
+
+> 1.父类，子类都有同名方法时，子类将会先调用自己的方法（就近调用）
+>
+> 2.子类想在 自己类内使用父类方法，需要在调用的方法前面加上super
+>
+> 例： super.say（）
+
+```js
+//父类
+class Father {
+           
+            say() {
+               return '我是你爹'
+            }
+        }
+//子类
+        class Son extends Father {
+           say() {
+               console.log(super.say()+'的儿子')
+            }
+        }
+         var son = new Son(2, 1);
+     
+        son.sum(); //3
+      
+```
+
+
+
+
+
+
+
+
+
+
 
 ## map
 
@@ -4384,6 +4610,61 @@ ajax('static/a.json', res => {
     })
 })
 ```
+
+
+
+## Array.find()
+
+> find() 方法返回通过测试函数的第一个数组元素的值。
+>
+> 请注意此函数接受 3 个参数：（如下实例）
+>
+> - 项目值
+> - 项目索引
+> - 数组本身
+
+```js
+//此例查找（返回）第一个大于 18 的元素（的值）：
+	var numbers = [4, 9, 16, 25, 29];
+    var first = numbers.find(myFunction);
+
+    function myFunction(value, index, array) {
+      return value > 18;
+    }
+//输出 25
+```
+
+## Array.findIndex()
+
+> findIndex() 方法返回通过测试函数的第一个数组元素的索引。
+>
+> 请注意此函数接受 3 个参数：
+>
+> - 项目值
+> - 项目索引
+> - 数组本身
+
+```js
+//此例确定大于 18 的第一个元素的索引：
+    var numbers = [4, 9, 16, 25, 29];
+    var first = numbers.findIndex(myFunction);
+
+    function myFunction(value, index, array) {
+      return value > 18;
+    }
+//输出  3
+```
+
+## Number.isInteger() 方法
+
+> 如果参数是整数，则 Number.isInteger() 方法返回 true。
+
+```js
+Number.isInteger(10);        // 返回 true
+Number.isInteger(10.5);      // 返回 false
+```
+
+
 
 
 
@@ -10928,7 +11209,1046 @@ $ssh -T git@github.com
 
 
 
-若github仓库本来之前上传过（例：有a,b 两个文件的仓库TT），现在想在其他电脑上有了c文件，想把c文件上传到 有a，b文件的仓库，则需要重新配置（指的是ssh免密登录，若http方式就不需要配置），配置好github的公钥 后，先将TT仓库      git clone  到本地，在将c文件添加  01.git  add  ， 02.git  commit  ，03.git  remote  add 别名  TT仓库地址（这里指ssh地址）， 04. git push  别名  分支名  ！！这样就可以在TT仓库看见a,b,c 三个文件了   ===>不先clone  克隆TT仓库就提交，会报错，因为只有一个c文件提交相当于TT仓库版本和现在本地版本对不上的错误
+若github仓库本来之前上传过（例：有a,b 两个文件的仓库TT），现在想在其他电脑上有了c文件，想把c文件上传到 有a，b文件的仓库，则需要重新配置（指的是ssh免密登录，若http方式就不需要配置），配置好github的公钥 后，先将TT仓库      git clone  到本地，在将c文件添加  01.git  add  ， 
+
+02.git  commit  ，
+
+03.git  remote  add 别名  TT仓库地址（这里指ssh地址）， 
+
+04. git push  别名  分支名  ！！ 这样就可以在TT仓库看见a,b,c 三个文件了   ===>不先clone  克隆TT仓库就提交，会报错，因为只有一个c文件提交相当于TT仓库版本和现在本地版本对不上的错误
+
+
+
+
+
+# VUE
+
+## MVVM
+
+1.M  （model）
+
+2.V  （view）
+
+3.VM （view-model）
+
+
+
+![image-20200908094630838](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200908094630838.png)
+
+
+
+## 插值表达式
+
+v-cloak 
+
+
+
+## 分支循环v-if v-show
+
+
+
+### 1.分支结构
+
+* v-if
+* v-else 
+* v-else-if
+* v-show
+
+### 2.v-if与v-show的区别
+
+* v- if控制元素是否渲染到页面（相当于操作DOM，消耗大）
+* v- show控制元素是否显示(已经渲染到了页面，多了一个display：none 来控制显示)
+
+
+
+```js
+<div id="app">
+         <!--- v-if  -->
+          <!--- v-if 一些不显示的，在html中也没有该结构， v-if 相当于是操纵dom   -->
+        <div v-if='score>=90'>优秀</div>
+        <div v-else-if='score<90&&score>=80'>良好</div>
+        <div v-else-if='score<80&&score>=60'>一般</div>
+        <div v-else>不及格</div>
+
+        <!--- v-show  -->
+        <!--在不显示时，html结构还在页面，只是多了一个display：none  属性===>原理控制元素是否显示-->
+        <div v-show='flag'>测试v-show</div>
+        <button @click='handle'>v-show</button>
+    </div>
+
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            score: 99,
+            flag: true
+        },
+        methods: {
+            handle() {
+                this.flag = !this.flag
+            }
+
+        }
+    })
+</script>
+```
+
+
+
+### 循环结构v-for
+
+#### v-for遍历数组
+
+```js
+<1i v-foro'item in list'>llitem}}</1i>
+
+数组有两个参数，1.数组中的每一项  2.数组每一项的索引
+<1i v-for=' (item, index) in list'>{{item}} + '---' +{{index}}</li>
+```
+
+
+
+* **key的作用 :帮助Vue区分不同的元素,从而提高性能**
+
+```js
+'' 内的一般使用数据内的id 或者index 唯一的
+
+<1i :key='item.id' v-for=' (item, index) in list'>llitem}} + '---' {{index}}</1i>
+```
+
+
+
+```js
+//v-for         
+//例：数组
+         <ul>
+            <li v-for='(item,index) in menuLists'>
+                <h5>{{item.id}}</h5>
+                <h3>{{item.name}}</h3>
+                <em>{{item.age}}</em>
+                <h5>{{index}}</h5>
+            </li>
+         </ul>
+
+//例：对象
+         <ul>
+            <li v-for='(value,key) in person'>
+               {{key}}==={{value}}
+            </li>
+        </ul>
+
+//
+
+ var data = new Vue({
+        el: '#datas',
+        data: () => {
+            return {          
+                menuLists: [{
+                    id: 1,
+                    name: '呜呜呜',
+                    age: 18
+                }, {
+                    id: 2,
+                    name: '嘻嘻嘻',
+                    age: 19
+                }, {
+                    id: 3,
+                    name: '哈哈哈',
+                    age: 20
+                }],
+                person: {
+                    name: 'P_looo',
+                    age: 20,
+                    duck: '不必'
+                }
+            }
+        }
+```
+
+
+
+#### 遍历对象
+
+```js
+对象有三个参数，1.对象中的每一项的值 2.属性名  3.对象每一项的索引 
+<1i v-for=' (value,key,index) in list'>{{item}} + '---' +{{index}}</li>
+```
+
+
+
+* #### v-for  与 v-if 连用
+
+```js
+<div v-if='v==13' V-for='(v,k,i) in obj'>{{v +'---'+k+'---'+ i}}</div>
+
+```
+
+
+
+```js
+ <div id="app">
+     //  只有v  ==2 的才会显示出来
+        <div :key='v' v-if='v==2' v-for='(item,index,v) in person'>{{item}}---{{index}}---{{v}}</div>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            person: {
+                val1: {
+                    age: 18,
+                    name: '21Y'
+                },
+                val2: {
+                    age: 19,
+                    name: 'P_looo'
+                },
+                val3: {
+                    age: 20,
+                    name: 'SOGOOO'
+                }
+            }
+        }
+       
+    })
+```
+
+
+
+
+
+
+
+## 数据绑定指令
+
+* v-text  填充纯文本
+
+  相比插值表达式更加简洁，无闪动问题
+
+* v-html 填充HTML片段
+
+  1.存在安全问题
+
+  2.访问本网站内部数据可以使用，来自第三方的数据不可以用
+
+* v-pre 填充原始信息
+
+  ​	显示原始信息，跳过编译过程（分析编译过程，直接显示数据填充的写法，例：{{messge}}）
+
+
+
+## 双向数据绑定v-model
+
+### v-model    只能用在表单元素中
+
+> input（radio,	text,	address,	email） 	 select  	  checkbox  	textarea	
+
+
+
+```js
+v-model 会忽略所有表单元素的 value、checked、selected attribute 的初始值而总是将 Vue 实例的数据作为数据来源。你应该通过 JavaScript 在组件的 data 选项中声明初始值。
+```
+
+
+
+
+
+`v-model` 在内部为不同的输入元素使用不同的 property 并抛出不同的事件：
+
+- text 和 textarea 元素使用 `value` property 和 `input` 事件；
+- checkbox 和 radio 使用 `checked` property 和 `change` 事件；
+- select 字段将 `value` 作为 prop 并将 `change` 作为事件。
+
+
+
+### 底层原理(input text举例)
+
+```js
+//原理解析 简洁方式
+<input v-bind:value="msg" v-on:input="msg=$event.target.value ">
+
+```
+
+```js
+
+//原理解析
+<div id="app">
+      
+        <input type="text" @input='handle1' :value='msg'>
+        <span>{{msg}}</span>
+</div>
+
+
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            msg: ''
+        },
+        methods: {       
+            handle1(event) {
+                this.msg = event.target.value;
+            }
+        }
+    })
+```
+
+
+
+
+
+## 事件绑定v-on
+
+> v-on
+
+
+
+
+
+```js
+		<button v-on:click='num++'>+</button>
+  //      <!---事件绑定简写--->
+		<button @click='num--'>-</button>
+
+//<!---事件函数的调用方式-->
+        //<!---直接调用-->
+        <button v-on:click='fn'>+</button>
+        //<!---调用函数--->
+        <button @click='fn1("q",$event)'>-</button>
+
+```
+
+
+
+### 事件函数内容需要写在 methods内
+
+> 函数内的需要使用 data内的数据，需要在前面加一个  **this**
+
+```js
+ var vm = new Vue({
+        el: "#app",
+        data: {
+            num: 3
+        },
+        methods: {
+            fn: function() {
+                this.num++;
+                // console.log(this);
+            },
+            fn1(e, a) {
+                console.log(e);
+                console.log(a);
+                return this.num--;
+            }
+        }
+    })
+```
+
+
+
+###  事件对象与传参
+
+
+
+#### 事件对象
+
+>  固定写法  $event
+
+
+
+```js
+ //1.  直接调用的方式 ,默认传递事件对象，在函数内的第一个参数默认就是事件对象
+//  <!---直接调用-->
+        <button v-on:click='fn'>+</button>
+
+//2.如果是改方法调用，则事件对象必须作为最后一个参数进行传递，并且事件对象名称必须是$event
+//        <!---调用函数--->
+<button @click='fn1($event)'>-</button>
+
+var vm = new Vue({
+        el: "#app",
+        data: {
+            num: 3
+        },
+        methods: {  
+              fn: function(s) {
+                this.num++;
+                console.log(s);
+            },
+            fn1(e) {
+                console.log(e);
+                return this.num--;
+            }
+        }
+    })
+```
+
+
+
+### 传参
+
+> 传参只能在调用函数的方式内进行传参
+
+
+
+```js
+//<!---调用函数--->
+        <button @click='fn1("q",$event)'>-</button>
+var vm = new Vue({
+        el: "#app",
+        data: {
+            num: 3
+        },
+        methods: {
+            fn1(e, a) {
+                console.log(e);//q
+                console.log(a);
+                return this.num--;
+            }
+        }
+    })
+```
+
+
+
+## 事件修饰符
+
+> 语法: @事件名.修饰符="事件处理函数" 
+
+* .stop 阻止冒泡
+
+```js
+ 
+//方式一
+<div id="app">
+        <div @click='box' id="box">box
+            <div @click.stop='box1' id="box1">box1  <!--阻止冒泡-->
+                <div @click="box2" id="box2">box2</div>
+            </div>
+        </div>
+    </div>
+
+//方式二  和js的一样，通过在函数内使用事件对象， （例：事件对象为event）
+
+	event.stopPropagation（）
+```
+
+
+
+*  .prevent  阻止默认行为
+
+```js
+//方式一
+<a v-on:click.prevent="handle"  href="www.baidu.com">跳转</a>
+
+//方式二  在事件函数内，操作事件对象  （例：事件对象为event）
+	event.preventDefault（）
+
+```
+
+* .capture 捕获 
+* .self 事件源为自身  
+* .once 只执行一次
+
+```js
+//也可以串联一起写
+<a v-on:click.stop.prevent="doThat"></a>
+```
+
+
+
+
+
+##  按键修饰符:
+
+> 键盘按相应键时触发
+>
+>  .enter .tab .delete (捕获“删除”和“退格”键) .esc .space .up  .down  .left  .right
+>
+>  其它的键可以通过 .按键值 的方式使用
+>
+>  自定义按键修饰符: Vue.config.keyCodes.按键名= 按键值
+
+ 
+
+*  .enter 回车键
+
+  
+
+*  .delete 删除键
+
+  
+
+```js
+<div id="app">
+        <form action="">
+            <div>用户名：
+                <input type="text" @keyup.delete="handle1" v-model="uname">
+            </div>
+            <div>密码：
+                <input type="text" @keyup.enter="handle" v-model="pwd">
+            </div>
+            <div>
+                <input type="button" @click.enter="handle" value="提交">
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            uname: '',
+            pwd: ''
+        },
+        methods: {
+            handle() {
+                //按回车键
+                console.log(this.uname + '--' + this.pwd);
+            },
+            handle1() {
+                //按delete 
+                this.uname = null;
+            }
+        }
+    })
+```
+
+
+
+
+
+### 自定义按键修饰符
+
+自定义按键修饰符: Vue.config.keyCodes.按键名= 按键值
+
+```js
+// 可以使用 `v-on:keyup.f1`
+Vue.config.keyCodes.f1 = 112
+```
+
+
+
+```js
+Vue.config.keyCodes = {
+  v: 86,
+  f1: 112,
+  // camelCase 不可用
+  mediaPlayPause: 179,
+  // 取而代之的是 kebab-case 且用双引号括起来
+  "media-play-pause": 179,
+  up: [38, 87]
+}
+
+<input type="text" @keyup.f1="method">
+```
+
+
+
+```js
+//官方方式
+<div id="app">
+	<input type="text" @keyup.f1='handle3' v-model="us">
+</div>
+</body>
+<script>
+    Vue.config.keyCodes.f1 = 83;
+    new Vue({
+        el: "#app",
+        data: {
+            us: ''
+        },
+        methods: {
+            handle3(e) {
+                //按 s 
+                console.log(83);
+
+            }
+        }
+    })
+```
+
+
+
+
+
+```js
+//例  方式二
+ <div id="app">
+      <input type="text" @keyup='handle2'>
+ 	<input type="text" @keyup.83='handle3' v-model="us">
+ </div>
+     new Vue({
+        el: "#app",
+        data: {
+  
+            us: ''
+        },
+        methods: {
+            handle2(e) {
+                //按下按键，打印对应按键值
+                console.log(e.keyCode);
+            },
+            handle3(e) {
+                //按 s  ==>s 的按键码为 82
+                console.log(83);
+
+            }
+        }
+    })
+```
+
+
+
+
+
+## 属性绑定 v-bind
+
+
+
+* v-bind 指令用法
+
+```js
+<a v-bind:href='url'>跳转</a>
+```
+
+* 缩写形式
+
+````js
+<a :href='url'>跳转</a>
+````
+
+
+
+```js
+ <div id="app">
+        <a :href='url'>跳转</a>
+        <button @click="handle">切换</button>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            url: 'https://www.baidu.com'
+
+        },
+        methods: {
+            handle() {
+                //修改URL地址
+                this.url = 'https://www.csdn.net/'
+            }
+        }
+    })
+```
+
+
+
+## 样式绑定v-bind
+
+
+
+### 1.class样式处理
+
+
+
+* ####  对象语法
+
+```js
+<div v-bind:class="{ active: isActive }"></div>  //一般类名对应的属性用is 开头
+
+```
+
+```js
+
+//例
+
+//css
+  .active {
+            border: 2px solid purple;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .error {
+            background-color: royalblue;
+            width: 100px;
+            height: 100px;
+        }
+
+//html
+
+<div id="app">
+    //控制多个和一个属性
+    	<div :class="{active:isActive}"></div>
+        <div :class="{active:isActive,error:isError}"></div>
+        <button @click="handle">切换</button>
+    </div>
+
+//js
+ new Vue({
+        el: '#app',
+        data: {
+            isActive: true，
+            isError: false
+        },
+        methods: {
+            handle() {
+                //控制isAtive的值在true 和false 之间进行切换
+                this.isActive = !this.isActive，
+                this.isError = !this.isError
+            }
+        }
+    })
+```
+
+
+
+
+
+* ####  数组语法
+
+```js
+<div v-bind:class= [activeClass, errorClass]"></div>
+```
+
+
+
+```js
+
+//css
+ .active {
+            border: 2px solid purple;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .error {
+            background-color: royalblue;
+            width: 100px;
+            height: 100px;
+        }
+
+//html
+  <div id="app">
+        <div :class="[activeClass,errorClass]"></div>
+        <button @click="handle">切换</button>
+    </div>
+
+//js
+ new Vue({
+        el: '#app',
+        data: {
+            activeClass: 'active',
+            errorClass: 'error'
+        },
+        methods: {
+            handle() {
+                //控制isAtive的值在true 和false 之间进行切换
+                this.activeClass = ''
+            }
+        }
+    })
+```
+
+
+
+### 2.style 样式处理
+
+
+
+* #### 对象语法
+
+```js
+<div></div>
+```
+
+
+
+
+
+## Vue常用特性
+
+
+
+## 表单操作
+
+
+
+### 1.基于Vue的表单操
+
+* Input单行文本
+* textarea多行文本
+* select下拉多选
+* radio单选框
+* checkbox多选框
+
+
+
+
+
+### v-model    只能用在表单元素中
+
+> input（radio,	text,	address,	email） 	 select  	  checkbox  	textarea	
+
+
+
+```js
+v-model 会忽略所有表单元素的 value、checked、selected attribute 的初始值而总是将 Vue 实例的数据作为数据来源。你应该通过 JavaScript 在组件的 data 选项中声明初始值。
+```
+
+
+
+
+
+`v-model` 在内部为不同的输入元素使用不同的 property 并抛出不同的事件：
+
+- text 和 textarea 元素使用 `value` property 和 `input` 事件；
+- checkbox 和 radio 使用 `checked` property 和 `change` 事件；
+- select 字段将 `value` 作为 prop 并将 `change` 作为事件。
+
+
+
+### 表单域修饰符
+
+
+
+* number :转化为数值
+* trim :去掉开始和结尾的空格
+* lazy:将input事件切换为change事件
+
+```js
+<input v-model.number="age" type="number">
+```
+
+
+
+## 自定义指令
+
+> directive    使用这个来定义指令
+>
+>  
+>
+> el  指的是需要绑定指令的元素
+>
+> inserted  是钩子函数
+>
+> Vue.directive (指令名称，{
+>
+> ​		inserted:function(el){
+>
+> ​			el.方法（）；
+>
+> }
+>
+> })
+
+
+
+### 例：
+
+```js
+//html 
+<div id="app">
+        <p>光标自动聚焦选中输入框</p>
+        <input type="text" v-focus>
+    </div>
+</body>
+
+
+//js
+<script>
+    /*
+     *       自定义指令
+     */
+    Vue.directive('focus', {
+        inserted: function(el) {
+            //el 表示指令所绑定的元素
+            el.focus();
+            console.log(focus);
+        }
+    });
+    new Vue({
+        el: '#app',
+        data: {
+        },
+        methods: {           
+        }
+    })
+```
+
+
+
+
+
+### Vue.directive  注册全局指令
+
+```html
+<!-- 
+  使用自定义的指令，只需在对用的元素中，加上'v-'的前缀形成类似于内部指令'v-if'，'v-text'的形式。 
+-->
+<input type="text" v-focus>
+<script>
+// 注意点： 
+//   1、 在自定义指令中  如果以驼峰命名的方式定义 如  Vue.directive('focusA',function(){}) 
+//   2、 在HTML中使用的时候 只能通过 v-focus 来使用 
+    
+// 注册一个全局自定义指令 v-focus
+Vue.directive('focus', {
+  	// 当绑定元素插入到 DOM 中。 其中 el为dom元素
+  	inserted: function (el) {
+    		// 聚焦元素
+    		el.focus();
+ 	}
+});
+new Vue({
+　　el:'#app'
+});
+</script>
+```
+
+### Vue.directive  注册全局指令 带参数
+
+```html
+// v-color  后面会添加参数 
+<input type="text" v-color='msg'>
+ <script type="text/javascript">
+    /*
+      自定义指令-带参数
+      bind - 只调用一次，在指令第一次绑定到元素上时候调用
+
+    */
+    Vue.directive('color', {
+      // bind声明周期, 只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置
+      // el 为当前自定义指令的DOM元素  
+      // binding 为自定义的函数形参   通过自定义属性传递过来的值 存在 binding.value 里面
+      bind: function(el, binding){
+        // 根据指令的参数设置背景色
+        // console.log(binding.value.color)
+        el.style.backgroundColor = binding.value.color;
+      }
+    });
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: {
+          color: 'blue'
+        }
+      }
+    });
+  </script>
+```
+
+### 自定义指令局部指令
+
+- 局部指令，需要定义在  directives 的选项   用法和全局用法一样 
+- 局部指令只能在当前组件里面使用
+- 当全局指令和局部指令同名时以局部指令为准
+
+```html
+<input type="text" v-color='msg'>
+ <input type="text" v-focus>
+ <script type="text/javascript">
+    /*
+      自定义指令-局部指令
+    */
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: {
+          color: 'red'
+        }
+      },
+   	  //局部指令，需要定义在  directives 的选项
+      directives: {
+        color: {
+          bind: function(el, binding){
+            el.style.backgroundColor = binding.value.color;
+          }
+        },
+        focus: {
+          inserted: function(el) {
+            el.focus();
+          }
+        }
+      }
+    });
+  </script>
+```
+
+
+
+
+
+
+
+
+
+​	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 计算属性
+
+## 过滤器
+
+## 侦听器
+
+## 生命周期
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
