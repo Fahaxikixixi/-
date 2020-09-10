@@ -3543,6 +3543,40 @@ https://my.oschina.net/u/2600761/blog/1524617
 
 
 
+## join():作用于split相反
+
+
+
+```js
+
+例1：
+msg=[ "H", "e", "l", "l", "o" ]
+var s=msg.join('')
+
+s='Hello'
+
+例2：
+msg=[ "H", "e", "l", "l", "o" ]
+var s=msg.join(',')
+s ===> H,e,l,l,o
+```
+
+
+
+
+
+
+
+## reverse  取反
+
+```js
+msg='Hello'
+msg.reverse()
+
+Hello
+olleH
+```
+
 
 
 
@@ -12145,6 +12179,14 @@ new Vue({
 
 ### 自定义指令局部指令
 
+>   注意
+>
+> ​		1. 局部的 directives  全局directive    相差一个s
+>
+> ​		 2.局部的是写在vue 实例里面的
+
+
+
 - 局部指令，需要定义在  directives 的选项   用法和全局用法一样 
 - 局部指令只能在当前组件里面使用
 - 当全局指令和局部指令同名时以局部指令为准
@@ -12184,41 +12226,412 @@ new Vue({
 
 
 
-
-
-
-
-​	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 计算属性
 
-## 过滤器
+
+
+```js
+
+
+<!--- 就比如 这个让字符翻转就有点复杂， 使用计算属性可以让模板更加简洁-->
+        <div>{{msg.split('').reverse().join('')}}</div>
+
+//reversedMessage  是自定义方法名
+computed:{
+    reversedMessage:function(){
+        return this.msg.split('').reverse().join('')
+    }
+}
+```
+
+
+
+### 计算属性（computed）与方法（methods）的区别
+
+> computed计算属性是有缓存的,在多次调用是，第一次执行后就缓存了，当第二次执行时就直接拿第一次执行的结果
+>
+> 所以在大量的复杂耗时的计算中，又要被多次调用时，就体现了这个计算属性的优势，只执行一次，调用多次也不执行（**前提是调用的data数据不改变的前提下**），只拿第一次调用后的值
+
+
+
+1.
+
+* 计算属性有缓存的（只要使用的data中的数据不变，因为**computed 是基于data中的数据依赖做缓存的**）
+* 方法不存在缓存
+* **计算属性一定要有返回值，所以要加return**
+
+2.调用方式
+
+```js
+//computed计算属性调用 {{}}  内是不需要加（）括号的
+<div>{{reverseString}}</div>
+
+new Vue({
+        el: '#app',
+        data: {
+            msg: 'Hello'
+        },
+        computed: {
+            reverseString: function() {
+                console.log('computed');
+                //计算属性一定要有返回值，所以要加return
+                return this.msg.split('').reverse().join('');
+            }
+        }
+    })
+
+
+
+//methods调用 {{}}  内是需要加（）括号的
+<div>{{reverseString（）}}</div>
+
+new Vue({
+        el: '#app',
+        data: {
+            msg: 'Hello'
+        },
+        methods： {
+            reverseString: function() {
+                console.log('computed');
+                return this.msg.split('').reverse().join('');
+            }
+        }
+    })
+```
+
+
+
+### 使用计算属性（computed）实现侦听器效果，对数据的实时侦听
+
+```js
+因为computed 是依赖于数据data中的对应数据，来实现缓存的，所以也可以理解成需要对数据的实时侦听
+```
+
+
+
+```js
+  <div id="app">
+        <div>
+            <span>姓：</span>
+            <span>
+               <input type="text" v-model='firstName'>
+           </span>
+        </div>
+        <div>
+            <span>名：</span>
+            <span>
+            <input type="text" v-model='lastName'>
+        </span>
+        </div>
+        <div>{{fullName}}</div>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'zz',
+            lastName: '01'
+           
+        },
+        computed: {
+            fullName() {
+                return this.firstName + this.lastName;
+            }
+        }
+    })
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 侦听器
 
+> 数据元旦发生变化就通知侦听器所绑定的方法
+
+
+
+
+
+![image-20200910153722609](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910153722609.png)
+
+
+
+### 1.侦听器的应用场景
+
+
+
+* 数据变化时执行异步或开销比较大的操作
+
+
+
+### 基本使用：例
+
+```js
+ <div id="app">
+        <div>
+            <span>姓：</span>
+            <span>
+               <input type="text" v-model='firstName'>
+           </span>
+        </div>
+        <div>
+            <span>名：</span>
+            <span>
+            <input type="text" v-model='lastName'>
+        </span>
+        </div>
+        <div>{{fullName}}</div>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'zz',
+            lastName: '01',
+            fullName: 'zz01',
+        },
+        watch: {
+            //firstName  lastName 必须要与data中的一样，代表了侦听那个数据的变化
+            //val 指的是数据改变之后的最新值
+            firstName: function(val) {
+                this.fullName = val + this.lastName
+            },
+            lastName(val) {
+                this.fullName = this.firstName + val
+            }
+        }
+    })
+```
+
+
+
+初始：
+
+![image-20200910161003975](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910161003975.png)
+
+![image-20200910161107638](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910161107638.png)
+
+添加侦听器后：
+
+![image-20200910161003975](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910161003975.png)
+
+![image-20200910160943964](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910160943964.png)
+
+
+
+### 基本应用场景——验证用户名是否可用案例
+
+```js
+   <div id="app">
+        <div>
+            <span>用户名：</span>
+			<!--lazy  是将v-model的默认input事件改成change事件-->
+            <span><input type="text" v-model.lazy='uname' ></span>
+            <span>{{tip}}</span>
+            <span></span>
+        </div>
+    </div>
+
+
+
+</body>
+<script>
+    //需求:输入框中输入姓名，失去焦点时调取后台接口验证是否存在,
+    //如果已经存在,提示从新输入,如果不存在,提示可以使用。
+
+
+    // 1.通过v-model实现数据绑定
+
+    // 2.需要提供提示信息
+
+    // 3.需要侦听器监听输入信息的变化
+    /*
+    *   侦听器
+        1.采用侦听器监听用户名的变化
+        2.调用后台接口进行验证
+        3.根据验证的结果调整提示信息
+    */
+
+    // 4.需要修改触发的事件（指的是输入框失去焦点触发事件）
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            uname: '',
+            tip: ''
+        },
+        methods: {
+            //uname形参
+            checkName(uname) {
+                //调用接口，但是可用使用定时任务的方式模拟接口调用
+
+                //箭头函数是为了获取到data的数据，因为 function 的this指向的是window，不是指向vue实例的
+                setTimeout(() => {
+                    //模拟接口调用
+                    if (uname !== '') {
+                        if (uname == 'admin') {
+                            this.tip = '用户名已经存在，请更换'
+                        } else {
+                            this.tip = '用户名可以使用'
+                        }
+                    } else {
+                        this.tip = '请输入用户名'
+                    }
+
+                    // console.log(this.tip);
+                    // console.log(this);
+                }, 300)
+
+            }
+        },
+        watch: {
+            uname(val) {
+                //调用后台接口验证用户名是否可用
+
+                //将最新输入的用户名传入checkName函数进行验证
+                this.checkName(val);
+
+                //修改提示信息
+                this.tip = '正在验证...';
+
+            }
+        }
+    })
+```
+
+
+
+
+
+
+
+### 使用计算属性（computed）的实现
+
+```js
+因为computed 是依赖于数据data中的对应数据，来实现缓存的，所以也可以理解成需要对数据的实时侦听
+```
+
+
+
+```js
+  <div id="app">
+        <div>
+            <span>姓：</span>
+            <span>
+               <input type="text" v-model='firstName'>
+           </span>
+        </div>
+        <div>
+            <span>名：</span>
+            <span>
+            <input type="text" v-model='lastName'>
+        </span>
+        </div>
+        <div>{{fullName}}</div>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'zz',
+            lastName: '01'
+           
+        },
+        computed: {
+            fullName() {
+                return this.firstName + this.lastName;
+            }
+        }
+    })
+```
+
+
+
+## 过滤器
+
+> 作用：格式化数据，比如将字符串格式化为首字母大写，将日期格式化为指定格式等
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 生命周期
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
