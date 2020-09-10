@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <span>姓：</span>
+            <span>
+               <input type="text" v-model='firstName'>
+           </span>
+        </div>
+        <div>
+            <span>名：</span>
+            <span>
+            <input type="text" v-model='lastName'>
+        </span>
+        </div>
+        <div>{{fullName}}</div>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'zz',
+            lastName: '01',
+            // fullName: 'zz01',
+        },
+        computed: {
+            fullName() {
+                return this.firstName + this.lastName;
+            }
+        },
+        watch: {
+            //firstName  lastName 必须要与data中的一样，代表了侦听那个数据的变化
+            //val 指的是数据改变之后的最新值
+            // firstName: function(val) {
+            //     this.fullName = val + this.lastName
+            // },
+            // lastName(val) {
+            //     this.fullName = this.firstName + val
+            // }
+        }
+    })
+</script>
+
+</html>

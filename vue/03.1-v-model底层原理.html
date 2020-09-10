@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+
+        <!-- <input type="text" @input='msg=$event.target.value' :value='msg'> -->
+        <input type="text" @input='handle1' :value='msg'>
+        <span>{{msg}}</span>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            msg: ''
+
+        },
+        methods: {
+            handle(e) {
+                console.log(e.target.value);
+            },
+            handle1(event) {
+                this.msg = event.target.value;
+            }
+        }
+    })
+</script>
+
+</html>

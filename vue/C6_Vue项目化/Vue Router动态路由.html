@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>基础动态路由</title>
+  <meta charset="utf-8">
+  <script src="../js/2.6.11-vue.min.js"></script>
+  <script src="../js/3.1.3-vue-router.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li>
+        <!-- 5 -->
+        <router-link to="/">Home</router-link>
+      </li>
+      <li @click="add">
+        <router-link :to="'/about/' + num">About</router-link>
+      </li>
+    </ul>
+    <router-view></router-view>
+  </div>
+  <script type="text/javascript">
+  // 1
+    let Home = { template: '<h1>This is Home!</h1>' }
+    let About = {
+      template: `<div>
+        <h1>This is About!</h1>
+        <p>num: {{ $route.params.num }}</p>
+       </div>`
+    }
+    // 2
+    let routes = [
+      { path: '/', component: Home },  //注意匹配任意路径
+      { path: '/about/:num', component: About }
+    ]
+    // 3
+    let router = new VueRouter({
+      routes
+    })
+    // 4
+    let app = new Vue({
+      data() {
+        return { num: 0 }
+      },
+      methods: {
+        add() { this.num++ }
+      },
+      router
+    }).$mount('#app')
+  </script>
+</body>
+
+</html>

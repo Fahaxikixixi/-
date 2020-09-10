@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <form action="">
+            <div>用户名：
+                <input type="text" @keyup.delete="handle1" v-model="uname">
+            </div>
+            <div>密码：
+                <input type="text" @keyup.enter="handle" v-model="pwd">
+            </div>
+            <div>
+                <input type="button" @click.enter="handle" value="提交">
+            </div>
+            <input type="text" @keyup='handle2'>
+            <input type="text" @keyup.83='handle3' v-model="us">
+            <input type="text" @keyup.f1='handle3' v-model="us">
+        </form>
+    </div>
+</body>
+<script>
+    Vue.config.keyCodes.f1 = 83;
+    new Vue({
+        el: "#app",
+        data: {
+            uname: '',
+            pwd: '',
+            us: ''
+        },
+        methods: {
+            handle() {
+                //按回车键
+                console.log(this.uname + '--' + this.pwd);
+            },
+            handle1() {
+                //按delete 
+                this.uname = null;
+            },
+            handle2(e) {
+
+                console.log(e.keyCode);
+            },
+            handle3(e) {
+                //按 s 
+                console.log(83);
+
+            }
+        }
+    })
+</script>
+
+</html>

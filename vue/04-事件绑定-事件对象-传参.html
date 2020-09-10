@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        button {
+            padding: 5px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+
+        <button v-on:click='num++'>+</button>
+        <!---事件绑定简写--->
+        <button @click='num--'>-</button>
+
+
+        <!---事件函数的调用方式-->
+        <!---直接调用-->
+        <!--直接调用的方式 ,默认传递事件对象，在函数内的第一个参数默认就是事件对象-->
+        <button v-on:click='fn'>+</button>
+
+        <!---调用函数--->
+        <!---如果是改方法调用，则事件对象必须作为最后一个参数进行传递，并且事件对象名称必须是$event-->
+        <button @click='fn1("q",$event)'>-</button>
+    </div>
+
+
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            num: 3
+        },
+        methods: {
+            // 直接调用的方式 ,默认传递事件对象，在函数内的第一个参数默认就是事件对象
+            fn: function(s) {
+                this.num++; //函数内的需要使用 data内的数据，需要在前面加一个  this
+                console.log(s);
+            },
+            fn1(e, a) {
+                console.log(e);
+                console.log(a);
+                return this.num--; //函数内的需要使用 data内的数据，需要在前面加一个  this
+            }
+        }
+    })
+</script>
+
+</html>

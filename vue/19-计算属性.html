@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <!--- 就比如 这个让字符翻转就有点复杂， 使用计算属性可以让模板更加简洁-->
+        <div>{{msg.split('').reverse().join('')}}</div>
+
+
+        <div>{{reverseString}}</div>
+        <div>{{reverseString}}</div>
+        <!--这里执行了两次，下面函数内的打印computed 只执行了一次，
+        因为computed计算属性是有缓存的,所以第一次执行后就缓存了，当第二次执行时就直接拿第一次执行的结果-->
+    </div>
+</body>
+<script>
+    /*
+     *只是让html的模板的写起来简单简洁些
+     *       
+     */
+
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'Hello'
+        },
+        computed: {
+            reverseString: function() {
+                console.log('computed');
+                return this.msg.split('').reverse().join('');
+            }
+        }
+    })
+</script>
+
+</html>

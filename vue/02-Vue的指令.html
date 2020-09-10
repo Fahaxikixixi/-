@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.min.js"></script>
+    <style>
+        .box1 {
+            height: 150px;
+            width: 200px;
+            background-color: greenyellow;
+        }
+        
+        .box {
+            height: 150px;
+            width: 200px;
+            background-color: greenyellow;
+        }
+        
+        .active {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vs">{{mes}}</div>
+    <div id="datas"></div>
+</body>
+<script>
+    var Ais = new Vue({
+        el: '#vs',
+        data: function() {
+            return {
+                mes: 'P_looo'
+            }
+        }
+    });
+    var data = new Vue({
+        el: '#datas',
+        data: () => {
+            return {
+                msg: 'Z_lyyy',
+                msg2: '<h2>ZGG01</h2>',
+                isShow: false,
+                isShow2: true,
+                isgreen: true,
+                menuLists: [{
+                    id: 1,
+                    name: '呜呜呜',
+                    age: 18
+                }, {
+                    id: 2,
+                    name: '嘻嘻嘻',
+                    age: 19
+                }, {
+                    id: 3,
+                    name: '哈哈哈',
+                    age: 20
+                }],
+                person: {
+                    name: 'P_looo',
+                    age: 20,
+                    duck: '不必'
+                }
+            }
+        },
+        //v-text  ==> innerText
+        //v-html  ==> innerHtml
+        //v-if      数据属性对应的值 如果为假 则不在页面中渲染 反之亦然
+        //              假相当于：removeChild（）==>直接删除元素
+        //              真相当于：appendChild（）
+
+        //v-show    控制dom元素的显示隐藏（写在行内） display：none/block；
+        //              不像v-if   直接删除或者生成元素  v-show  是元素标签还在页面中只是隐藏了
+
+        //如果需要频繁切换显示隐藏(例：导航栏)===> v-show
+        //如果运行是条件很少改变  ===> v-if
+
+        //v-bind  绑定标签上的属性（（系统内置属性和自定义属性）例：类名等）
+        //           例（绑定类名）： 1. v-bind:class="{active:isgreen}"   2.v-bind:aaa='text' ==> (绑定自定义属性)
+        //           简写===>     :aaa='text'   单独写一个 ： 冒号
+        //      函数写在methods：{}  内
+
+
+        //v-on:原生事件名 = '函数名' ===>  简便写法 ===> @
+
+        //v-for         
+        //例：数组
+        // <ul>
+        //    <li v-for='(item,index) in menuLists'>
+        //        <h5>{{item.id}}</h5>
+        //        <h3>{{item.name}}</h3>
+        //        <em>{{item.age}}</em>
+        //        <h5>{{index}}</h5>
+        //    </li>
+        //</ul>
+        //例：对象
+        // <ul>
+        //    <li v-for='(value,key) in person'>
+        //       {{key}}==={{value}}
+        //    </li>
+        //</ul>
+
+        //Math.random() 产生随机数
+        template: `
+        <div class="app">
+            <h2>{{msg}}</h2>
+            <p v-text="msg"></p>
+            <div v-html="msg2"></div>
+            <div v-text="2+2"></div>
+            <div v-if="isShow">不显示</div>
+            <div v-if="isShow2">显示</div>
+
+            <div v-if="Math.random()>0.5">已显示</div>
+            <div v-else>显示</div>
+            
+            <div v-show="isShow2">显示</div>
+            <div v-show="isShow">不显示</div>
+
+            <div class="box" v-on:click='clickHandler'   v-bind:class="{active:isgreen}"></div>
+            <div class="box1" v-bind:class="{active:!isgreen}"></div>
+
+
+            <ul>
+                <li v-for='(item,index) in menuLists'>
+                    <h5>{{item.id}}</h5>
+                    <h3>{{item.name}}</h3>
+                    <em>{{item.age}}</em>
+                    <h5>{{index}}</h5>
+                </li>
+            </ul>
+
+            <ul>
+                <li v-for='(value,key) in person'>
+                   {{key}}==={{value}}
+                </li>
+            </ul>
+        </div>
+        `,
+        methods: {
+            clickHandler(e) {
+                // console.log(e);
+                this.isgreen = !this.isgreen
+                    // this.isgreen = false
+            }
+        }
+    });
+</script>
+
+</html>

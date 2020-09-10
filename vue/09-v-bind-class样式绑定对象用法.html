@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        .active {
+            border: 2px solid purple;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .error {
+            background-color: royalblue;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div :class="{active:isActive,error:isError}"></div>
+        <button @click="handle">切换</button>
+    </div>
+</body>
+<script>
+    //class 样式处理
+
+    // 对象语法
+    //      <div v-bind:class="{ active: isActive }"></div>
+    // 数组语法
+    //      <div v-bind:class= [activeClass, errorClass]"></div>
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            isActive: true,
+            isError: false
+        },
+        methods: {
+            handle() {
+                //控制isAtive的值在true 和false 之间进行切换
+                this.isActive = !this.isActive,
+                    this.isError = !this.isError
+            }
+        }
+    })
+</script>
+
+</html>

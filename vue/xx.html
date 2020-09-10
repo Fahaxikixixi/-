@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js">
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div :key='v' v-if='v==2' v-for='(item,index,v) in person'>{{item}}---{{index}}---{{v}}</div>
+    </div>
+
+</body>
+<script>
+    var vue1 = new Vue({
+        el: '#app',
+        data: {
+            person: {
+                val1: {
+                    age: 18,
+                    name: '21Y'
+                },
+                val2: {
+                    age: 19,
+                    name: 'P_looo'
+                },
+                val3: {
+                    age: 20,
+                    name: 'SOGOOO'
+                }
+            }
+        },
+        methods: {
+            handle(e) {
+                //修改URL地址
+                this.url = 'https://www.csdn.net/',
+                    console.log(e);
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        .active {
+            border: 2px solid purple;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .error {
+            background-color: royalblue;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .text {
+            color: floralwhite;
+        }
+        
+        .base {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div :class="[activeClass,errorClass,{text:isText}]">测试样式</div>
+        <div :class='arrClass'></div>
+        <div :class='objClass'></div>
+
+        <!--默认的class会会被保留-->
+
+        <div :class='objClass' class="base">SOGOOO!</div>
+
+        <button @click="handle">切换</button>
+
+    </div>
+
+
+</body>
+<script>
+    ///样式绑定相关语法细节：
+    //1.对象绑定和数组绑定可以结合使用
+    //2.class绑定的值可以简化操作
+    // 3.默认的class如何处理
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            s: '',
+            activeClass: 'active',
+            errorClass: 'error',
+            isText: true,
+            arrClass: ['active', 'error'],
+            objClass: {
+                active: true,
+                error: true
+            }
+        },
+        methods: {
+
+            handle() {
+                //控制isAtive的值在true 和false 之间进行切换
+                this.activeClass = '';
+                this.isText = !this.isText;
+                this.objClass.error = false;
+                console.log(this.s);
+            }
+        }
+    })
+</script>
+
+</html>

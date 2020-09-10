@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        #box {
+            width: 150px;
+            height: 150px;
+            background-color: green;
+        }
+        
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: greenyellow;
+        }
+        
+        #box2 {
+            width: 50px;
+            height: 50px;
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div @click='box' id="box">box
+            <div @click.stop='box1' id="box1">box1
+                <!--阻止冒泡-->
+                <div @click="box2" id="box2">box2</div>
+            </div>
+        </div>
+        <a href="https://www.baidu.com" @click.prevent='fandle'>跳转</a>
+    </div>
+</body>
+<script>
+    /*
+      事件修饰符:
+      语法: @事件名.修饰符="事件处理函数"  
+      .stop 阻止冒泡    .prevent 阻止默认行为   .capture 捕获  .self 事件源为自身   .once 只执行一次
+
+      按键修饰符:
+      键盘按相应键时触发
+      .enter  .tab  .delete (捕获“删除”和“退格”键)  .esc  .space  .up   .down   .left   .right
+      其它的键可以通过  .按键值 的方式使用
+      自定义按键修饰符: Vue.config.keyCodes.按键名= 按键值
+      */
+    new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            box() {
+                console.log('box');
+            },
+            box1() {
+                console.log('box1');
+            },
+            box2() {
+                console.log('box2');
+            },
+            fandle() {
+                console.log('阻止跳转');
+            }
+        }
+    })
+</script>
+
+</html>

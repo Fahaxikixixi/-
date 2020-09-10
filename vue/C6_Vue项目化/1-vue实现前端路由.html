@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue实现前端路由</title>
+  <meta charset="utf-8">
+  <script src="../js/2.6.11-vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 自定义组件router-link -->
+    <ul>
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/about">About</router-link></li>
+    </ul>
+    <!-- 自定义组件router-view -->
+    <router-view></router-view>
+  </div>
+  <script type="text/javascript">
+    //1.自定义组件模板
+    let Home = {
+      template: '<h1>This is Home!</h1>'
+    }
+    let About = {
+      template: '<h1>This is About!</h1>'
+    }
+    // 2.为组件配置路径
+    let routesArr = [
+      { path: '/', component: Home },
+      { path: '/about', component: About }
+    ]
+    //---------------------------------------
+
+    //自定义组件模板
+    // 父组件属性传入子组件对应属性，父组件内容传入子组件默认插槽
+    let RouterLink = {
+      props: ['to'],
+      template: '<a :href="to"><slot></slot></a>'
+    }
+    //（挂载动态视图组件）
+    let RouterView = {
+      data() {
+        return {
+          url: window.location.pathname // 获取浏览器地址
+        }
+      },
+      computed: {
+        ViewComponent() { // 根据浏览器地址返回相应组件
+          return routesArr.find(routeObj => routeObj.path === this.url).component
+        }
+      },
+      render(h) {
+        return h(this.ViewComponent)  //
+      }
+    }
+
+    //在vue实例中注册组件
+    let vm = new Vue({
+      el: '#app',
+      components: { RouterLink, RouterView }
+    })
+  </script>
+</body>
+
+</html>

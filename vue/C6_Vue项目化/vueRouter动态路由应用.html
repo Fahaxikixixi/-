@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>动态路由</title>
+  <meta charset="utf-8">
+  <script src="../js/2.6.11-vue.min.js"></script>
+  <script src="../js/3.1.3-vue-router.min.js"></script>
+  <script>
+    window.onload = function () {
+      //1-定义组件
+      let Page = {
+        template: `<div>当前页面页数为：{{$route.params.pageNum}}</div>`,
+        // template: `<div>当前页面页数为：{{$route.query.pageNum}}</div>`,
+      }
+      // 2-配置组件与路由路径
+      let routes = [
+        {
+          path: '/page/:pageNum', name: 'MyPage', component: Page,
+        },
+      ]
+      // 3-实例化routes配置
+      let router = new VueRouter({
+        routes,
+      })
+      //4-将路由对象挂载到vue对象上
+      new Vue({
+        el: '#app',
+        router,
+        mounted: function () {
+          //设置页面默认路由参数(this.$router.push)
+          //赋值默认路由参数
+          if (!this.$route.params.pageNum) {
+            this.$router.push('/page/1');
+            // this.$router.push({name:'MyPage','params':{pageNum:'1'}});
+          }
+        },
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li>
+        <router-link to="/page/1">第一页</router-link>
+      </li>
+      <li>
+        <router-link to="/page/2">第二页</router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'MyPage','params':{pageNum:'3'}}">第三页</router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'MyPage','params':{pageNum:'4'}}">第四页</router-link>
+      </li>
+      <!-- <li>
+          <router-link :to="{name:'MyPage','query':{pageNum:'5'}}">第五页</router-link>
+        </li>
+        <li>
+          <router-link :to="{name:'MyPage','query':{pageNum:'6'}}">第六页</router-link>
+        </li> -->
+    </ul>
+    <keep-alive>
+      <router-view :key=""></router-view>
+    </keep-alive>
+  </div>
+</body>
+</html>

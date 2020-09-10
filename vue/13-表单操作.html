@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="./js/vue.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        form div {
+            height: 100%;
+            line-height: 40px;
+        }
+        
+        form div:nth-child(4) {
+            height: auto;
+        }
+        
+        form div span:first-child {
+            display: inline-block;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form action="http://127.0.0.1:5500/12-Tab%E9%80%89%E9%A1%B9%E5%8D%A1%E6%A1%88%E4%BE%8B.html">
+            <div>
+                <span>姓名：</span>
+                <span>
+          <input type="text" v-model='uname'>
+        </span>
+            </div>
+            <div>
+                <span>性别：</span>
+                <span>
+          <input type="radio" id="male"  value="男" v-model='gender'>
+          <label for="male">男</label>
+          <input type="radio" id="female" value="女" v-model='gender'>
+          <label for="female">女</label>
+        </span>
+            </div>
+            <div>
+                <span>爱好：</span>
+                <input type="checkbox" id="ball" value="篮球" v-model='arr'>
+                <label for="ball">篮球</label>
+                <input type="checkbox" id="sing" value="唱歌" v-model='arr'>
+                <label for="sing">唱歌</label>
+                <input type="checkbox" id="code" value="写代码" v-model='arr'>
+                <label for="code">写代码</label>
+            </div>
+            <div>
+                <span>职业：</span>
+                <select v-model='work' multiple=''>
+          <option value="请选择职业" >请选择职业...</option>
+          <option value="教师" >教师</option>
+          <option value="软件工程师" >软件工程师</option>
+          <option value="律师" >律师</option>
+        </select>
+            </div>
+            <div>
+                <span>职业：</span>
+                <select v-model='works'>
+          <option value="请选择职业" >请选择职业...</option>
+          <option value="教师" >教师</option>
+          <option value="软件工程师" >软件工程师</option>
+          <option value="律师" >律师</option>
+        </select>
+            </div>
+            <div>
+                <span>个人简介：</span>
+                <textarea placeholder="请输入" v-model='desc'></textarea>
+            </div>
+            <div>
+                <input type="submit" value="提交" @click.prevent='handle'>
+            </div>
+        </form>
+
+        <div>
+            <h3>姓名：{{uname}}</h3>
+            <h3>性别：{{gender}}</h3>
+            <h3>爱好：{{arr}}</h3>
+            <h3>职业：{{work}}</h3>
+            <h3>职业：{{works}}</h3>
+            <h3>简介：{{desc}}</h3>
+
+        </div>
+
+
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                uname: '21Y',
+                gender: '男',
+                arr: ['篮球'],
+                works: '请选择职业',
+                //职业这个可以是单选也可以是多选，多选的话 就要改写成[]数组  html中select  加上multiple属性   多选时按住ctrl 键  鼠标点击选择就是多选了
+                work: ['律师', '教师'],
+                desc: ''
+            },
+            methods: {
+                handle(e) {
+                    console.log(this.uname);
+                    console.log(this.gender);
+                    console.log(this.arr);
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

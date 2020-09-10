@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>跳转路由</title>
+  <meta charset="utf-8">
+  <script src="../js/3.4.0-jquery.min.js"></script>
+  <script src="../js/2.6.11-vue.min.js"></script>
+  <script src="../js/3.1.3-vue-router.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script> -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    h1 {
+      height: 200px;
+      line-height: 200px;
+      border-bottom: 2px solid seagreen;
+    }
+
+    /* ***********************固定侧边栏部分*************************** */
+    #TreeNavigation {
+      /* width: 300px; */
+      width: 22%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: scroll;
+      text-indent: 1em;
+    }
+
+    #TreeNavigation>ul>li {
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .navLevel_title {
+      height: 40px;
+      line-height: 40px;
+      background-color: antiquewhite;
+    }
+
+    .navLevel_title:hover {
+      color: white;
+    }
+
+    .navLevel_content {
+      background-color: lightblue;
+      text-indent: 2em;
+    }
+
+    .navLevel_content>li {
+      height: 35px;
+      line-height: 35px;
+      white-space: nowrap;
+    }
+
+    .navLevel_content>li:hover {
+      background-color: aquamarine;
+      color: blue;
+    }
+
+    /* 尽量挂载不同类名实现dom操作 */
+    .navLevelClosed {
+      display: none;
+    }
+
+    #content {
+      width: 78%;
+      text-align: center;
+      border: 0px solid red;
+      float: right;
+    }
+
+    .linkArea {
+      font-size: 200%;
+      text-align: center;
+      width: 100%;
+      height: 300px;
+      line-height: 300px;
+      background-color: rgb(170, 241, 218);
+      border-bottom: 1px solid rgb(0, 0, 0);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="TreeNavigation">
+      <ul>
+        <li>
+          <div class="navLevel">
+            <div class="navLevel_title" @click="redirectByPath('/')">Home</div>
+          </div>
+        </li>
+        <li>
+          <div class="navLevel">
+            <div class="navLevel_title" @click="redirectByPath('/about')">About</div>
+            <ul class="navLevel_content navLevelClosed">
+              <!-- 路径路由不传参 -->
+              <li @click="redirectByPath('/about/author')">About - Author</li>
+              <!-- 1.路径路由传参 使用params接收参数-->
+
+              <!-- params异常，应将参数写入路径<li @click="redirectByPath('/about/phone', {phone:'15727545476'})">About - Phone</li> -->
+              <li @click="redirectByPath('/about/phone/15727545476')">About - Phone</li>
+              <li @click="redirectByPath('/about/phone/1549567556@qq.com')">About - QQ</li>
+
+              <!--2.名字路由传参 使用params接收参数-->
+              <li @click="redirectByName('Phone', { phone: '15727545476@sina.com' })">About - Sina</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="navLevel">
+            <div class="navLevel_title" @click="redirectByPath('/about2')">About2</div>
+            <ul class="navLevel_content navLevelClosed">
+              <li><a class="links" href="#link1">About2 - 1</a></li>
+              <li><a class="links" href="#link2">About2 - 2</a></li>
+              <li><a class="links" href="#link3">About2 - 3</a></li>
+              <li><a class="links" href="#link4">About2 - 4</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="navLevel">
+            <div class="navLevel_title" @click="redirectByPath('/about3')">About3</div>
+            <ul class="navLevel_content navLevelClosed">
+              <li><a class="links" href="#link1">About3 - 1</a></li>
+              <li><a class="links" href="#link2">About3 - 2</a></li>
+              <li><a class="links" href="#link3">About3 - 3</a></li>
+              <li><a class="links" href="#link4">About3 - 4</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div id="content">
+      <router-view></router-view>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(function () {
+
+      // 切换二级栏
+      $('.navLevel_title').click(function () {
+        $(this).next('.navLevel_content').slideToggle('slow');//.toggleClass('navLevel_closed')
+      });
+
+      // vue路由与锚链接的解决
+      $('.links').click(function (e) {
+        e.preventDefault();
+        console.log(e.target.href.split('#')[1]);
+        let myLink = e.target.href.split('#')[1];
+        let Olink = document.getElementById(myLink)
+        if (Olink) {
+          Olink.scrollIntoView();
+        } else {
+          console.log('你点击的是组件内的锚链接，而不是路由路径')
+        }
+      })
+    })
+    // 1
+    let Home = { template: '<h1>This is Home!</h1>' }
+    let About = { template: `<div><h1>This is About!</h1><router-view></router-view></div>` }
+    let About2 = {
+      template: `<div>
+      <h1>This is About2!</h1>
+      <div class="linkArea" id="link1">1</div>
+      <div class="linkArea" id="link2">2</div>
+      <div class="linkArea" id="link3">3</div>
+      <div class="linkArea" id="link4">4</div>
+    </div>`}
+    let About3 = {
+      template: `<div>
+      <h1>This is About3!</h1>
+      <div class="linkArea" id="link1">1</div>
+      <div class="linkArea" id="link2">2</div>
+      <div class="linkArea" id="link3">3</div>
+      <div class="linkArea" id="link4">4</div>
+    </div>`}
+
+    let Author = { template: '<p>作者: 吴庆裕</p>' }
+    let Phone = { template: '<p>电话/邮箱: {{ $route.params.phone }}||{{ $route.query.phone }}</p>' }
+
+    // 2
+    let routes = [
+      // 该路径为直接显示组件路径
+      { path: '/', component: Home },
+      {
+        path: '/about',
+        component: About,
+        children: [
+          { name: 'Author', path: 'author', component: Author },
+          { name: 'Phone', path: 'phone/:phone', component: Phone }
+        ]
+      },
+      { path: '/about2', component: About2 },
+      { path: '/about3', component: About3 },
+
+    ];
+    
+    // 3
+    // 原因：在路由中添加了相同的路由
+    // 解决：重写路由的push方法
+    // 注意项目中写法,import Router from 'vue-router
+    const routerPush = VueRouter.prototype.push;
+    VueRouter.prototype.push = function push(location) {
+      return routerPush.call(this, location).catch(error => error)
+    }
+    let router = new VueRouter({
+      routes
+    });
+
+    // 4
+    let app = new Vue({
+      router,
+      methods: {
+        redirectByPath(path, params) {
+          this.$router.push({ path, params })//路径与参数
+        },
+        redirectByName(name, params) {
+          this.$router.push({ name, params })//名字与参数
+        }
+      },
+    }).$mount('#app')
+  </script>
+</body>
+
+</html>

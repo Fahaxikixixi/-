@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>基础嵌套路由</title>
+  <meta charset="utf-8">
+  <script src="../js/2.6.11-vue.min.js"></script>
+  <script src="../js/3.1.3-vue-router.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li><router-link to="/">Home</router-link></li>
+    <li>
+      <div><router-link to="/about">About</router-link></div>
+      <ul>
+        <!-- 5. 嵌套路由，组件分发在父路由的子组件router-view中 -->
+        <li><router-link to="/about/author">About - Author</router-link></li>
+        <li><router-link to="/about/email">About - Email</router-link></li>
+      </ul>
+    </li>
+  </ul>
+  <router-view></router-view>
+</div>
+<script type="text/javascript">
+  
+  // 1.定义组件
+  let Home = { template:'<h2>This is Home!</h2>' }
+  let About = {
+    template:`
+    <div>
+      <h2>This is About!</h2>
+      <router-view></router-view>
+    </div>`
+  }
+  let Author = { template: '<p>Author: lonelydawn</p>' } 
+  let Email = { template: '<p>Email: lonelydawn@sina.com</p>' } 
+
+
+  // 2.配置组件路由
+  let routes = [ 
+    { path: '/', component: Home },
+    { 
+      path: '/about', 
+      component: About,
+      children: [ //嵌套子路由
+        { path: 'author', component: Author },
+        { path: 'email', component: Email }
+      ]
+    }
+  ]
+
+  // 3
+  let router = new VueRouter({
+    routes
+  })
+  
+  // 4
+  let app = new Vue({
+    router
+  }).$mount('#app')
+
+  
+</script>
+</body>
+</html>

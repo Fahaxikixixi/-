@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <style>
+        #app {
+            height: 100%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <input type="text" v-model.number='age' placeholder="添加了修饰符">-----
+
+        </div>
+        <div>
+            <input type="text" v-model.trim='info' placeholder="添加了修饰符">-----
+
+        </div>
+        <div>
+            <input type="text" v-model.lazy='aning' placeholder="添加了修饰符">-----
+            <span>{{aning}}</span>
+        </div>
+
+
+
+        <button @click='handle'>点击</button>
+    </div>
+</body>
+<script>
+    // * number :转化为数值
+    // * trim :去掉开始和结尾的空格  中间的是无法去除的
+    // * lazy:将input事件切换为change事件
+
+    new Vue({
+        el: '#app',
+        data: {
+            age: '',
+
+            info: '',
+            aning: ''
+
+
+        },
+        methods: {
+            handle() {
+                console.log('上有修饰符下无');
+                console.log(this.age + 13);
+
+
+            }
+        }
+    })
+</script>
+
+</html>

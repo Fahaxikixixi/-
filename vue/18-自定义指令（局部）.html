@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>自定义指令-局部</p>
+        <input type="text" v-color="msg">
+        <input type="text" v-focus>
+    </div>
+</body>
+<script>
+    /*
+     *       自定义指令
+     */
+
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'orange'
+        },
+        methods: {},
+        directives: {
+            color: {
+                bind: function(el, binding) {
+                    el.style.backgroundColor = binding.value
+                }
+            },
+            focus: {
+                inserted(el) {
+                    el.focus();
+                }
+            }
+        }
+    })
+</script>
+
+</html>

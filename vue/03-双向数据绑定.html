@@ -17,6 +17,10 @@
         <input type="text" v-model='msgs' name="" id="">
         <h3>{{msgs}}</h3>
     </div>
+
+    <div id="app2">
+        <input type="text" v-model='age'>
+    </div>
 </body>
 <script>
     var vue1 = new Vue({
@@ -33,6 +37,12 @@
             return {
                 msgs: '呜呜呜'
             }
+        }
+    });
+    new Vue({
+        el: '#app2',
+        data: {
+            age: "21Y"
         }
     })
 </script>
