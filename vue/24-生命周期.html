@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <button @click='update'>更新</button>
+        <button @click='distroy'>销毁</button>
+    </div>
+</body>
+<script>
+    // * 挂载 (初始化相关属性)==>页面加载时触发以下4个函数
+    //   ①	beforeCreate
+    //   ②	created
+    //   ③	beforeMount
+    //   ④	**mounted ==>（重要）该函数被触发，就说明页面初始化完成模板加载完毕，接下来就可以添加数据了（请求接口将获取的数据填充）**
+    // * 更新(元素或组件的变更操作)==>页面数据，也就是data 更新改变时 触发
+    //   ①    beforeUpdate
+    //   ②    updated
+    // * 销毁(销毁相关属性)
+    //   ①    beforeDestroy
+    //   ②    destroyed
+    new Vue({
+        el: '#app',
+        data: {
+            msg: '生命周期'
+        },
+        methods: {
+            update() {
+                this.msg = 'hello!';
+            },
+            distroy() {
+                //该方法会销毁一些资源和属性  一般是data内的
+                this.$destroy();
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreate');
+        },
+        created() {
+            console.log('created');
+        },
+        beforeMount() {
+            console.log('beforeMount');
+        },
+        mounted() {
+            console.log('mounted');
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate');
+        },
+        updated() {
+            console.log('updated');
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy');
+        },
+        destroyed() {
+            console.log('destroyed');
+        },
+
+    })
+</script>
+
+</html>

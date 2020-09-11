@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        .book {
+            background-color: orange;
+        }
+        
+        .grid {
+            margin: auto;
+            width: 500px;
+            text-align: center;
+        }
+        
+        .grid table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed orange;
+            height: 35px;
+            line-height: 35px;
+        }
+        
+        .grid th {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div>
+                <h1>图书管理</h1>
+                <div class="book">
+                    <div>
+                        <label for="id">
+                            编号:
+                        </label>
+                        <input type="text" name="" id="id" v-model='id' :disabled='flag'>
+                        <label for="name">
+                            名称:
+                        </label>
+                        <input type="text" name="name" id="" v-model='name'>
+                        <button @click='handle'>提交</button>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr :key='item.id' v-for='item in books'>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>2020-9-11</td>
+                        <td>
+                            <a href="" @click.prevent='toEdit(item.id)'>修改</a>
+                            <span>|</span>
+                            <a href="" @click.prevent>删除</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            flag: false,
+            books: [{
+                id: 1,
+                name: '三体1',
+                date: ''
+            }, {
+                id: 2,
+                name: '三体2',
+                date: ''
+            }, {
+                id: 3,
+                name: '三体3',
+                date: ''
+            }, {
+                id: 4,
+                name: '三体4',
+                date: ''
+            }]
+        },
+        methods: {
+            handle() {
+
+                if (this.flag) {
+                    //flag=true  就是编辑修改操作
+                    //就是根据当前的ID去更新数组中对应的数据
+
+                    //恢复边框可输入状态
+                    this.flag = false;
+                    //清空表单
+                    this.id = '';
+                    this.name = '';
+                } else {
+                    //
+                    //添加图书
+                    var book = {};
+                    book.id = this.id;
+                    book.name = this.name;
+                    book.date = '';
+                    this.books.push(book);
+                    //清空表单
+                    this.id = '';
+                    this.name = '';
+                }
+
+
+
+
+
+            },
+            toEdit(id) {
+                //禁止修改id
+                this.flag = true;
+
+                //根据id查询出对应数据
+
+                //item  就是books 数组  ，item是为了接收books数组的形参   book接收符合id与数组id相匹配的数据
+                var book = this.books.filter(function(item) {
+                    // console.log(item);
+                    return item.id == id;
+
+                });
+                console.log(book);
+                //将获取到信息填充到表单  filter返回的是一个数组  所以book[0].id  才能输出对应数据
+                this.id = book[0].id;
+                this.name = book[0].name;
+            }
+        }
+    })
+</script>
+
+</html>

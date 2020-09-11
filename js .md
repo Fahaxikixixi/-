@@ -11014,7 +11014,7 @@ git checkout -- readme.txt,如下所示：
 
 ![image-20200903112742607](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200903112742607.png)
 
-![image-20200903164953163](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200903164953163.png)
+![](https://s1.ax1x.com/2020/09/11/wYO68P.png)
 
 
 
@@ -11183,21 +11183,7 @@ or
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![image-20200903165031341](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200903165031341.png)
+![image-20200903165031341](https://s1.ax1x.com/2020/09/11/wYO68P.png)
 
 
 
@@ -11267,11 +11253,11 @@ $ssh -T git@github.com
 
 
 
-![image-20200908094630838](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200908094630838.png)
+![image-20200908094630838](https://s1.ax1x.com/2020/09/11/wYX98x.png)
 
 
 
-## 插值表达式
+## 插值表达式{{}}
 
 v-cloak 
 
@@ -12081,7 +12067,7 @@ v-model 会忽略所有表单元素的 value、checked、selected attribute 的�
 >
 > })
 
-
+**局部的 directives  全局directive    相差一个s**
 
 ### 例：
 
@@ -12181,7 +12167,7 @@ new Vue({
 
 >   注意
 >
-> ​		1. 局部的 directives  全局directive    相差一个s
+> ​		1. **局部的 directives  全局directive    相差一个s**
 >
 > ​		 2.局部的是写在vue 实例里面的
 
@@ -12385,7 +12371,7 @@ new Vue({
 
 
 
-![image-20200910153722609](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910153722609.png)
+![image-20200910153722609](https://s1.ax1x.com/2020/09/11/wYXpP1.png)
 
 
 
@@ -12442,15 +12428,15 @@ new Vue({
 
 初始：
 
-![image-20200910161003975](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910161003975.png)
+![image-20200910161003975](https://s1.ax1x.com/2020/09/11/wYOz5R.png)
 
-![image-20200910161107638](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910161107638.png)
+![image-20200910161107638](https://s1.ax1x.com/2020/09/11/wYOvVJ.png)
 
 添加侦听器后：
 
-![image-20200910161003975](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910161003975.png)
+![image-20200910161003975](https://s1.ax1x.com/2020/09/11/wYOz5R.png)
 
-![image-20200910160943964](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200910160943964.png)
+![image-20200910160943964](https://s1.ax1x.com/2020/09/11/wYOxa9.png)
 
 
 
@@ -12587,7 +12573,81 @@ new Vue({
 
 ## 过滤器
 
-> 作用：格式化数据，比如将字符串格式化为首字母大写，将日期格式化为指定格式等
+> 作用：格式化数据（就是处理数据），比如将字符串格式化为首字母大写，将日期格式化为指定格式等
+
+> **一定要加return  因为一定会有返回值的**
+
+
+
+![image-20200911091729164](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200911091729164.png)
+
+### 1.全局过滤器
+
+```js
+//filter 为过滤器关键字    value  是接收的要处理的数据
+Vue.filter('过滤器名称'，function(value){
+    //return  一定要 因为一定需要返回值
+   return  //过滤器业务逻辑
+})
+```
+
+
+
+
+
+### 2.过滤器的使用
+
+```js
+<div>{{msg | upper}}</div>
+
+<div>{{msg | upper | lower}}</div>
+
+<div v-bind:id='id | formatId'></div>
+```
+
+
+
+### 3.局部过滤器
+
+**注意局部的 filters  比全局的 filter  多一个s**
+
+```js
+
+
+var vue1 = new Vue({
+        el: '#app',
+        data: {
+            msg: ''
+        },
+        filters: {
+            //局部过滤器
+            //uppers  过滤器名称（自定义）
+            uppers: function(val) {
+                return val.charAt(0).toUpperCase() + val.slice(1);
+            }
+        }
+    })
+```
+
+
+
+### 4.带参数的过滤器
+
+```js
+Vue.filter('format',function(value,arg){
+    //value  指的是要处理的数据   arg指的是传递的参数，需要传递更多参数直接后面加就可以了
+})
+```
+
+
+
+#### 使用
+
+
+
+```js
+<div>{{date | format('yyyy-MM-dd')}}</div>
+```
 
 
 
@@ -12595,21 +12655,17 @@ new Vue({
 
 
 
+## 全局与局部的区别
 
 
 
+new Vue    实例本身就是一个组件，
 
+自定义指令 和 过滤器 都有全局和局部的
 
+局部的只能在本组件内使用
 
-
-
-
-
-
-
-
-
-
+全局的可以在如何地方使用
 
 
 
@@ -12619,6 +12675,147 @@ new Vue({
 
 
 
+### 1.主要阶段
+
+* 挂载 (初始化相关属性)==>页面加载时触发以下4个函数
+  ①	beforeCreate
+  ②	created
+  ③	beforeMount
+  ④	**mounted ==>（重要）该函数被触发，就说明页面初始化完成模板加载完毕，接下来就可以添加数据了（请求接口将获取的数据填充）**
+* 更新(元素或组件的变更操作)==>页面数据，也就是data 更新改变时 触发
+  ①    beforeUpdate
+  ②    updated
+* 销毁(销毁相关属性)
+  ①    beforeDestroy
+  ②    destroyed
+
+
+
+### 2.Vue实例的产生过程
+
+①beforeCreate 在实例初始化之后,数据观测和事件配置之前被调用。
+②created 在实例创建完成后被立即调用。
+③beforeMount 在挂载开始之前被调用。
+④mounted el被新创建的vm.$el替换,并挂载到实例上去之后调用该钩子。
+⑤beforeUpdate 数据更新时调用,发生在虚拟DOM打补丁之前。
+⑥updated 由于数据更改导致的虚拟DOM重新渲染和打补丁，在这之后会调用该钩子。
+⑦beforeDestgoy 实例销毁之前调用。
+⑧destroyed 实例销毁后调用。
+
+
+
+![](https://cn.vuejs.org/images/lifecycle.png)
+
+
+
+
+
+## Vue中的数组操作
+
+
+
+### 1.变异方法(修改原有数据)
+
+​	**Vue 对这些方法进行了响应式的处理，所以这些在使用的时候会有响应式效果**
+
+* push( ) 添加
+* pop( )删除
+* shift( )
+* unshift( )
+* splice( )删除数组指定元素
+* sort( )排序
+* reverse( )翻转数组
+
+### 2.替换数组(生成新的数组，不会对原始数组进行修改)
+
+* filter( )对数组中的**每一项**运行回调函数，该函数返回结果是 true 的项，将组成新的数组（返回值就是这个新					的数组）。不会改变原数组
+
+* concat( )连接两个或多个数组，返回结果为**新的数组**。不会改变原数组
+
+* slice( )截取数组
+
+
+
+
+
+### 3.修改响应式数据
+
+**不仅可以作用于数组，也可以作用于对象，实现响应式修改**
+
+* Vue.set(vm.items, indexOftem, newValue)
+* vm.$set(vm.items, indexOfltem, newValue)
+  ①参数一表示要处理的数组名称
+  ②参数二表示要处理的数组的索引
+  ③参数三表示要处理的数组的值
+
+#### 数组使用
+
+```js
+<div id="app">
+        <ul>
+            <li v-for='item in list'>{{item}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            list: ['21Y', 'SOGOOO', 'P_looo'],
+            fname: ''
+        },
+        methods: {
+
+        }
+    });
+    
+//这两句是一样的  只是写法不一样
+    Vue.set(vm.list, 1, 'zz')
+	Vue.$set(vm.list, 1, 'zz')
+
+//初始21Y, SOGOOO, P_looo
+//结果 21Y，zz，P_looo
+```
+
+
+
+#### 对象的使用
+
+
+
+```js
+<div id="app">
+      
+        <div>{{info.name}}</div>
+        <div>{{info.age}}</div>
+        <div>{{info.gender}}</div>
+    </div>
+</body>
+<script>
+    // * Vue.set(vm.items, indexOftem, newValue)
+    // * vm.$set(vm.items, indexOfltem, newValue)
+    //   ①参数一表示要处理的数组名称
+    //   ②参数二表示要处理的数组的索引
+    //   ③参数三表示要处理的数组的值
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            list: ['21Y', 'SOGOOO', 'P_looo'],
+            fname: '',
+            info: {
+                name: 'lisi',
+                age: 12
+            }
+        },
+        methods: {
+
+        }
+    });
+    // vm.info.gender = 'male';  该方式不能达到响应式更改
+
+    //该方法不但可以用于数组，也可以用于对象的响应式更改  浏览器打印台  例：vm.info.gender='aa'  就可以响应式改变
+    vm.$set(vm.info, 'gender', 'female')
+```
 
 
 
@@ -12638,42 +12835,35 @@ new Vue({
 
 
 
+## 准备
 
+1：安装cnpm
+npm install -g cnpm –registry=http://registry.npm.taobao.org
 
+2：安装webpack
+cnpm install webpack -g
 
+3：安装vue-cli脚手架
+cnpm install vue-cli -g
 
+4：创建初始化的webpack包
+vue init webpack 项目名
 
+5：进入项目根目录
+cd 项目名称
 
+5：npm install
+进入项目之后安装依赖，安装成功
 
+注意：在这一步可能会出现这样的错误；因为你打开的是别人的项目，项目之中肯定有node_modules模块，那么先删除掉，再执行npm install命令
+解决办法：
+将no such file or directory,access中指明的文件路径中的node_modules删除：
+rm -r node_modules或者直接在在项目文件夹中删除
 
+然后再重新npm install 安装
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+6：一切准备就绪，启动项目
+npm run dev
 
 # 技能目录
 

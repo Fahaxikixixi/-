@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{date|format('yyyy-MM-dd')}}</div>
+    </div>
+</body>
+<script>
+    Vue.filter('format', function(value, arg) {
+        console.log(arg);
+        if (arg == 'yyyy-MM-dd') {
+            var ret = '';
+            //                  获取年          获取月 因为这个是0-11 所以要+1才是当前的月份    获取当前日期
+            return ret += value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
+        }
+
+        return value
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            date: new Date()
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>
