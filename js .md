@@ -2545,6 +2545,28 @@ console.log(bool2); //输出结果：true。因为每个元素的长度都是两
 
 注意：some()方法的返回值是 boolean 值。
 
+
+
+**如果未设置返回true的条件语句，会执行全部有值元素，最后返回false：**
+
+
+
+
+
+some为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个true。
+
+如果找到了这样一个值，some 将会立即返回 true。
+
+否则，some 返回 false。
+
+callback 只会在那些”有值“的索引上被调用，不会在那些被删除或从来未被赋值的索引上调用。
+
+callback 被调用时传入三个参数：元素的值，元素的索引，被遍历的数组。
+
+
+
+
+
 ### every() 和 some() 的使用场景
 
 every() 和 some() 这两个方法，初学者很容易搞混。要怎么区分呢？你可以这样记：
@@ -12214,7 +12236,7 @@ new Vue({
 
 ## 计算属性
 
-
+**方法名与html{{方法名 }}  需要对上，data里面不需要**
 
 ```js
 
@@ -12365,7 +12387,9 @@ new Vue({
 
 ## 侦听器
 
-> 数据元旦发生变化就通知侦听器所绑定的方法
+> 数据发生变化就通知侦听器所绑定的方法
+>
+> 一般用于数据处理，模板渲染
 
 
 
@@ -12704,6 +12728,53 @@ new Vue    实例本身就是一个组件，
 
 
 
+```js
+ new Vue({
+        el: '#app',
+        data: {
+            msg: '生命周期'
+        },
+        methods: {
+            update() {
+                this.msg = 'hello!';
+            },
+            distroy() {
+                //该方法会销毁一些资源和属性  一般是data内的
+                this.$destroy();
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreate');
+        },
+        created() {
+            console.log('created');
+        },
+        beforeMount() {
+            console.log('beforeMount');
+        },
+        mounted() {
+            console.log('mounted');
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate');
+        },
+        updated() {
+            console.log('updated');
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy');
+        },
+        destroyed() {
+            console.log('destroyed');
+        },
+
+    })
+```
+
+
+
+### 生命周期图例
+
 ![](https://cn.vuejs.org/images/lifecycle.png)
 
 
@@ -12816,6 +12887,390 @@ new Vue    实例本身就是一个组件，
     //该方法不但可以用于数组，也可以用于对象的响应式更改  浏览器打印台  例：vm.info.gender='aa'  就可以响应式改变
     vm.$set(vm.info, 'gender', 'female')
 ```
+
+
+
+
+
+## 组件化
+
+
+
+### 1.需求：
+
+* 能够知道组件化开发思想
+* 能够知道组件的注册方式
+* 能够说出组件间的数据交互方式
+* 能够说出组件插槽的用法
+* 能够说出Vue调试工具的用法
+* 能够基于组件的方式实现业务功能
+
+
+
+
+
+### 2.全局组件注册语法
+
+**data 后面跟随的是函数  函数内返回一个对象**
+
+```vue
+Vue.component(组件名,{
+    data:组件数据,
+    template:组件模板内容
+})
+```
+
+
+
+例：
+
+```js
+//定义一个名为button-counter的新组件
+vue. component ( 'button-counter', {
+	data: function () {
+	  return {
+		count: 0
+	  },
+	template: ' <button v-on: clilzk="count++">点击了{{ count } }次. </button>'
+    })
+```
+
+
+
+### 3.局部组件注册
+
+**components**     **比全局多个  s     **
+
+**且只能在父组件（vue绑定的元素，这里是id=app的元素）内使用其他地方无法使用在全局组件下也不能使用局部组件，全局的随意地方都可以使用**
+
+```js
+var ComponentA = { /* ...*/ }
+var ComponentB = { /* ...*/ }
+var ComponentC = { /* ...*/ }
+new Vue({
+el: "tapp"
+components: {
+    组件名称：组件内容，
+	'component-a': CorponentA,
+	'component-b': ComponentB,
+	'component-c': ComponentC,
+}
+})
+
+```
+
+例
+
+```js
+ <div id="app">
+        <hello-world></hello-world>
+        <hello-zz></hello-zz>
+        <hello-wl></hello-wl>
+    </div>
+
+</body>
+<script>
+    var HelloWorld = {
+        data() {
+            return {
+                msg: 'HelloWorld'
+            }
+        },
+        template: '<div>{{msg}}</div>'
+    };
+    var Hellozz = {
+        data() {
+            return {
+                msg: 'Hellozz'
+            }
+        },
+        template: '<div>{{msg}}</div>'
+    };
+    var Hellowl = {
+        data() {
+            return {
+                msg: 'Hellowl'
+            }
+        },
+        template: '<div>{{msg}}</div>'
+    };
+
+    new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components: {
+            'hello-world': HelloWorld,
+            'hello-zz': Hellozz,
+            'hello-wl': Hellowl
+        }
+    })
+```
+
+
+
+
+
+
+
+### 4.组件的使用
+
+
+
+**如下，vue 绑定的是id为app 的元素， 实际上vue实例也是一个组件，button-counter相当于子组件**
+
+```js
+<div id='app'>
+	<button-counter></button-counter>    
+</div>
+```
+
+```js
+//方式一
+
+Vue.component('button-counter', {
+        data: function() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button @click="count++">点击了{{count}}次</button>'
+    })
+    var vue1 = new Vue({
+        el: '#app',
+        data: '',
+
+    })
+    
+//方式二：将方法单独写出在methods
+       Vue.component('button-counter', {
+        data: function() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button @click="handle">点击了{{count}}次</button>',
+        methods: {
+            handle() {
+                this.count += 2;
+            }
+        }
+    })
+    var vue1 = new Vue({
+        el: '#app',
+        data: '',
+
+    })
+```
+
+### 5.组件注意事项
+
+#### 1.data必须是一个函数
+
+```js
+Vue.component(组件名,{
+    data:组件数据,	//data 是一个函数
+    template:组件模板内容
+})
+
+
+Vue.component(组件名, {
+        data: function() {//data 是一个函数
+            return {
+                
+            }
+        },
+        template: 组件模板内容
+        methods: {
+           
+        }
+    })
+```
+
+
+
+#### 2.组件模板内容必须是单个根元素
+
+* **意思就是你可以添加多个元素，但必须得一个大的元素（盒子）包裹住**
+
+
+
+* 这样会报错，这样就不是单个根元素了，因为两个button是兄弟关系
+
+```js
+template: '<button @click="handle">点击了{{count}}次</button>
+			<button @click="handle">点击了{{count}}次</button>'
+```
+
+* 这样就可以，被一个盒子包裹住，就相当于是一个根元素
+
+```js
+template: '<div>
+			<button @click="handle">点击了{{count}}次</button>
+			<button @click="handle">点击了{{count}}次</button>
+		   </div>'
+```
+
+
+
+#### 3.组件模板内容可以是模板字符串
+
+* 模板字符串需要浏览器提供支持（需要浏览器支持ES6语法）
+
+模板字符串：``  
+
+
+
+
+
+### 6.组件的命名方式
+
+* 短横线方式（推荐）
+
+```js
+Vue.component('my-component',{})
+```
+
+* 驼峰式
+
+  ​	驼峰的组件只能在其他组件的模板中使用，不能在html中使用
+
+  ​	要想在html中使用就需要将大写字母改成小写，且两个单词间添加短横线
+
+```js
+Vue.component('MyComponent',{})
+
+//html中使用改写
+<my-component></my-component>
+```
+
+
+
+
+
+### 7.组件内部通过props接收传递过来的值
+
+**props 的值是一个数组，里面存放的是组件之间传递的值**
+
+```js
+Vue.copponent('menu-item',{
+		props: ['title'],//props  是一个数组
+		terplate: '<div>{{ title }}</div>'
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+### 8.父组件向子组件传值
+
+
+
+#### 1.组件内部通过props接收传递过来的值
+
+```js
+Vue.copponent('menu-item',{
+		props: ['title'],//props  是一个数组
+		terplate: '<div>{{ title }}</div>'
+}
+```
+
+
+
+#### 2.父组件通过属性将值传递给子组件
+
+```js
+//静态方式
+<menu-item title="来自父组件的数据"></menu-item>
+//动态方式
+<menu-item :title="title"></menu-item>
+
+```
+
+
+
+例：
+
+```js
+<div id="app">
+    	//输出：父组件中的内容
+        <div>{{pmsg}}</div>				
+		//子组件本身的的数据 - 来自父组件的值---静态方式-undefined
+        <menu-item title='来自父组件的值---静态方式'></menu-item>
+		//子组件本身的的数据 - 来自父组件的值---动态方式-hello
+        <menu-item :title='ptitle' content='hello'></menu-item>
+    </div>
+
+</body>
+<script>
+    /*
+     *  vue实例本身就是组件也就相当于是父组件
+     *
+     *
+     *
+     */
+
+    //子组件
+    Vue.component('menu-item', {
+        props: ['title', 'content'],
+        data() {
+            return {
+                msg: '子组件本身的的数据'
+            }
+        },
+        template: '<div>{{msg+" - "+title+"-"+content}}</div>'
+    });
+
+    //父组件
+    new Vue({
+        el: '#app',
+        data: {
+            pmsg: '父组件中的内容',
+            ptitle: '来自父组件的值---动态方式'
+        },
+        methods: {},
+
+    })
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 9.组件传值
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
