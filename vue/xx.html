@@ -11,7 +11,8 @@
 
 <body>
     <div id="app">
-        <div :key='v' v-if='v==2' v-for='(item,index,v) in person'>{{item}}---{{index}}---{{v}}</div>
+        <div :key='item.age' v-for='item in person' @click='handle'>{{item}}</div>
+        <button @click='handle'>点击</button>
     </div>
 
 </body>
@@ -19,26 +20,26 @@
     var vue1 = new Vue({
         el: '#app',
         data: {
-            person: {
-                val1: {
-                    age: 18,
-                    name: '21Y'
-                },
-                val2: {
-                    age: 19,
-                    name: 'P_looo'
-                },
-                val3: {
-                    age: 20,
-                    name: 'SOGOOO'
-                }
-            }
+            person: [{
+                age: 18,
+                name: '21Y'
+            }, {
+                age: 19,
+                name: 'P_looo'
+            }, {
+                age: 20,
+                name: 'SOGOOO'
+            }]
         },
         methods: {
             handle(e) {
-                //修改URL地址
-                this.url = 'https://www.csdn.net/',
-                    console.log(e);
+                var aa = this.person.some((item, a, c) => {
+                    // console.log('aa');
+                    console.log(item);
+                    console.log(a);
+                    console.log(c);
+                });
+                // console.log(aa);
             }
         }
     })

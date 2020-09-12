@@ -33,6 +33,13 @@
         .grid th {
             background-color: orange;
         }
+        
+        .grid .total {
+            height: 30px;
+            background-color: orange;
+            line-height: 30px;
+            border-top: 1px solid #C2D89A;
+        }
     </style>
 </head>
 
@@ -46,14 +53,17 @@
                         <label for="id">
                             编号:
                         </label>
-                        <input type="text" name="" id="id" v-model='id' :disabled='flag'>
+                        <input type="text" name="" id="id" v-model='id' :disabled='flag' v-focus>
                         <label for="name">
                             名称:
                         </label>
                         <input type="text" name="name" id="" v-model='name'>
-                        <button @click='handle'>提交</button>
+                        <button @click='handle' :disabled='submitFlag'>提交</button>
                     </div>
                 </div>
+            </div>
+            <div class="total">
+                <span>图书总数：</span><span>{{ total}}</span>
             </div>
             <table>
                 <thead>
@@ -68,11 +78,11 @@
                     <tr :key='item.id' v-for='item in books'>
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
-                        <td>2020-9-11</td>
+                        <td>{{item.date | format('yyyy-MM-dd hh:mm:ss')}}</td>
                         <td>
                             <a href="" @click.prevent='toEdit(item.id)'>修改</a>
                             <span>|</span>
-                            <a href="" @click.prevent>删除</a>
+                            <a href="" @click.prevent='deleteBook(item.id)'>删除</a>
                         </td>
                     </tr>
 
@@ -82,42 +92,102 @@
     </div>
 </body>
 <script>
+    // 5.常用特性应用场景
+    //     过滤器(格式化日期)
+    //     自定义指令(获取表单焦点)
+    //     计算属性(统计图书数量)
+    //     侦听器(验证图书存在性(然后控制提交按钮是否可用))
+    //     生命周期(图书数据处理)
+
+
+    //时间过滤器   需要放在vue实例的上面，放vue实例下面过滤器不生效
+    Vue.filter('format', function(value, arg) {
+        function dateFormat(date, format) {
+            if (typeof date === "string") {
+                var mts = date.match(/(\/Date\((\d+)\)\/)/);
+                if (mts && mts.length >= 3) {
+                    date = parseInt(mts[2]);
+                }
+            }
+            date = new Date(date);
+            if (!date || date.toUTCString() == "Invalid Date") {
+                return "";
+            }
+            var map = {
+                "M": date.getMonth() + 1, //月份 
+                "d": date.getDate(), //日 
+                "h": date.getHours(), //小时 
+                "m": date.getMinutes(), //分 
+                "s": date.getSeconds(), //秒 
+                "q": Math.floor((date.getMonth() + 3) / 3), //季度 
+                "S": date.getMilliseconds() //毫秒 
+            };
+            format = format.replace(/([yMdhmsqS])+/g, function(all, t) {
+                var v = map[t];
+                if (v !== undefined) {
+                    if (all.length > 1) {
+                        v = '0' + v;
+                        v = v.substr(v.length - 2);
+                    }
+                    return v;
+                } else if (t === 'y') {
+                    return (date.getFullYear() + '').substr(4 - all.length);
+                }
+                return all;
+            });
+            return format;
+        }
+
+        return dateFormat(value, arg);
+    });
+    //自定义指令
+    Vue.directive('focus', {
+        inserted(el) {
+            el.focus();
+        }
+    })
+
+
+
+
+
+
+
+
+
     new Vue({
         el: '#app',
         data: {
             id: '',
             name: '',
             flag: false,
-            books: [{
-                id: 1,
-                name: '三体1',
-                date: ''
-            }, {
-                id: 2,
-                name: '三体2',
-                date: ''
-            }, {
-                id: 3,
-                name: '三体3',
-                date: ''
-            }, {
-                id: 4,
-                name: '三体4',
-                date: ''
-            }]
+            submitFlag: false,
+            books: []
         },
         methods: {
+            //提交
             handle() {
 
                 if (this.flag) {
                     //flag=true  就是编辑修改操作
                     //就是根据当前的ID去更新数组中对应的数据
 
+
+                    //因为要获取data中的数据  所以要用箭头函数，因为普通function函数this指向的是window
+                    //some  的回调函数callback 被调用时传入三个参数：元素的值，元素的索引，被遍历的数组。
+                    this.books.some((item) => {
+                        console.log(item);
+                        if (item.id == this.id) {
+                            item.name = this.name;
+                            //完成更新操作之后，需要终止循环  some 的回调函数 需要通过返回一个true值来终止循环遍历  不设置的话将全部遍历，最后返回一个false
+                            return true;
+                        }
+                    })
+
+
                     //恢复边框可输入状态
                     this.flag = false;
-                    //清空表单
-                    this.id = '';
-                    this.name = '';
+
                 } else {
                     //
                     //添加图书
@@ -126,16 +196,13 @@
                     book.name = this.name;
                     book.date = '';
                     this.books.push(book);
-                    //清空表单
-                    this.id = '';
-                    this.name = '';
+
                 }
-
-
-
-
-
+                //清空表单
+                this.id = '';
+                this.name = '';
             },
+            //修改图书
             toEdit(id) {
                 //禁止修改id
                 this.flag = true;
@@ -148,13 +215,94 @@
                     return item.id == id;
 
                 });
-                console.log(book);
+                // console.log(book);
                 //将获取到信息填充到表单  filter返回的是一个数组  所以book[0].id  才能输出对应数据
                 this.id = book[0].id;
                 this.name = book[0].name;
+            },
+            //删除图书
+            deleteBook(id) {
+                //--------------------------------------------------------
+                //方法一：通过findIndex 方法进行查找删除
+                //根据id从数组中查找元素索引
+
+                //保存当前索引
+                // var index = this.books.findIndex(function(item) {
+                //     // console.log(item.id);
+                //     return item.id == id
+                // });
+                //根据当前索引删除数组元素
+                // this.books.splice(index, 1);
+
+                //----------------------------------------------------------
+                //方法二：通过filter方法进行删除
+                this.books = this.books.filter(function(item) {
+                    return item.id != id;
+                })
             }
+        },
+        //计算属性  获得图书总数
+        computed: {
+            total() {
+                //图书总数就是数组长度
+                return this.books.length;
+            }
+        },
+        //侦听器
+        watch: {
+            name(val) {
+                //验证输入的图书名称是否存在
+                var flag = this.books.some(function(item) {
+                    return item.name = val;
+
+                });
+                if (flag) {
+                    //图书名称存在
+                    this.submitFlag = true;
+                } else {
+                    //图书名称不存在
+                    this.submitFlag = false
+                }
+            },
+            id(val) {
+                var flag = this.books.some(function(item) {
+                    return item.id == val;
+
+                });
+                if (flag) {
+                    //图书id存在
+                    this.submitFlag = true;
+                } else {
+                    //图书id不存在
+                    this.submitFlag = false
+                }
+            }
+        },
+        mounted() {
+            //该生命周期钩子函数被触发的时候，模板已经可以使用
+            //一般此时用于获取后台数据，然后吧数据填充到模板
+            var data = [{
+                id: 1,
+                name: '三体1',
+                date: 2525609975000
+            }, {
+                id: 2,
+                name: '三体2',
+                date: 2525609975000
+            }, {
+                id: 3,
+                name: '三体3',
+                date: 2525609975000
+            }, {
+                id: 4,
+                name: '三体4',
+                date: 2525609975000
+            }];
+            this.books = data;
+
+
         }
-    })
+    });
 </script>
 
 </html>

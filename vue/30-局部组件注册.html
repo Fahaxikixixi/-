@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js">
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <hello-world></hello-world>
+        <hello-zz></hello-zz>
+        <hello-wl></hello-wl>
+    </div>
+
+</body>
+<script>
+    /*
+     *components  比全局多个  s     
+     *
+     *且只能在父组件（vue绑定的元素，这里是id=app的元素）
+     *内使用其他地方无法使用在全局组件下也不能使用局部组件，全局的随意地方都可以使用
+     */
+    var HelloWorld = {
+        data() {
+            return {
+                msg: 'HelloWorld'
+            }
+        },
+        template: '<div>{{msg}}</div>'
+    };
+    var Hellozz = {
+        data() {
+            return {
+                msg: 'Hellozz'
+            }
+        },
+        template: '<div>{{msg}}</div>'
+    };
+    var Hellowl = {
+        data() {
+            return {
+                msg: 'Hellowl'
+            }
+        },
+        template: '<div>{{msg}}</div>'
+    };
+
+    new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components: {
+            'hello-world': HelloWorld,
+            'hello-zz': Hellozz,
+            'hello-wl': Hellowl
+        }
+    })
+</script>
+
+</html>

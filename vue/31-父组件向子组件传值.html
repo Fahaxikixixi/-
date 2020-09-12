@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/vue.min.js">
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{pmsg}}</div>
+        <menu-item title='来自父组件的值---静态方式'></menu-item>
+        <menu-item :title='ptitle' content='hello'></menu-item>
+    </div>
+
+</body>
+<script>
+    /*
+     *  vue实例本身就是组件也就相当于是父组件
+     *
+     *
+     *
+     */
+
+    //子组件
+    Vue.component('menu-item', {
+        props: ['title', 'content'],
+        data() {
+            return {
+                msg: '子组件本身的的数据'
+            }
+        },
+        template: '<div>{{msg+" - "+title+"-"+content}}</div>'
+    });
+
+    //父组件
+    new Vue({
+        el: '#app',
+        data: {
+            pmsg: '父组件中的内容',
+            ptitle: '来自父组件的值---动态方式'
+        },
+        methods: {},
+
+    })
+</script>
+
+</html>
