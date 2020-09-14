@@ -224,6 +224,13 @@ CLASS名称
    		 white-space: nowrap;	     文本不换行
    		 overflow: hidden;	     超出装文本容器隐藏
 
+		-webkit-line-clamp:3;		第几行显示省略号
+
+多行文本，显示到第二行 显示省略号
+ 					overflow: hidden;
+                    -webkit-line-clamp:2 ;
+                    -webkit-box-orient:vertical;
+					display:-webkit-box;
 ```
 
 ```css
@@ -11197,7 +11204,7 @@ or
 
 ​		git    remote  add    github仓库ssh地址别名     github仓库ssh地址
 
-3   git  push  origin_ssh mater
+3   git  push  origin_ssh master
 
 ​	 git  push   github仓库ssh地址别名   分支名
 
@@ -13170,6 +13177,8 @@ Vue.copponent('menu-item',{
 
 
 ### 8.父组件向子组件传值
+
+ **除了在子组件data内有定义的值，其他静态或者父组件内的值，都要在props 数组添加对应的属性名才能生效**
 
 
 
