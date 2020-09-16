@@ -346,6 +346,44 @@ opacity:0;  透明度 (0-1)
 cursor:pointer;  图片??
 ```
 
+
+
+
+
+# CSS3
+
+
+
+## 过渡
+
+```js
+ transition: background-color .5s,color .5s;
+                    -moz-transition:background-color .5s,color .5s, -moz-transform .5s; /* Firefox 4 */
+                    -webkit-transition:background-color .5s,color .5s, -webkit-transform .5s; /* Safari and Chrome */
+                    -o-transition:background-colors .5s,color .5s, -o-transform .5s; /* Opera */
+```
+
+
+
+例：背景颜色  和 字体颜色的 过渡  0.5s
+
+```js
+ .tabsty{
+                    background-color:@bcolor;
+                    color: @textColor;
+                    transition: background-color .5s,color .5s;
+                    -moz-transition:background-color .5s,color .5s, -moz-transform .5s; /* Firefox 4 */
+                    -webkit-transition:background-color .5s,color .5s, -webkit-transform .5s; /* Safari and Chrome */
+                    -o-transition:background-colors .5s,color .5s, -o-transform .5s; /* Opera */
+                }
+```
+
+
+
+
+
+
+
 # 移动开发
 
 动Web开发、Bootstrap等。要注意移动开发中的适配和兼容性问题
