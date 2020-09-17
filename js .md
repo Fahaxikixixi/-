@@ -11308,6 +11308,22 @@ $ssh -T git@github.com
 
 
 
+# npm
+
+
+
+win+r ==>cmd
+
+npm -v  查看版本
+
+npm install   npm@latest -g   更新   -g  安装到全局  npm@  后面可以加上版本号
+
+
+
+
+
+
+
 # VUE
 
 ## MVVM
@@ -13193,7 +13209,7 @@ Vue.component('MyComponent',{})
 
 
 
-### 7.组件内部通过props接收传递过来的值
+### 7.props
 
 **props 的值是一个数组，里面存放的是组件之间传递的值**
 
@@ -13206,9 +13222,33 @@ Vue.copponent('menu-item',{
 
 
 
+#### porps属性名的规则
+
+* 在props中使用驼峰形式，模板(html)中需要使用短横线的形式
+* 字符串形式的模板中没有这个限制(template)
 
 
 
+```js
+Vue . component ( 'menu-item', {
+//在JavaScript中是驼峰式的
+props: [ 'menuTitle'] ,
+template: '<div>{{ menuTitle } }</div>'
+})
+<!-在htm1中是短横线方式的-->
+<menu-i tem menu-title="nihao"></menu- item>
+
+```
+
+
+
+#### porps属性值类型
+
+* 字符串string
+* 数值number
+* 布尔值
+* 数值
+* 对象
 
 
 
@@ -13293,15 +13333,21 @@ Vue.copponent('menu-item',{
 
 
 
+### 9.子组件向父组件传值
 
 
 
+ 子组件向父组件传值-基本使用
+
+   \*      props 传递数据的原则：单项数据流 （只允许父组件向子组件传递数据）
+
+   \*     1.子组件通过自定义事件向父组件传递信息（$emit）
+
+   \*     2.父组件监听子组件的事件
+
+   \* 子组件绑定事件触发===>事件抛向父组件===>父组件监听事件函数继续方法操作
 
 
-
-
-
-### 9.组件传值
 
 
 
