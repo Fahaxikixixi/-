@@ -13339,13 +13339,207 @@ Vue.copponent('menu-item',{
 
  子组件向父组件传值-基本使用
 
-   \*      props 传递数据的原则：单项数据流 （只允许父组件向子组件传递数据）
+   \*      **props 传递数据的原则：单项数据流 （只允许父组件向子组件传递数据）**
 
    \*     1.子组件通过自定义事件向父组件传递信息（$emit）
 
    \*     2.父组件监听子组件的事件
 
-   \* 子组件绑定事件触发===>事件抛向父组件===>父组件监听事件函数继续方法操作
+* **子组件绑定事件触发===>事件抛向父组件===>父组件监听事件函数继续方法操作**
+
+
+
+#### 基本使用，不传值
+
+* $emit  是子组件 自定义事件 向父组件传递信息的 关键  是固定写法
+* enlarge-text   是自定义的名称 ，
+* enlarge-text 写在父组件部分的子组件上（vue el绑定的是id=app 子组件在里面，所以是父组件部分） 
+
+```js
+ <div id="app">
+        <div :style='{fontSize:fontSize+"px"}'>{{msg}}</div>
+        <menu-item :parr='parr' @enlarge-text='handle'></menu-item>
+    </div>
+</body>
+<script>
+    /*
+     *       子组件向父组件传值-基本使用
+     *           props 传递数据的原则：单项数据流 （只允许父组件向子组件传递数据）
+     *          1.子组件通过自定义事件向父组件传递信息（$emit）
+     *          2.父组件监听子组件的事件
+     *  子组件绑定事件触发===>事件抛向父组件===>父组件监听事件函数继续方法操作
+     *
+     *
+     */
+
+    Vue.component('menu-item', {
+        props: ['parr'],
+        template: `<div><ul><li :key='index' v-for='(item,index) in parr'>{{item}}</li></ul>
+                    <button @click='parr.push("ZGG01")'>点击</button>
+                    <button @click='$emit("enlarge-text")'>扩大父组件中字体大小</button></div>`
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            msg: '父组件中的内容',
+            parr: ['ZGG', '21Y', 'SOGOOO'],
+            fontSize: 10
+        },
+        methods: {
+            handle() {
+                //扩大字体大小
+                this.fontSize += 5;
+            }
+        }
+    })
+```
+
+
+
+#### 传值（$event）
+
+
+
+* 第一部分：在子组件的自定义事件中的第二个参数添加要传递的值  @click=“$emit('事件名'，要传递的值)”    
+* 第二部分：在父组件部分（vue el绑定的是id=app 子组件在里面，所以是父组件部分） ，
+* **参数以 $event 的固定形式填写**
+
+```js
+ <div id="app">
+        <div :style='{fontSize:fontSize+"px"}'>{{msg}}</div>
+///////////////////////2.传值的第二部分///////////////////////////////
+        <menu-item :parr='parr' @enlarge-text='handle($event)'></menu-item>
+    </div>
+</body>
+<script>
+   
+
+    Vue.component('menu-item', {
+        props: ['parr'],
+        template: `<div><ul><li :key='index' v-for='(item,index) in parr'>{{item}}</li></ul>
+                    <button @click='parr.push("ZGG01")'>点击</button>
+///////////////////////1.传值的第一部分///////////////////////////////
+                    <button @click='$emit("enlarge-text",5)'>扩大父组件中字体大小</button>
+                    <button @click='$emit("enlarge-text",10)'>扩大父组件中字体大小+10</button>
+                    </div>`
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            msg: '父组件中的内容',
+            parr: ['ZGG', '21Y', 'SOGOOO'],
+            fontSize: 10
+        },
+        methods: {
+            handle(val) {
+                //扩大字体大小
+                this.fontSize += val;
+            }
+        }
+    })
+```
+
+
+
+
+
+### 10.兄弟组件传值
+
+
+
+
+
+![image-20200918095751248](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918095751248.png)
+
+
+
+#### 1.创建事件中心（创建一个vue实例）
+
+hub 自定义名称
+
+```js
+var hub=new Vue()
+//通过事件中心来管理事件的监听（hub.$on()），销毁（hub.$off()），触发（hub.$emit()）
+```
+
+
+
+#### 2.监听事件的使用
+
+A组件：
+
+​			1.template 内会有一个触发一个事件a
+
+​			2.A组件的 生命周期函数 mounted 内添加监听事件  $on('自定义事件名称'，事件函数 ) 
+
+​			3. 事件a写在 A的methods 内  a事件内写 事件监触发 $('B组件on内的自定义事件名称'，传递给B的参数)
+
+B组件
+
+```js
+ Vue.component('text-tom', {
+        props: [],
+        data() {
+            return {
+                num: 0
+            }
+        },
+        template: `
+            <div>
+                <div>TOM:{{num}}</div>
+                <div>
+                    <button @click='handle'>点击</button>
+                </div>
+
+            </div>
+        `,
+        methods: {
+            handle() {
+                // 触发兄弟组件的事件
+                hub.$emit('jerry-event', 2);
+            }
+        },
+        mounted() {
+            //监听事件
+            hub.$on('tom-event', (val) => {
+                this.num += val;
+            })
+        }
+    });
+
+
+
+
+    Vue.component('text-jerry', {
+        props: [],
+        data() {
+            return {
+                num: 0
+            }
+        },
+        template: `
+            <div>
+                <div>JERRY:{{num}}</div>
+                <div>
+                    <button @click='handle'>点击</button>
+                </div>
+
+            </div>
+        `,
+        methods: {
+            handle() {
+                // 触发兄弟组件的事件
+                hub.$emit('tom-event', 1);
+            }
+        },
+        mounted() {
+            //监听事件
+            hub.$on('jerry-event', (val) => {
+                this.num += val;
+            })
+        }
+    });
+```
 
 
 
@@ -13355,27 +13549,155 @@ Vue.copponent('menu-item',{
 
 
 
+#### 例：
+
+```js
+<body>
+    <div id="app">
+        <div>父组件</div>
+        <div>
+            <button @click='handle'>销毁兄弟组件事件</button>
+        </div>
+        <text-tom></text-tom>
+        <text-jerry></text-jerry>
+    </div>
+</body>
+<script>
+    //提供事件中心
+    var hub = new Vue()
+
+
+
+    Vue.component('text-tom', {
+        props: [],
+        data() {
+            return {
+                num: 0
+            }
+        },
+        template: `
+            <div>
+                <div>TOM:{{num}}</div>
+                <div>
+                    <button @click='handle'>点击</button>
+                </div>
+
+            </div>
+        `,
+        methods: {
+            handle() {
+                // 触发兄弟组件的事件
+                hub.$emit('jerry-event', 2);
+            }
+        },
+        mounted() {
+            //监听事件
+            hub.$on('tom-event', (val) => {
+                this.num += val;
+            })
+        }
+    });
+
+
+
+
+    Vue.component('text-jerry', {
+        props: [],
+        data() {
+            return {
+                num: 0
+            }
+        },
+        template: `
+            <div>
+                <div>JERRY:{{num}}</div>
+                <div>
+                    <button @click='handle'>点击</button>
+                </div>
+
+            </div>
+        `,
+        methods: {
+            handle() {
+                // 触发兄弟组件的事件
+                hub.$emit('tom-event', 1);
+            }
+        },
+        mounted() {
+            //监听事件
+            hub.$on('jerry-event', (val) => {
+                this.num += val;
+            })
+        }
+    });
+
+
+
+    new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+            handle() {
+
+                //销毁兄弟组件之间的事件
+                hub.$off('tom-event');
+                hub.$off('jerry-event');
+            }
+        }
+    })
+</script>
+```
 
 
 
 
 
+### 11.组件插槽(slot)
+
+>  作用：父组件向子组件传递内容(指的是模板)
 
 
 
+![image-20200918113021871](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918113021871.png)
+
+#### 插槽的使用
+
+##### 1.插槽位置
+
+```js
+Vue.component('alert-box', {
+	template:`
+		<div class="demo-alert-box">
+			<strong>Error!</strong>
+			<slot></slot>
+		</div>`
+})
+
+```
 
 
 
+##### 2.插槽内容
+
+```js
+<alert-box>Something bad happened. </alert-box>
+```
 
 
 
+#### 例
+
+ 当 slot 插槽 内有内容时： 
+
+​			1.子组件在父组件内使用，且子组件标签内添加内容，则将显示标签添加的内容，不显示插槽内容
+
+​			2.当子组件标签内无内容时，将显示插槽内的内容
 
 
 
-
-
-
-
+![image-20200918114609217](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918114609217.png)
 
 
 
