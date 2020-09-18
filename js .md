@@ -13705,6 +13705,93 @@ Vue.component('alert-box', {
 
 
 
+#### 1.具名插槽用法
+
+
+
+​	**html 标签 内添加 slot 且值与 template 内slot  name 值一样**
+
+
+
+![image-20200918135138670](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918135138670.png)
+
+
+
+
+
+#### 例
+
+![image-20200918140353423](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918140353423.png)
+
+```js
+<body>
+    <div id="app">
+        <base-layout>
+            <h1 slot="header">标题内容</h1>
+            <p>主要内容1</p>
+            <p>主要内容2</p>
+            <p slot="footer">底部内容</p>
+        </base-layout>
+
+
+    </div>
+</body>
+<script>
+    Vue.component('base-layout', {
+        props: [],
+        data() {
+            return {}
+        },
+        template: `
+        <div class="container">
+            <header>
+                <slot name="header"></slot>
+            </header>
+            <main>
+                <slot></slot>
+            </main>
+            <footer>
+                <slot name="footer"></slot>
+            </footer>
+        </div>
+        `,
+        methods: {}
+    })
+    new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    })
+```
+
+
+
+#### 2.作用域插槽
+
+> 应用场景：父组件对子组件的内容进行加工处理（可以获取到子组件的数据，和对子组件数据进行加工处理）
+
+
+
+
+
+![image-20200918163443382](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918163443382.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 准备
 
 1：安装cnpm
