@@ -4129,6 +4129,58 @@ var obj = {"name":"Bill", "age":62, "city":"Seatle"};
 var myJSON = JSON.stringify(obj);
 ```
 
+
+
+# 插件
+
+
+
+## 上下拉刷新--better-scroll
+
+## [better-scroll](https://www.cnblogs.com/moxiaoshang/p/10909508.html)
+
+
+
+https://better-scroll.github.io/docs/zh-CN/plugins/    插件文档
+
+
+
+## 多级联动---mobileselect
+
+
+
+https://www.cnblogs.com/imPedro/p/9881998.html   案例文档
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # [ECMAScript2015~2020语法全解析](http://es.xiecheng.live/)
 
 # ES6 >
