@@ -4149,6 +4149,8 @@ https://better-scroll.github.io/docs/zh-CN/plugins/    插件文档
 
 
 
+https://github.com/onlyhom/mobileSelect.js/blob/master/docs/README-CN.md  官方文档
+
 https://www.cnblogs.com/imPedro/p/9881998.html   案例文档
 
 
@@ -4720,6 +4722,67 @@ import { request } from "../../request/index.js";
         })
 ```
 
+### 4.常用API方法
+
+#### 实例方法
+
+*  .then( ) 得到一部任务的正确结果
+*  .catch( ) 获取异常信息
+*  .finally( ) 成功与否都会执行（尚且不是正式标准）
+
+
+
+```js
+   function foo() {
+            return new Promise((res, rej) => {
+                setTimeout(function() {
+                    //1. res(123);  //catch 不打印内容 
+                    rej('error') //catch 打印 error
+                }, 100)
+            })
+        };
+
+        //写法1
+        // foo().then(res => {
+        //         console.log(res);
+        //     })
+        //     .catch(res => {
+        //         console.log(res);
+        //     })
+        //     .finally(function() {
+        //         console.log('finished');
+        //     });
+
+
+        //写法2
+        foo().then(res => {
+            console.log(res);
+        }, function(res) {
+            console.log(res)
+        })
+
+        .finally(function() {
+            console.log('finished');
+        })
+```
+
+
+
+
+
+#### 对象方法
+
+
+
+* Promise.all( ) 并发处理多个异步任务，所有任务都执行完成才能得到结果
+* Promise.race( ) 并发处理多个异步任务，只要有一个任务完成就能得到结果
+
+
+
+
+
+
+
 
 
 
@@ -4871,13 +4934,7 @@ foo()
 
 
 
-
-
-
-
-
-
-
+# try{ }catch{ }
 
 
 
@@ -12345,6 +12402,21 @@ new Vue({
 
 
 
+### [钩子函数](https://cn.vuejs.org/v2/guide/custom-directive.html#钩子函数)
+
+一个指令定义对象可以提供如下几个钩子函数 (均为可选)：
+
+- `bind`：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+- `inserted`：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+- `update`：所在组件的 VNode 更新时调用，**但是可能发生在其子 VNode 更新之前**。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下)。
+
+我们会在[稍后](https://cn.vuejs.org/v2/guide/render-function.html#虚拟-DOM)讨论[渲染函数](https://cn.vuejs.org/v2/guide/render-function.html)时介绍更多 VNodes 的细节。
+
+- `componentUpdated`：指令所在组件的 VNode **及其子 VNode** 全部更新后调用。
+- `unbind`：只调用一次，指令与元素解绑时调用。
+
+接下来我们来看一下钩子函数的参数 (即 `el`、`binding`、`vnode` 和 `oldVnode`)。
+
 
 
 ## 计算属性
@@ -12468,43 +12540,13 @@ new Vue({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 侦听器
 
 > 数据发生变化就通知侦听器所绑定的方法
 >
 > 一般用于数据处理，模板渲染
 
-
+侦听data的那个数据，名称必须要与data中的一样，代表了侦听那个数据的变化
 
 
 
@@ -12721,8 +12763,8 @@ new Vue({
 ### 1.全局过滤器
 
 ```js
-//filter 为过滤器关键字    value  是接收的要处理的数据
-Vue.filter('过滤器名称'，function(value){
+//filter 为过滤器关键字  可接收两个参数  value  是接收的要处理的数据  arg 是过滤器传递的参数（如果传递了参数的话）
+Vue.filter('过滤器名称'，function(value，arg){
     //return  一定要 因为一定需要返回值
    return  //过滤器业务逻辑
 })
@@ -12735,6 +12777,8 @@ Vue.filter('过滤器名称'，function(value){
 ### 2.过滤器的使用
 
 ```js
+		| 过滤器名称
+
 <div>{{msg | upper}}</div>
 
 <div>{{msg | upper | lower}}</div>
@@ -13178,7 +13222,7 @@ Vue.component('button-counter', {
 
 ### 5.组件注意事项
 
-#### 1.data必须是一个函数
+#### 1.data必须是一个函数且函数内一定加上return 返回一个对象
 
 ```js
 Vue.component(组件名,{
@@ -13288,7 +13332,7 @@ props: [ 'menuTitle'] ,
 template: '<div>{{ menuTitle } }</div>'
 })
 <!-在htm1中是短横线方式的-->
-<menu-i tem menu-title="nihao"></menu- item>
+<menu-item menu-title="nihao"></menu- item>
 
 ```
 
@@ -13483,6 +13527,7 @@ Vue.copponent('menu-item',{
             fontSize: 10
         },
         methods: {
+ ///////////3.第三部分///////////////////////////////////////////
             handle(val) {
                 //扩大字体大小
                 this.fontSize += val;
@@ -13524,7 +13569,7 @@ A组件：
 
 ​			2.A组件的 生命周期函数 mounted 内添加监听事件  $on('自定义事件名称'，事件函数 ) 
 
-​			3. 事件a写在 A的methods 内  a事件内写 事件监触发 $('B组件on内的自定义事件名称'，传递给B的参数)
+​			3. 事件a写在 A的methods 内  a事件内写 事件监触发 $emit('B组件on内的自定义事件名称'，传递给B的参数)
 
 B组件
 
@@ -13827,6 +13872,114 @@ Vue.component('alert-box', {
 
 
 ![image-20200918163443382](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918163443382.png)
+
+
+
+## 接口调用-fetch用法
+
+> 基于Promise 实现
+
+
+
+### 语法结构
+
+```js
+fetch(url).then(fn2)
+		  .then(fn3)
+		  ......
+		  .catch(fn)
+```
+
+
+
+### fetch 的基本使用
+
+```js
+fetch(url).then(data=>{
+    return data.text();//text 返回值是一个Promise 对象
+}).then(res=>{
+    //注意这里得到的才是最终的数据
+    console.log(ret)
+})
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
