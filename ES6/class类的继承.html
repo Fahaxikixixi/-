@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // class Father {
+        //     constructor() {
+
+        //     }
+        //     money() {
+        //         console.log("SOGOOO");
+        //     }
+        // }
+        // class Son extends Father {
+
+        // }
+        // var son = new Son();
+        // son.money();//SOGOOO
+
+
+        //super  关键字 为了使用父类的构造函数和普通函数
+        class Father {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y
+            }
+            sum() {
+                console.log(this.x + this.y);
+            }
+        }
+
+        class Son extends Father {
+            constructor(x, y) {
+                super(x, y) //调用了父类的构造函数
+            }
+        }
+        var son = new Son(2, 1);
+        var son1 = new Son('SO', 'GOOO');
+        son.sum(); //3
+        son1.sum(); //SOGOOO
+    </script>
+</body>
+
+</html>

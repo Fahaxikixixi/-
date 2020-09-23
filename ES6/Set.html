@@ -16,7 +16,7 @@
             // console.log(s)
         s.add('hello').add('goodbye');
         //或者  s.add('hello')  s.add('goodbye')
-        console.log(s) // 
+        console.log(s) // Set(6) {1, 2, 3, 4, "hello", …}
 
 
 
@@ -27,7 +27,7 @@
         s1.delete('hello') // true
             // 删除全部数据
             // s.clear()
-        console.log(s1)
+        console.log(s1) //Set(5) {1, 2, 3, 4, "goodbye"}
 
 
 
@@ -35,8 +35,8 @@
         //数组去重
         let arr = [1, 2, 3, 4, 2, 3]
         let ss = new Set(arr)
-        console.log(ss)
-        console.log(arr)
+        console.log(ss) //Set(4) {1, 2, 3, 4}
+        console.log(arr) //(6) [1, 2, 3, 4, 2, 3]
     </script>
 </body>
 

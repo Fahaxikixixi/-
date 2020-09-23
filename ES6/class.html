@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //创建类
+        //类里面写函数都不需要加function
+        class On1 {
+            constructor(uname, age) { //uname  作为形参
+                this.uname = uname;
+                this.age = age
+            }
+            sing(song) {
+                // 
+                console.log(this.uname + song);
+            }
+        }
+        // console.log(typeof on1); //function
+
+        //创建实例对象
+        var t = new On1('权志龙', 18);
+        var t1 = new On1('21Y', 21);
+        // console.log(t); //on1{}   ===>里面包含constructor(构造器)  类的构造函数
+        // console.log(typeof t); //object
+
+
+        console.log(t.uname + '-' + t.age); //SOGOOO-18
+        console.log(t1.uname + '-' + t1.age); //21Y- 21
+
+        t.sing("一天天"); //123
+        t1.sing("无"); //456
+    </script>
+</body>
+
+</html>

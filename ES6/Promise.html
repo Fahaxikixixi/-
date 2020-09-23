@@ -33,58 +33,62 @@
 
 
         // 当有多个请求地址时的 优化写法
-        function promises(url) {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url, //url:url  ==>url   与传的参一样所以只写url就可以
-                    dataType: 'json',
-                    success: function(res) {
-                        resolve(res)
-                    },
-                    error: function(err) {
-                        reject(err)
-                    }
-                })
-            })
-        }
-        Promise.all([
-            promises('data.json'), //data.json ==> url:data.json
-            promises('data.json')
-        ]).then(arr => {
-            console.log(arr)
-                // let [re1, re2] = arr;    //解构赋值的写法
-                // console.log(re1)
-                // console.log(re2)
-            console.log(arr) //无论有多少个ajax 请求，请求到的数据都会在arr内
-        }, () => {
-            console.log('失败了')
-        })
+        // function promises(url) {
+        //     return new Promise((resolve, reject) => {
+        //         $.ajax({
+        //             url, //url:url  ==>url   与传的参一样所以只写url就可以
+        //             dataType: 'json',
+        //             success: function(res) {
+        //                 resolve(res)
+        //             },
+        //             error: function(err) {
+        //                 reject(err)
+        //             }
+        //         })
+        //     })
+        // }
+        // Promise.all([
+        //     promises('data.json'), //data.json ==> url:data.json
+        //     promises('data.json')
+        // ]).then(arr => {
+        //     console.log(arr)
+        //         // let [re1, re2] = arr;    //解构赋值的写法
+        //         // console.log(re1)
+        //         // console.log(re2)
+        //     console.log(arr) //无论有多少个ajax 请求，请求到的数据都会在arr内
+        // }, () => {
+        //     console.log('失败了')
+        // })
+
+
+        //-----------------------------------------------------------------------------------
+
+
+
+
 
 
         // 高版本的jquery ajax  自带封装的promise
-        let p = $.ajax({
-            url: 'data.json',
-            dataType: 'json'
-        })
-        console.log(p); //打印出来的 里面包含有promise
+        // let p = $.ajax({
+        //     url: 'data.json',
+        //     dataType: 'json'
+        // })
+        // console.log(p); //打印出来的 里面包含有promise
 
 
-
-
-
-
-        //所以不用自己封装   可以直接用 高版本的jquery-ajax
-        Promise.all([
-            $.ajax({
-                url: 'data.json'
-            }), $.ajax({
-                url: 'data.json'
-            })
-        ]).then((res) => {
-            console.log(res) //无论有多少个ajax 请求，请求到的数据都会在res内
-        }, (err) => {
-            console.log(err)
-        })
+        // //所以不用自己封装   可以直接用 高版本的jquery-ajax
+        // Promise.all([
+        //     $.ajax({
+        //         url: 'data.json'
+        //     }),
+        //     $.ajax({
+        //         url: 'data.json'
+        //     })
+        // ]).then((res) => {
+        //     console.log(res) //无论有多少个ajax 请求，请求到的数据都会在res内
+        // }, (err) => {
+        //     console.log(err)
+        // })
     </script>
 </body>
 
