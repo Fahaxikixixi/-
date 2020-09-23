@@ -82,10 +82,14 @@
         mounted() {
             //监听事件
             hub.$on('jerry-event', (val) => {
+                console.log(val);
                 this.num += val;
             })
         }
     })
+
+
+
     new Vue({
         el: '#app',
         data: {

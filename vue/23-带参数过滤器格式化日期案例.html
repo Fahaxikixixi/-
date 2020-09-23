@@ -18,14 +18,15 @@
 </body>
 <script>
     Vue.filter('format', function(value, arg) {
+        console.log(value);
         console.log(arg);
         if (arg == 'yyyy-MM-dd') {
             var ret = '';
             //                  获取年          获取月 因为这个是0-11 所以要+1才是当前的月份    获取当前日期
             return ret += value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
         }
-
         return value
+
     })
     new Vue({
         el: '#app',

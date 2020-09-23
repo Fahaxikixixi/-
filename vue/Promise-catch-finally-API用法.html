@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // console.dir(Promise)
+
+
+        // .then() 得到一部任务的正确结果
+        // .catch() 获取异常信息
+        // .finally() 成功与否都会执行（ 尚且不是正式标准）
+
+
+
+        function foo() {
+            return new Promise((res, rej) => {
+                setTimeout(function() {
+                    //1. res(123);  //catch 不打印内容 
+                    rej('error') //catch 打印 error
+                }, 100)
+            })
+        };
+
+        //写法1
+        // foo().then(res => {
+        //         console.log(res);
+        //     })
+        //     .catch(res => {
+        //         console.log(res);
+        //     })
+        //     .finally(function() {
+        //         console.log('finished');
+        //     });
+
+
+        //写法2
+        foo().then(res => {
+            console.log(res);
+        }, function(res) {
+            console.log(res)
+        })
+
+        .finally(function() {
+            console.log('finished');
+        })
+    </script>
+</body>
+
+</html>
