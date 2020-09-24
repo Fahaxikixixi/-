@@ -4607,7 +4607,7 @@ export function say(content) {
 ```
 
 ```js
-import { request } from "../../request/index.js";
+import { say } from "../../request/index.js";
 ```
 
 
@@ -4729,6 +4729,18 @@ import { request } from "../../request/index.js";
 *  .then( ) 得到一部任务的正确结果
 *  .catch( ) 获取异常信息
 *  .finally( ) 成功与否都会执行（尚且不是正式标准）
+
+
+
+then参数中的函数返回值
+**1.返回Promise实例对象**
+
+* 返回的该实例对象会调用下一 个then
+
+**2.返回普通值**
+
+* 返回的普通值会直接传递给下一 个then,通过then参数中函数的参数接收该值
+  
 
 
 
@@ -13094,7 +13106,7 @@ vue. component ( 'button-counter', {
 
 
 
-### 3.局部组件注册
+### 3.局部组件注册（优化写法）
 
 **components**     **比全局多个  s     **
 
@@ -13896,7 +13908,7 @@ fetch(url).then(fn2)
 
 ```js
 fetch(url).then(data=>{
-    return data.text();//text 返回值是一个Promise 对象
+    return data.text();//text 属于fetch API的一部分  返回值是一个Promise 实例对象，用于获取后台返回的数据
 }).then(res=>{
     //注意这里得到的才是最终的数据
     console.log(ret)
@@ -13907,71 +13919,584 @@ fetch(url).then(data=>{
 
 
 
+### fetch请求参数
 
+#### 1.常用配置选项
 
+* method(String): HTTP请求方法，**默认为GET**(GET、POST、 PUT、 DELETE)
+* body(String): HTTP的请求参数
+* headers(Object): HTTP的请求头，默认为{ }
 
 
 
 
 
+* get :查询数据
+* post :添加数据
+* put :修改数据
+* delete:删除数据
 
+```js
+fetch('/abc'，{
+	method: 'get'
+}).then (data=>{
+	return data. text() ;
+}).then (ret=>{
+	//注意这里得到的才是最终的数据
+	console.log(ret) ;
+});
 
+```
 
+#### 2.GET请求方式的参数传递
 
+**Restful方式 / 后面添加传递的参数**
 
+```js
+//例  参数123
+fetch( '/abc/123' ,{
+method: 'get'
+}) . thendata=>{ 
+return data.text() ;
+}] . then(ret=>{
+//注意这里得到的才是最终的数据
+console. log(ret) ;
+});
 
+```
 
 
 
+**传统的方式 后面加 ？ 来传递参数**
 
+```js
+//例  参数id=123
+fetch('/abc?id=123').then(data=>{
+	return data.text();
+}}.then(ret=>{
+	//注意这里得到的才是最终的数据
+	console.log(ret) ;
+}) ;
 
+```
 
 
 
+#### 3.DELETE 请求方式参数传递
 
+也是通过 / 方式
 
+```js
+//例  参数123
+fetch( /abc/123'， {
+	method: 'delete'  //这里需要特别说明
+}).then (data=>
+	return data. text() ;
+}).then(ret=>{
+	//注意这里得到的才是最终的数据
+	console. log (ret) ;
+});
 
+```
 
 
 
+#### 4.POST请求方式的参数传递
 
+1.
 
+```js
+//例
+fetch( '/books'，{
+	method:'post',
+	body: 'uname=lisispwd=123' ，
+	headers:{//请求头必须设置，否则 body的参数无法提交
+		'Content-Type': ' application/x-www-form-urlencoded',
+      }
+}).then (data=>{
+	return data. text0) ;
+}).then(ret=>{
+	console. log(ret);
+});
 
+```
 
 
 
+2.
 
+//可以改成json格式
 
+```js
+fetch( '/books'，{
+	method: 'post' ，
+	body:JSON.stringify({
+		uname: 'lisi',
+		age: 12
+	})
+	headers: {
+		'Content-Type': 'application/json',
+	}
+}).then (data=>{
+	return data. text() ;
+}).then (ret=>{
+	console.log(ret) ;
+});
 
+```
 
 
 
+#### 5.PUT请求方式的参数传递
 
+/ 要修改的数据
 
+```js
+fetch( /books/123' , {
+	method:'put',
+body: JSON. stringify({
+	uname:'lisi',
+	age: 12
+}}
+	headers:{
+	'Content-Type': ' application/ json ',
+	}
+}).then (data=>{
+	return data. text() ;
+}).then(ret=>{
+	console.log(ret) ;
+});
 
+```
 
 
 
+### fetch响应结果
 
+#### 响应数据格式
 
+* text( ) 将返回体处理成字符串类型
+* json( ) 返回结果和JSON.parse(responseText) 一样
 
 
 
+```js
+fetch('/abc').then(data=> {
+	// return data.text() ;
+	return data.json() ;
+}).then(ret=>{
+	console.log (ret) ;
+}) ;
 
+```
 
 
 
+## 接口调用-axios用法
 
+> 第三方js库，实现接口调用
+>
+> 基于Promise 用于浏览器和node.js 的HTTP 客户端
 
 
 
+* 支持浏览器和node.js
+* 支持promise
+* 能拦截请求和响应
+* 自动转换JSON数据
 
 
 
+### 基本用法
 
 
 
+```js
+//例：get
+axios.get( /adata' ).then (ret => {
+	// data属性名称是固定的，用于获取后台响应的数据
+	console.log (ret. data)
+})
 
+```
+
+
+
+### axios的常用API
+
+
+
+* get :查询数据
+* post :添加数据
+* put :修改数据
+* delete:删除数据
+
+
+
+### 1.GET传递参数
+
+
+
+* 通过URL传递参数
+* 通过params选项传递参数
+
+```js
+//URL
+axios.get('/adata?id=123').then(ret=> {
+	console.1og(ret.data)
+})
+
+axios.get('/adata/123').then(ret=> {
+	console.1og(ret.data)
+})
+
+//params
+axios.get('/adata', {
+	params: {
+		id:123
+	}
+}).then (ret=> {
+	console.log(ret.data)
+}
+
+```
+
+
+
+### 2.POST传递参数
+
+* 通过选项传递参数（**默认传递的是json格式的数据**）
+
+
+
+```js
+//例：
+axios.post('url',{
+    uname:'tom',
+    pwd:123
+}).then(res=>{
+    console.log(res.data)
+})
+```
+
+
+
+* 通过URL SearchParams传递参数(application/x-www-form-urlencoded)
+
+```js
+const params = new URLSearchParama() ;
+params.append('param1', 'value1') ;
+params.append(' param2 ','value2') ;
+axios.post(/api/test', params).then(ret=>{
+	console.1og (ret.data)
+})
+
+```
+
+
+
+### 3.PUT传递参数
+
+* 参数传递方式与POST类似
+
+```js
+//例
+axios.put('http://localhost:3000/axios/132',{
+	uname:'lisi',
+	pwd: 123
+}).then( function(ret){
+	console.log(ret. data)
+})
+
+```
+
+
+
+### axios的响应结果
+
+
+
+### 响应结果的主要属性
+
+
+
+* data:实际响应回来的数据
+* headers :响应头信息
+* status :响应状态码
+* statusText:响应状态信息
+
+
+
+
+
+### axios的全局配置
+
+
+
+* axios.defaults.timeout = 3000; // 超时时间
+* axios.defaults.baseURL = 'http://localhost:3000/app'; //默认地址
+* axios.defaults.headers[ 'mytoken' ]= 'aqwerwqwerqwer2ewrwe23eresdf23' // 设置请求头
+
+
+
+```js
+  //假设请求地址  ==> http://localhost:3000/axios-json
+        //1.默认地址
+        axios.defaults.baseURL = 'http://localhost:3000/';
+
+        //2.配置请求头信息 ==> 具体是需要后天配置的（请求头名称）
+        axios.defaults.headers['mytoken'] = 'hello';
+        //这里的axios-json 会自动拼接上默认地址的部分
+        axios.get('axios-json').then(function(ret) {
+            console.log(ret.data);
+        })
+```
+
+
+
+
+
+
+
+### axios请求拦截器
+
+>  axios.interceptors.request.use
+
+在请求或响应被 `then` 或 `catch` 处理前拦截它们进行一些信息的设置
+
+![image-20200924135530302](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924135530302.png)
+
+
+
+```js
+//添加一个请求拦截器
+axios.interceptors.request.use(function(config){
+	//在请求发出之前进行些信息设置
+	return config;
+},function (err) {
+	//处理响应的错误信息
+}) ;
+
+```
+
+
+
+#### 例：拦截器配置请求头
+
+
+
+```js
+  axios.interceptors.request.use(function(config) {
+      //配置请求头
+      config.headers.mytoken = 'hello'
+      return config
+    }, function(err) {
+     console.log(err);
+  });
+
+ axios.get('http://localhost:5500/xx.html').then(function(data) {
+    console.log(data.data);
+    $('div').html(data.data)
+ })
+```
+
+
+
+### axios响应拦截器
+
+> axios.interceptors.response.use
+
+
+
+
+
+![image-20200924143446229](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924143446229.png)
+
+
+
+```js
+//添加个响应拦截器
+axios.interceptors.response.use(function(res) {
+	//在这里对返回的数据进行处理
+	return res; 
+}, function (err) {
+	//处理响应的错误信息
+})
+
+```
+
+
+
+#### 例
+
+```js
+ /*响应拦截器*/
+        axios.interceptors.response.use(function(res) {
+            console.log(res);
+            var data = res.status
+            return data
+        }, function(err) {
+            console.log(err);
+        });
+        axios.get('http://localhost:5500/xx.html').then(function(data) {
+            console.log(data);
+          
+        })
+```
+
+
+
+## 接口调用-async/await用法
+
+
+
+* async/await是ES7引入的新语法，可以更加方便的进行异步操作
+* async关键字用于函数上(async函数的返回值是Promise实例对象)
+* await关键字用于async函数当中(await可以得到异步的结果)
+
+
+
+```js
+//例
+asyne function queryData (id) {
+	const ret = await axios.get('/data') ;
+	return ret;
+}
+queryData. then(ret=> {
+	console. log (ret)
+})
+
+```
+
+
+
+#### 多个异步请求的处理场景
+
+```js
+async function queryData (id) {
+	const info = await axios.get(' /async1');
+	const ret = await axios.get( 'async2?info= +info.data) ;
+	return ret;
+                                }
+queryData. then(ret=>{
+	console. log (ret)
+}
+
+```
+
+
+
+## Vue-router 路由
+
+> 它和Vue.js的核心深度集成，可以非常方便的用于SPA应用程序的开发。
+
+https://router.vuejs.org/zh/  官方路由管理器
+
+* 支持HTML5历史模式或hash模式
+* 支持嵌套路由
+* 支持路由参数
+* 支持编程式路由
+* 支持命名路由
+
+### 基本使用
+
+
+
+#### 使用步骤
+
+1.引入相关的库文件
+
+```js
+//例
+<!--导入vue文件，为全局window 对象挂载Vue构造函数-->
+ <script src="./js/vue.min.js"></script>
+
+<!--导入vue-router 文件，为全局window对象挂载VueRouter 构造函数-->
+<script src="./js/Vue-Router.js"></script>
+
+```
+
+
+
+2.添加路由链接
+
+```js
+<!-- router-link 是vue 中提供的标签，默认会被渲染为a标签-->
+<!-- to 属性默认会被渲染为 href 属性-->
+<!-- to 属性的值默认会被渲染为 # 开头的hash地址-->
+<router-link to="/user">user</ router-link>
+<router-link to="/register">Register</ router-link>
+
+```
+
+
+
+3.添加路由填充位
+
+```js
+<!--路由填充位(也叫做路由占位符)-- >
+<!--将来通过路由规则匹配到的组件，将会被渲染到router-view 所在的位置-->
+<router-view></router-view>
+
+```
+
+
+
+4.定义路由组件
+
+
+
+5.配置路由规则并创建路由实例
+
+
+
+6.把路由挂载到Vue根实例中
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 路由
+
+#### 后端路由
+
+
+
+* 概念：根据不同的用户URL请求，返回不同的内容
+* 本质：**URL请求地址**与**服务器资源**之间的对应关系
+
+
+
+![image-20200924163213553](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924163213553.png)
+
+#### SPA
+
+![image-20200924163432719](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924163432719.png)
+
+
+
+#### 前端路由
+
+* 概念：根据不同的**用户事件**，显示不同的页面内容
+* 本质：**用户事件**与**事件处理函数**之间的对应关系
+
+
+
+![image-20200924163658664](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924163658664.png)
 
 
 
