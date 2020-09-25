@@ -11,7 +11,9 @@
 
 <body>
     <div id="app">
-        <router-link to="/User">User</router-link>
+        <router-link to="/User/1">User1</router-link>
+        <router-link to="/User/2">User2</router-link>
+        <router-link to="/User/3">User3</router-link>
         <router-link to="/register">register</router-link>
 
         <!-- 路由占位符 -->
@@ -21,7 +23,8 @@
 <script>
     //定义两个路由组件，上面html 有几个就定义几个
     const User = {
-        template: `<h1>User 组件</h1>`
+        props: ['id', 'uname', 'age'],
+        template: `<h1>User 组件--用户id为:{{id}}--姓名为:{{uname}}--年龄：{{age}}</h1>`
     };
     const Register = {
         template: `<h1>Register 组件</h1>`
@@ -35,18 +38,26 @@
             //每个路由规则都是一个配置对象，其中至少包含path 和component 两个属性:
             // path表示当前路由规则匹配的hash 地址（to  属性是什么就写什么）
             // component 表示当前路由规则对应要展示的组件
+            // {
+            //     path: '/',
+            //     redirect: '/user/1'
+            // },
+
             {
-                path: '/user',
-                component: User
+                path: '/user/:id',
+                component: User,
+                props: route => ({
+                    uname: 'SOGOOO',
+                    age: 20,
+                    id: route.params.id
+                })
+
             }, {
                 path: '/register',
                 component: Register
             }
         ]
-    })
-
-
-
+    });
 
     var vm = new Vue({
         el: '#app',

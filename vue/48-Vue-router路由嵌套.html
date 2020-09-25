@@ -11,20 +11,36 @@
 
 <body>
     <div id="app">
-        <router-link to="/User">User</router-link>
-        <router-link to="/register">register</router-link>
+        <p>
+            <router-link to="/User">User</router-link>
+            <router-link to="/register">register</router-link>
+        </p>
 
-        <!-- 路由占位符 -->
-        <router-view></router-view>
+        <div>
+            <!-- 路由占位符 -->
+            <router-view></router-view>
+        </div>
     </div>
 </body>
 <script>
+    const Tab1 = {
+        template: `<h3>Tab1 组件<h3>`
+    };
+    const Tab2 = {
+        template: `<h3>Tab2 组件<h3>`
+    };
+
+
     //定义两个路由组件，上面html 有几个就定义几个
     const User = {
         template: `<h1>User 组件</h1>`
     };
     const Register = {
-        template: `<h1>Register 组件</h1>`
+        template: `<div><h1>Register 组件</h1><hr/>
+            <router-link to="/register/Tab1">Tab1</router-link>
+            <router-link to="/register/Tab2">Tab2</router-link>
+            <router-view></router-view>
+            </div>`
     };
 
     //链接了 vue-router路由js  就会在window 挂载一个 vuerouter 构造函数
@@ -36,17 +52,30 @@
             // path表示当前路由规则匹配的hash 地址（to  属性是什么就写什么）
             // component 表示当前路由规则对应要展示的组件
             {
+                path: '/',
+                redirect: '/user'
+            }, {
                 path: '/user',
                 component: User
             }, {
                 path: '/register',
-                component: Register
+                component: Register,
+                children: [
+                    // {
+                    //     path: '/register/',
+                    //     redirect: '/register/Tab1'
+                    // },
+                    {
+                        path: '/register/Tab1',
+                        component: Tab1
+                    }, {
+                        path: '/register/Tab2',
+                        component: Tab2
+                    }
+                ]
             }
         ]
-    })
-
-
-
+    });
 
     var vm = new Vue({
         el: '#app',

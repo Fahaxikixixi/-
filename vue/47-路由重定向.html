@@ -36,6 +36,9 @@
             // path表示当前路由规则匹配的hash 地址（to  属性是什么就写什么）
             // component 表示当前路由规则对应要展示的组件
             {
+                path: '/',
+                redirect: '/user'
+            }, {
                 path: '/user',
                 component: User
             }, {
@@ -43,10 +46,7 @@
                 component: Register
             }
         ]
-    })
-
-
-
+    });
 
     var vm = new Vue({
         el: '#app',
