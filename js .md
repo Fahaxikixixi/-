@@ -289,7 +289,7 @@ bottom left 从右上至左下
 
 2.在最后一个子元素添加一个其他元素，并给添加的元素设置clear：both（清除浮动）（容易造成代码的多余）
 
-3.给父元素设置伪类：after  并给伪类设置clear：both 属性（**建议使用**，但在IE8下不支持伪类，这时可换其他方法）
+3.给父元素设置伪类：after  并给伪类设置clear：both 和display: block;属性（**建议使用**，但在IE8下不支持伪类，这时可换其他方法）
 
 4.给元素设置固定宽高，调到合适大小（不建议使用，不自适应，体验差）
 
@@ -4217,6 +4217,16 @@ document.getElementById("demo").innerHTML = x(5, 5);
 
 
 ### 若要返回对象
+
+由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
+
+```bash
+var getTempItem = id => ({ id: id, name: "Temp" });
+```
+
+
+
+
 
 ```js
 var fn5=(a,b)=>({num:a+b});
@@ -14386,91 +14396,7 @@ queryData. then(ret=>{
 
 
 
-## Vue-router 路由
-
-> 它和Vue.js的核心深度集成，可以非常方便的用于SPA应用程序的开发。
-
-https://router.vuejs.org/zh/  官方路由管理器
-
-* 支持HTML5历史模式或hash模式
-* 支持嵌套路由
-* 支持路由参数
-* 支持编程式路由
-* 支持命名路由
-
-### 基本使用
-
-
-
-#### 使用步骤
-
-1.引入相关的库文件
-
-```js
-//例
-<!--导入vue文件，为全局window 对象挂载Vue构造函数-->
- <script src="./js/vue.min.js"></script>
-
-<!--导入vue-router 文件，为全局window对象挂载VueRouter 构造函数-->
-<script src="./js/Vue-Router.js"></script>
-
-```
-
-
-
-2.添加路由链接
-
-```js
-<!-- router-link 是vue 中提供的标签，默认会被渲染为a标签-->
-<!-- to 属性默认会被渲染为 href 属性-->
-<!-- to 属性的值默认会被渲染为 # 开头的hash地址-->
-<router-link to="/user">user</ router-link>
-<router-link to="/register">Register</ router-link>
-
-```
-
-
-
-3.添加路由填充位
-
-```js
-<!--路由填充位(也叫做路由占位符)-- >
-<!--将来通过路由规则匹配到的组件，将会被渲染到router-view 所在的位置-->
-<router-view></router-view>
-
-```
-
-
-
-4.定义路由组件
-
-
-
-5.配置路由规则并创建路由实例
-
-
-
-6.把路由挂载到Vue根实例中
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 路由
+## 路由详解
 
 #### 后端路由
 
@@ -14503,6 +14429,540 @@ https://router.vuejs.org/zh/  官方路由管理器
 
 
 
+
+
+
+
+
+
+
+
+
+## Vue-router 路由
+
+> 它和Vue.js的核心深度集成，可以非常方便的用于SPA应用程序的开发。
+>
+> **路由：就是SPA（单页应用）的路径管理器**。
+
+https://router.vuejs.org/zh/  官方路由管理器
+
+* 支持HTML5历史模式或hash模式
+* 支持嵌套路由
+* 支持路由参数
+* 支持编程式路由
+* 支持命名路由
+
+### 基本使用
+
+
+
+
+
+#### 1.引入相关的库文件
+
+```js
+//例   先导入vue  在导入 router
+
+<!--导入vue文件，为全局window 对象挂载Vue构造函数-->
+ <script src="./js/vue.min.js"></script>
+
+<!--导入vue-router 文件，为全局window对象挂载VueRouter 构造函数-->
+<script src="./js/Vue-Router.js"></script>
+
+```
+
+
+
+#### 2.添加路由链接
+
+```js
+//user  register  作为示例自定义命名，下面出现也是作为示例
+
+<!-- router-link 是vue 中提供的标签，默认会被渲染为a标签-->
+<!-- to 属性默认会被渲染为 href 属性-->
+<!-- to 属性的值默认会被渲染为 # 开头的hash地址-->
+<router-link to="/user">user</ router-link>
+<router-link to="/register">Register</ router-link>
+
+```
+
+
+
+#### 3.添加路由填充位
+
+```js
+<!--路由填充位(也叫做路由占位符)-- >
+<!--将来通过路由规则匹配到的组件，将会被渲染到router-view 所在的位置-->
+<router-view></router-view>
+
+```
+
+
+
+#### 4.定义路由组件
+
+```js
+var User = {
+	template:'<div>User</div> '
+}
+
+var Register = {
+	template:'<div>Register</div>'
+    }
+
+```
+
+
+
+#### 5.配置路由规则并创建路由实例
+
+```js
+//创建路由实例对象
+var router = new VueRouter ({
+	// routes 是路由规则数组
+	routes: [
+		//每个路由规则都是一个配置对象，其中至少包含path 和component 两个属性:
+		// path表示当前路由规则匹配的hash 地址（to  属性是什么就写什么）
+		// component 表示当前路由规则对应要展示的组件
+    	{path: '/user'，component: User},
+		{path: '/register '，component: Register}
+	]
+})
+
+```
+
+
+
+
+
+#### 6.把路由挂载到Vue根实例中
+
+```js
+new vue({
+	e1:'#app',
+	//为了能够让路由规则生效，必须把路由对象挂载到vue实例对象上
+    //router 指向的就是创建的路由实例对象（上面实例创建的实例对象名称是router）
+	router：router
+}) ;
+
+```
+
+
+
+
+
+![image-20200925093311580](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925093311580.png)
+
+
+
+
+
+
+
+## 路由重定向
+
+> redirect
+
+
+
+路由重定向指的是:用户在访问地址A的时候，强制用户跳转到地址c，从而展示特定的组件页面;
+
+通过路由规则的redirect 属性，指定一个新的路由地址，可以很方便地设置路由的重定向:
+
+
+
+```js
+var router = new VueRouter({
+	routes:[
+		//其中，path表示需要被重定向的原地址，redirect 表示将要被重定向到的新地址
+		{path:'/', redirect: ' /user'},
+        {path: '/yuser',component: User},
+        {path:'/ register',component: Register}
+}}
+
+```
+
+
+
+**未重定向，默认跳转**
+
+![image-20200925095114519](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925095114519.png)
+
+
+
+
+
+**重定向之后，默认跳转页**
+
+
+
+![image-20200925095153636](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925095153636.png)
+
+
+
+
+
+## Vue-router 嵌套路由
+
+
+
+### 1.嵌套路由功能分析
+
+* 点击父级路由链接显示模板内容
+* 模板内容中又有子级路由链接
+* 点击子级路由链接显示子级模板内容
+
+
+
+
+
+
+
+![image-20200925095649900](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925095649900.png)
+
+
+
+
+
+### 2.父路由组件模板
+
+* 父级路由链接
+* 父组件路由填充位
+
+
+
+```js
+<p>
+	<router- link to="/user">user</ router-link>
+	<router-link to= "/register">Regi ster</ router-link>
+</p>
+<div>
+	<!-- 控制组件的显示位置-->
+	<router-view></ router-view>
+</div>
+
+```
+
+
+
+### 3.子级路由模板
+
+* 子级路由链接
+* 子级路由填充位
+
+
+
+```js
+const Register = {
+	template:`<div>
+	<h1>Register组件</h1>
+	<hr/>
+	<router-link to="/dgister/tab1">Tab1</router-link>
+	<router-link to="/register/tab2" >Tab2</ router-link>
+	<!--子路由填充位置-->
+	<router-view/>
+</div>`
+    }
+
+```
+
+
+
+### 4.嵌套路由配置
+
+* **父级路由通过children属性配置子级路由**
+
+
+
+```js
+const router = new VueRouter ({
+  routes:[
+	{ path: '/user',component: User },
+    {
+        path: '/register',
+		component: Register,
+		//通过children 属性，为/register 添加子路由规则
+		children:[
+            {path: '/register/tab1', component: Tab1 },
+			{path:'/register/tab2", component: Tab2 }
+		]
+	}
+ ]
+})
+```
+
+
+
+```js
+ const Tab1 = {
+        template: `<h3>Tab1 组件<h3>`
+    };
+    const Tab2 = {
+        template: `<h3>Tab2 组件<h3>`
+    };
+
+
+    //定义两个路由组件，上面html 有几个就定义几个
+    const User = {
+        template: `<h1>User 组件</h1>`
+    };
+    const Register = {
+        template: `<div><h1>Register 组件</h1><hr/>
+            <router-link to="/register/Tab1">Tab1</router-link>
+            <router-link to="/register/Tab2">Tab2</router-link>
+            <router-view></router-view>
+            </div>`
+    };
+
+    //链接了 vue-router路由js  就会在window 挂载一个 vuerouter 构造函数
+    //创建路由实例对象  
+    var router = new VueRouter({
+        // routes 是路由规则数组
+        routes: [
+            //每个路由规则都是一个配置对象，其中至少包含path 和component 两个属性:
+            // path表示当前路由规则匹配的hash 地址（to  属性是什么就写什么）
+            // component 表示当前路由规则对应要展示的组件
+            {
+                path: '/',
+                redirect: '/user'
+            }, {
+                path: '/user',
+                component: User
+            }, {
+                path: '/register',
+                component: Register,
+                children: [
+                    // {
+                    //     path: '/register/',
+                    //     redirect: '/register/Tab1'
+                    // },
+                    {
+                        path: '/register/Tab1',
+                        component: Tab1
+                    }, {
+                        path: '/register/Tab2',
+                        component: Tab2
+                    }
+                ]
+            }
+        ]
+    });
+
+    var vm = new Vue({
+        el: '#app',
+        //挂载路由实例对象
+        router: router,
+        data: {},
+    });
+```
+
+
+
+## Vue-router动态路由匹配（传递参数）
+
+
+
+
+
+### 动态匹配路由的基本用法
+
+**应用场景：通过动态路由参数模拟进行路由匹配**
+
+```js
+var router=new VueRouter ((
+	routes: [
+		//动态路径参数以冒号开头
+		(path:'/user/:id'.component:User]
+	]
+
+```
+
+
+
+$route:params
+
+```js
+const User = {
+	//路由组件中通过$route.params获取路由参数
+	template:'<div>User{{ $route:params.id }}</div>'
+}
+
+```
+
+
+
+![image-20200925105215487](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925105215487.png)
+
+
+
+### 路由组件传递参数(动态匹配优化)
+
+
+
+$route与对应路由形成高度耦合，不够灵活,所以可以使用props将组件和路由解耦（**推荐使用**）
+
+
+
+#### 1.props的值为布尔类型
+
+props:true   代表同意接收路由传递过来的数据，参数
+
+```js
+const router = new VueRouter (
+	routes: [
+		//如果props被设置为true, route.params 将会被设置为组件属性
+		{path: ' /user/:id', component: user, props: true }
+})
+
+const User = {
+	props:['id'], //使用props 接收路由参数
+	template: '<div>用户ID: {{ id }}</div>' // 使用路由参数
+}
+
+```
+
+
+
+#### 2.props的值为对象类型
+
+只能传递静态参数
+
+**props 定义为对象时， 就无法获取到:id 的值，只能传递props对象传递的值**
+
+```js
+//props 定义为对象时， 就无法获取到id 的值，只能传递props对象传递的值
+
+const router = new VueRouter (
+	routes: [
+		//如果props是一个对象，它会被按原样设置为组件属性
+		{ path: '/user/:id', component: User, props: { uname: "lisi', age: 12 }}
+
+	]
+})
+
+const User = {
+	props: ['uname', 'age'],
+	template: '<div>用户信息: {{uname + '---' + age}}</div>'
+}
+
+```
+
+
+
+#### 3.props的值为函数类型
+
+
+
+```js
+const router =new VueRouter ({
+	routes: [
+		//如果props是一个函数，则这个函数接收route 对象为自己的形参
+        {path:'/user/:id',
+		 component: User,
+         //route 是路由中的动态参数对象  :id  有几个  route 就会有几个值
+         //这个函数体会返回一个params 对象   函数里可以写静态的数据，也可以写动态的
+			props:route =>({uname: 'zs', age: 20, id: route.params.id})
+        }
+	]
+})
+const User = {
+	props: ['uname', 'age', 'id'],
+	template: '<div>用户信息: {{uname + '---' + age + '---' + id}}</div>'
+}
+```
+
+
+
+
+
+## Vue-route命名路由
+
+#### 命名路由的配置规则
+
+为了更加方便的表示路由的路径，可以给路由规则起-个别名， 即为“命名路由”。
+
+
+
+```js
+const router = new VueRouter ({
+	routes: [
+		{path:'/user/:id',
+		name:'user' 
+		component: User
+		}
+	]
+})
+
+```
+
+
+
+实现跳转，和传递参数
+
+```js
+<router-link :to="{ pame: "user",params: { id: 123 }">User</router-link>
+router.push({ name: 'user', params: { id: 123 }})
+
+```
+
+
+
+## Vue-router编程式导航
+
+
+
+### 页面导航的两种方式
+
+* **声明式导航：**通过**点击链接**实现导航的方式，叫做声明式导航
+  例如:普通网页中的<a></a>链接或vue中的<router-link> </router-link>
+* **编程式导航：**通过**调用JavaScript**形式的API实现导航的方式，叫做编程式导航
+  例如:普通网页中的location.href
+
+
+
+### 编程式导航基本用法
+
+
+
+* this.$router.push('hash地址')
+* this.$router.go(n)  (控制前进后退的 1，-1)
+
+
+
+```js
+const User = {
+	template: '<div><button @click="goRegister ">跳转到注册页面< /button></div>',
+	methods: {
+		goRegister:function() {
+			//用编程的方式控制路由跳转
+			this.$router.push('/register');
+		}
+	}
+}
+```
+
+
+
+### 编程式导航参数规则
+
+
+
+router.push（）方法的参数规则
+
+```js
+//字符串(路径名称)
+router.push('/home')
+
+//对象
+router.push({path:'/home' })
+
+//命名的路由(传递参数)
+router.push({ name:'/user', params: { userId: 123 } })
+
+//带查询参数，变成/register?uname=lisi
+router.push({path:'/register', query: { uname: 'lisi' }})
+
+```
 
 
 
