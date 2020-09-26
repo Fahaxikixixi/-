@@ -1,3 +1,5 @@
+
+
 # 命名规范
 
 ## (1)页面框架命名,一般具有唯一性,推荐用ID命名
@@ -14784,7 +14786,7 @@ $route:params
 ```js
 const User = {
 	//路由组件中通过$route.params获取路由参数
-	template:'<div>User{{ $route:params.id }}</div>'
+	template:'<div>User{{ $route.params.id }}</div>'
 }
 
 ```
@@ -14970,6 +14972,510 @@ router.push({path:'/register', query: { uname: 'lisi' }})
 
 
 
+# Node.js
+
+
+
+PowerShell  或者 cmd  切换到 文件所在目录  ，
+
+运行对应js： node  文件名.js		输入文件名时输入前几个按tab 键可补全
+
+
+
+
+
+
+
+![image-20200926095715734](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926095715734.png)
+
+
+
+![image-20200926101655990](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926101655990.png)
+
+
+
+
+
+![image-20200926102009612](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926102009612.png)
+
+
+
+
+
+## 模块化开发
+
+### 导出
+
+```js
+//例：02.A.js
+const add = (n1, n2) => n1 + n2;
+
+exports.add = add;  //.add 是自定义命名
+```
+
+
+
+
+
+![image-20200926102044434](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926102044434.png)
+
+### 模块成员导出的另一种方式
+
+**exports是module.exports的别名(地址引用关系),导出对象最终以module.exports为准**
+
+```js
+//04.module.exports.js    导出
+
+const greeting = name => `hello--${name}`;
+
+module.exports.greeting = greeting;
+
+
+//04.require.js  导入
+const a = require('./04.module.exports.js');
+console.log(a.greeting('21Y')); //执行结果： hello--21Y
+```
+
+
+
+
+
+
+
+
+
+### 导入
+
+
+
+```js
+//例：03.B.js
+const a = require('./02.A.js'); //括号内的是对应要引入方法的文件地址  .js可以省略
+console.log(typeof a); //是exports 对象
+
+console.log(a.add(10, 20)); //30
+```
+
+
+
+![image-20200926102100066](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926102100066.png)
+
+
+
+## 系统模块
+
+![image-20200926110420945](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110420945.png)
+
+
+
+#### 前两个操作多需要引入const fs=require('fs')
+
+![image-20200926110535698](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110535698.png)
+
+![image-20200926110713699](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110713699.png)
+
+
+
+#### 读取的是文件的内容
+
+![image-20200926110726683](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110726683.png)
+
+
+
+#### 写入文件
+
+应用场景：错误日志
+
+![image-20200926111858505](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926111858505.png)
+
+
+
+```js
+// 1.通过模块的名字fs对模块进行引用
+const fs = require('fs');
+
+//2.通过模块内部的writeFile写入文件内容
+//写入的文件不存在时会自动创建
+fs.writeFile('./demo.text', '即将要写入内容', err => {
+     //如果文件读取出错err是一个对象包含错误信息
+    //如果文件读取正确err是nu1l
+   
+    if (err != null) {
+        console.log(err);
+        return;
+    }
+    console.log('文件内容写入成功');
+})
+```
+
+
+
+
+
+#### 路径拼接
+
+![image-20200926113000237](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926113000237.png)
+
+
+
+```js
+//pulic/uploads/avatar
+const path = require('path');//一定要加上
+const { pathToFileURL } = require('url');
+
+const finalPath = path.join('pulic', 'uploads', 'avatar');
+console.log(finalPath);// 结果： pulic\uploads\avatar 
+//(windows: \  Linux:/)
+```
+
+
+
+## 第三方模块
+
+### npm
+
+
+
+node的第三方模块管理工具
+
+
+
+下载： npm install 模块名称
+
+在命令行输入下载模块之后  只要没有出现红色的命令就是下载成功
+
+
+
+卸载：npm uninstall 模块名称
+
+
+
+全局安装  与 本地安装
+
+本地安装：将模块下载到当前项目目录下供当前项目使用
+
+全局安装：将模块安装到一个公共的目录下，全部项目都可以使用这个模块
+
+
+
+* 命令行工具：全局安装
+* 库文件：本地安装
+
+
+
+
+
+###  第三方模块nodemon
+
+nodemon是一个命令行工具，用以辅助项目开发
+
+在node.js 每次修改文件都要在命令行工具中重新执行该文件，非常繁琐
+
+
+
+使用步骤
+
+1. 使用  npm install nodemon -g    下载	-g 代表全局安装
+2. 在命令行工具中用nodemon命令替代node命令执行文件
+
+
+
+使用时： nodemon 文件名         （使用时命令行工具先到该目录下）
+
+例： nodemon a.js           ==>每次修改之后就会自动运行a.js，就不需要重复手动了
+
+
+
+### nrm
+
+![image-20200926135858763](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926135858763.png)
+
+![image-20200926140015840](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926140015840.png)
+
+
+
+
+
+![image-20200926140030824](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926140030824.png)
+
+
+
+# Express框架
+
+node优化框架
+
+
+
+
+
+浏览器访问时：localhost：监听的端口号/地址
+
+
+
+## 框架介绍与原生node对比
+
+![image-20200926140504024](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926140504024.png)
+
+
+
+
+
+![image-20200926140521671](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926140521671.png)
+
+
+
+![image-20200926140558885](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926140558885.png)
+
+
+
+
+
+```js
+//引入express框架
+const express = require('express');
+
+//创建网站服务器(app 变量)
+const app = express();
+
+
+//req 响应对象  res 请求对象
+app.get('/', (req, res) => {
+    //send() 响应方法
+    // 1.send方法内部会检测响应内容的类型
+    // 2.send方法会自动设置http状态码
+    // 3.send方法会帮我们自动设置响应的内容类型及编码
+    res.send('Hello Express');
+})
+
+app.get('/list', (req, res) => {
+    res.send({ name: '21Y', age: 20 })
+})
+
+
+//监听端口（有端口才能提供服务）
+app.listen(3000);
+console.log('网站服务器启动成功');
+```
+
+
+
+每更新一次代码，或者添加一个请求，就需要在命令行工具cmd 或者是 prowessShell  ctrl+c  打断当前操作（服务器）
+
+
+
+然后重新执行 服务器js文件
+
+
+
+## 中间件
+
+**中间件是有顺序的**
+
+
+
+中间件就是一堆方法，可以接收客户端发来的请求、可以对请求做出响应,也可以将请求继续交给下一个中间件继续处理。
+
+
+
+
+![image-20200926142917614](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926142917614.png)
+
+
+
+
+
+中间件主要由两部分构成，**中间件方法**以及**请求处理函数**。
+中间件方法由Express提供，负责拦截请求，请求处理函数由开发人员提供，负责处理请求。
+
+
+
+### 中间件app.get，app.post
+
+下面两个这个中间件（get（用于接收get请求），post（用于接收post请求)）
+
+```js
+
+app.get('请求路径'，'处理函数')//接收井处理get请求
+
+app.post('请求路径'，'处理函数')//接收并处理post请求
+
+```
+
+
+
+#### next方法
+
+可以针对同一个请求设置多个中间件，对同一个请求进行多次处理
+
+**默认情况下**，请求从上到下依次匹配中间件，一旦匹配成功，终止匹配
+
+**可以调用next方法**，将请求的控制权交给下一个中间件，直到遇到**结束请求的中间件**
+
+```js
+//例
+app.get('/request', (req, res, next) => {
+	req.name = "张三”;
+    next（）;
+});
+
+app.get('/request', (req， res) => {
+	res.send(req.name) ;
+});
+
+```
+
+
+
+### 中间件app.use用法
+
+**app.use 匹配所有的请求方式**，可以直接传入请求处理函数，代表接收所有的请求
+
+```js
+app.use((req,res,next)=>{
+    console.log(req.url);
+    next();
+});
+```
+
+
+
+app.use第一个参数也可以传入请求地址，**代表不论什么请求方式，只要是这个请求地址就接收这个请求。**
+
+```js
+app.use('/admin',(req,res,next)=>{
+    console.log(req.url);
+    next();
+});
+```
+
+
+
+### 中间件应用
+
+
+
+1.路由保护，客户端在访问需要登录的页面时，可以先使用中间件判断用户登录状态，用户如果未登录，则拦截请求，直接响应，禁止用户进入需要登录的页面。
+
+2.网站维护公告 ，在所有路由的最上面定义接收所有请求的中间件，直接为客户端做出响应，网站正在维护中。
+3.自定义404页面（一般定义在所有路由最后面，所有都没有匹配成功，说明不存在）
+
+
+
+
+
+
+
+
+
+可以链式调用，
+
+![image-20200926161522389](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926161522389.png)
+
+
+
+
+
+### 错误处理中间件
+
+
+
+在程序执行的过程中，不可避免的会出现一些无法预料的错误，比如文件读取失败，数据库连接失败。
+错误处理中间件是一个集中处理错误的地方。
+
+
+
+```js
+app.use((err,req,res,next)=>{
+    res.status(500).send('服务器发送未知错误')
+})
+```
+
+
+
+当程序出现错误时，调用next0方法，并且将错误信息通过参数的形式传递给next()方法，即可触发错误处理中间件。
+
+```js
+app.get("/", (req, res, next) => {
+	fs.readFile("/ file-does : -not- exist", (err, data) => {
+		if (err) {
+			next(err) ;
+		};
+    });
+});
+```
+
+
+
+
+
+例1：
+
+![image-20200926164556733](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926164556733.png)
+
+
+
+
+
+例2：
+
+![image-20200926170235336](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926170235336.png)
+
+
+
+
+
+### 捕获错误
+
+
+
+在node.js中，异步API的错误信息都是通过回调函数获取的，支持Promise对象的异步API发生错误可以通过catch方法捕获。异步函数执行如果发生错误要如何捕获错误呢?
+
+
+
+try catch可以捕获异步函数以及其他同步代码在执行过程中发生的错误，但是不能捕获其他类型的API发生的错误(回调函数，promise对象等)
+
+```js
+app.get("/", async (req， res, next) => {
+	try {
+		await user. find({name: '张三'}
+	}catch (ex) {
+		next (ex) ;
+    }
+}) ;
+
+```
+
+
+
+
+
+![image-20200926172444180](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926172444180.png)
+
+
+
+
+
+## 构建模块化路由
+
+
+
+```js
+eonst express = require('express')
+//创建路由对象
+const home = express . Router() ;
+//将路由和请求路径进行匹配
+app.use('/home'，home) ;
+//在home路由下继续创建路由
+home .get('/index', () => {
+// /home/index
+res. send('欢迎来到博客展示页面') ;
+};
+
+```
+
+
+
+![image-20200926174406287](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926174406287.png)
 
 
 
@@ -14982,7 +15488,32 @@ router.push({path:'/register', query: { uname: 'lisi' }})
 
 
 
-## 准备
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 准备
 
 1：安装cnpm
 npm install -g cnpm –registry=http://registry.npm.taobao.org
