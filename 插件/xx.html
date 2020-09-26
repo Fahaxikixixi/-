@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>下拉刷新-上拉加载更多</title>
+    <link rel="stylesheet" type="text/css" href="./scroll-demo/css/index.css">
+    <script src="./jq/jquery-3.5.1.min.js"></script>
+    <script src="./public/batter-scroll.min.js"></script>
+    <style>
+        .tip {
+            height: 50px;
+        }
+        
+        .wrapper {
+            position: fixed;
+            /* left: 0; */
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            /* overflow: hidden; */
+            /* height: 200px; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tip">001</div>
+    <div class="wrapper">
+
+
+        <ul class="content">
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="avatar">
+                    <img src="./scroll-demo/img/1.png" width="100" height="100" />
+                </div>
+                <div class="text">
+                    <h2>只会放肆,不会说谎,好青春也是谁不想要一个深情却刺激</h2>
+                    <span>2016-11-23</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- <script src="./scroll-demo/js/bscroll.js"></script> -->
+    <!-- <script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script> -->
+
+    <script>
+        var ctg = document.querySelector('.wrapper');
+        var tip = document.querySelector('.tip');
+
+
+        fn(6)
+
+        function fn(a) {
+            if (a > 5) {
+                bs.finishPullDown();
+            }
+        }
+
+        // function fn() {
+        //     // // 通过下拉刷新、上拉加载更多时触发
+        //     // $('.tip').hide(500)
+        //     //     // $('.pull-up-wrap').hide(500)
+        //     //     // 重新计算 better-scroll，当 DOM 结构发生变化的时候务必要调用确保滚动的效果正常。
+        //     // scroll.refresh()
+        //     //     // 当上拉或下拉刷新数据加载完毕后，需要调用以下方法告诉 better-scroll 数据已加载。
+        //     // scroll.finishPullDown()
+        //     // scroll.finishPullUp()
+        //     console.log(12);
+        // }
+
+        var bs = new BScroll(ctg, {
+            pullDownRefresh: {
+                threshold: 90,
+                stop: 40
+            },
+            pullUpLoad: {
+                threshold: 100,
+            }
+
+        });
+        // bs.finishPullDown();
+        // bs.on("scroll", scroll)
+
+        // function scroll() {
+        //     // $('.tip').show()
+        //     // alert(123)
+        //     // fn();
+        //     tip.innerHTML = '释放刷新';
+        //     console.log(123);
+        // }
+
+        bs.on('pullingDown', function() {
+            // $('.tip').show()
+            console.log(bs);
+            alert(123)
+                //     // fn();
+            tip.innerHTML = '释放刷新';
+            conssole.log(123);
+        })
+        bs.on('pullingUp', function() {
+            conssole.log(321);
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // // 生成日期数据
+        // let dateData = getDateData(10)
+        // console.log(dateData);
+        // // 转换地区数据
+        // // let siteData = changeAreaData(areaData)
+
+        // // 省市区三级联动数据转换成需要的格式
+        // function changeAreaData(obj) {
+
+        //     return Object.keys(obj).map(key => {
+        //         let formatObj = {
+        //             id: obj[key].val || obj[key],
+        //             value: key
+        //         };
+        //         if (obj[key].items) {
+        //             formatObj.childs = changeAreaData(obj[key].items);
+        //         }
+        //         return formatObj;
+        //     })
+        // }
+        // // 传入一个数字参数参数，参数代表当前时间前n年到后n年
+        // function getDateData(year) {
+        //     let nowDate = new Date();
+        //     console.log(nowDate);
+        //     let nowYear = nowDate.getFullYear();
+        //     console.log(nowYear); //2020
+        //     let dateData = []
+        //         //2020-10=2010                      2030
+        //     for (let i = nowYear - year; i <= nowYear + year; i++) {
+        //         let obj = {}
+        //         obj.id = i
+        //         obj.value = i;
+        //         obj.childs = [{
+        //             id: 1,
+        //             value: '01'
+        //         }, {
+        //             id: 2,
+        //             value: '02'
+        //         }, {
+        //             id: 3,
+        //             value: '03'
+        //         }, {
+        //             id: 4,
+        //             value: '04'
+        //         }, {
+        //             id: 5,
+        //             value: '05'
+        //         }, {
+        //             id: 6,
+        //             value: "06"
+        //         }, {
+        //             id: 7,
+        //             value: '07'
+        //         }, {
+        //             id: 8,
+        //             value: '08'
+        //         }, {
+        //             id: 9,
+        //             value: '09'
+        //         }, {
+        //             id: 10,
+        //             value: '10'
+        //         }, {
+        //             id: 11,
+        //             value: '11'
+        //         }, {
+        //             id: 12,
+        //             value: '12'
+        //         }]
+        //         dateData.push(obj)
+        //     }
+        //     return dateData
+        // }
+    </script>
+</body>
+
+</html>

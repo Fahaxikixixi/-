@@ -1,0 +1,38 @@
+{
+    "xs": ["name", "age", "gogoin"],
+    "list": {
+        "sk0": {
+            "name": "P_looo",
+            "skill": "is God",
+            "friend": "老板"
+        },
+        "sk1": {
+            "name": "Z_looo",
+            "skill": "is God",
+            "friend": "老板"
+        }
+    },
+    "list1": {
+        "sk0": {
+            "name": "P_looo",
+            "skill": "is God",
+            "friend": "老板"
+        },
+        "sk1": {
+            "name": "Z_looo",
+            "skill": "is God",
+            "friend": "老板"
+        }
+    },
+    "per": [{
+            "name": "P_looo",
+            "skill": "is God",
+            "friend": "老板"
+        },
+        {
+            "name": "Z_looo",
+            "skill": "is God",
+            "friend": "老板"
+        }
+    ]
+}
