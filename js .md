@@ -390,6 +390,34 @@ cursor:pointer;  图片??
 
 动Web开发、Bootstrap等。要注意移动开发中的适配和兼容性问题
 
+
+
+# rem适配
+
+
+
+```js
+/* rem适配 */
+(function () {
+  let html = document.documentElement;
+  let hw = html.getBoundingClientRect().width;
+  // console.log(hw);
+  /* 
+  设计稿width=375px
+  25rem=375px
+  1rem=15px
+  */
+  if (hw <= 750) {
+    html.style.fontSize = hw / 25 + 'px';
+  }
+})()
+
+```
+
+
+
+
+
 # canvas
 
 # JavaScript
@@ -4159,6 +4187,30 @@ https://www.cnblogs.com/imPedro/p/9881998.html   案例文档
 
 
 
+## 提示组件
+
+
+
+```js
+// 提示组件
+function Tip(msg) {
+  // 避免重复出现多次提示
+  if ($('.msg-info').length > 0) return;
+  // 创建提示节点
+  let box = document.createElement('p')
+  box.className = 'msg-info'
+  document.body.appendChild(box)
+  $('.msg-info').text(msg)
+  $('.msg-info').show(function () {
+    setTimeout(function () {
+      $('.msg-info').hide()
+      // 销毁提示节点
+      document.body.removeChild(box)
+    }, 2000)
+  })
+}
+```
+
 
 
 
@@ -5465,6 +5517,43 @@ $.ajax({
     "friend": "老板"
 	}
 ```
+
+
+
+## 封装案例（重点）
+
+
+
+```js
+let baseURL = 'http://api.weibao.com/api/';
+function ajax(obj, callback) {
+  $.ajax({
+    type: obj.method,
+    url: baseURL + obj.url,
+    xhrFields: { withCredentials: true },//解决跨域
+    crossDomain: true,//解决跨域
+    processData: obj.processData,
+    contentType: obj.contentType,
+    data: obj.data,
+    success: (data) => {
+      if (data.error_code == 2) {
+        window.location.href = data.data.jump_url
+      }
+      if (data.error_code != 0) {
+        Tip(data.msg)
+      }
+      callback(data);
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  })
+}
+```
+
+
+
+
 
 
 
@@ -14968,6 +15057,295 @@ router.push({path:'/register', query: { uname: 'lisi' }})
 
 
 
+# 模块化
+
+
+
+![image-20200927145434903](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927145434903.png)
+
+
+
+
+
+1.npm install -- save-dev @babel/core @babel/cli @babel/preset-env @babel/ node
+
+2.npm install --save @babel/polyfill
+3.项目跟目录创建文件babel . config. js
+4.babel. config. js文件内容如下方代码
+5.通过npx babel -node index.js执行代码
+
+
+
+```js
+const presets = [
+    ["@babel/env", {
+        targets: {
+            edge: "17",
+            firefox: "60",
+            chrome: "67",
+            safari: "11.1"
+        }
+    }]
+];
+
+module.exports = { presets }
+
+```
+
+
+
+## ES6模块化的基本语法
+
+
+
+### 默认导出与导入
+
+* 默认导出语法： export default  默认导出的成员
+
+* 默认导入语法：  import  接收名称  from  ‘模块标识符’
+
+
+
+**注意:每个模块中，只允许使用唯一的一次export default, 否则会报错!**
+
+```js
+//当前文件模块为m1.js
+
+//定义私有成员a和c
+let a=10
+let C= 20
+//外界访问不到变量d，因为它没有被暴露出去
+let d=30
+function show() {}
+//将本模块中的私有成员暴露出去，供其它模块使用
+export default {
+	a,
+    b,
+	show
+}
+```
+
+
+
+```js
+//导入模块成员
+import m1 from './m1.js'
+console.log (m1)
+//打印输出的结果为:
+// { a: 10， c: 20，show: [Function: show]}
+
+```
+
+
+
+### 按需导入与导出
+
+
+
+* 按需导出语法： export  let  s1=10
+* 按需导入语法： import { s1 } from '模块标识符'
+
+
+
+```js
+//当前文件模块为m1.js
+//向外按需导出变量sl
+export let s1 = 'aaa'
+//向外按需导出变量s2
+export let s2 = 'eee'
+//向外按需导出方法say
+export function say =function() {}
+
+```
+
+
+
+```js
+//导入模块成员
+//as  重新命名
+
+inport { s1, s2 as ss2,say} from './m1.js'
+console. log(s1) //打印输出
+aaa
+console.1og(ss2) // 打印输出ccc
+console. log(say) //打印输出[Function: sayl
+
+```
+
+
+
+### 直接导入并执行模块代码
+
+
+
+有时候。我们**只想单纯执行某个模块中的代码。并不需要得到模块中向外暴重的成员**，此时，可以直接导入并执行模块代码。
+
+```js
+//当前文件模块为m2 .js
+//在当前模块中执行一个for循环操作
+for(let i = 0; i < 3 ; i++){
+	console .log(i)
+}
+
+```
+
+
+
+```js
+//在m2.js以外的js文件导入
+//直接导入并执行模块代码
+import './m2.js"
+
+```
+
+
+
+# webpack
+
+
+
+## 概述
+
+
+
+**webpack**是一个流行的**前端项目构建工具 (打包工具)** ,可以解决当前web开发中所面临的困境。
+webpack提供了友好的**模块化支持**，以及**代码压缩混淆**、**处理js兼容问题**、**性能优化**等强大的功能，从而让程序员把
+工作的重心放到具体的功能实现上，提高了开发效率和项目的可维护性。
+
+
+
+![image-20200927162940210](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927162940210.png)
+
+
+
+## 基本使用
+
+
+
+### 1.创建列表隔行变色项目
+
+
+
+1.新建项目空白日录，并运行npm init -y命令，初始化包管理配置文件package. json
+2.新建src源代码目录
+3.新建src ---> index .html首页
+4.初始化首页基本的结构
+5.运行npm install jquery -s命令，安装jquery
+6.通过横块化的形式，实现列表隔行变色效果
+
+
+
+
+
+### 2.项目中安装和配置webpack
+
+1.运行npm  install  webpack  webpack-cli  -D命令，安装webpack 相关的包
+2.在项目根目录中，创建名为webpack. config.js的webpack 配置文件
+3.在webpack的配置文件中，初始化如下基本配置.
+
+
+
+```js
+module.exports = {
+    //开发模式时都把mode 的值设置为这个， 只有要上线的时候才改为其他值
+	mode: 'development' // mode 用来指定构建模式
+}
+
+```
+
+4.在package.json 配置文件中的scripts 节点下，新增dev脚本如下:
+
+```js
+"scripts": {
+	"dev": "webpack" // script节点下的脚本，可以通过npm run执行
+}
+
+```
+
+5.在终端中运行npm run dev命令，启动webpack进行项目打包。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15113,6 +15491,10 @@ fs.writeFile('./demo.text', '即将要写入内容', err => {
 
 
 #### 路径拼接
+
+path.join(__dirname)  ==>获取当前文件所在路径
+
+
 
 ![image-20200926113000237](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926113000237.png)
 
@@ -15466,7 +15848,7 @@ const home = express . Router() ;
 //将路由和请求路径进行匹配
 app.use('/home'，home) ;
 //在home路由下继续创建路由
-home .get('/index', () => {
+home .get('/index', (req,res) => {
 // /home/index
 res. send('欢迎来到博客展示页面') ;
 };
@@ -15476,6 +15858,275 @@ res. send('欢迎来到博客展示页面') ;
 
 
 ![image-20200926174406287](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926174406287.png)
+
+
+
+
+
+
+
+
+
+![image-20200927095419742](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927095419742.png)
+
+
+
+
+
+
+
+
+
+### 案例
+
+![image-20200927101042640](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927101042640.png)
+
+
+
+
+
+## GET参数的获取
+
+
+
+Express框架中使用**req.query**即可获取GET参数，框架内部会将GET**参数转换为对象并返回。**
+
+
+
+```js
+//接收地址栏中问号后面的参数
+//例如: http://1ocalhost:3000/?name=zhanqsan&age=30
+app.get('/",(req, res) => {
+console.1og(reg. query); // {"name": "zhangsan", "age": "30"}
+}) ;
+
+```
+
+
+
+## POST参数的获取
+
+Express中接收post请求参数**需要借助第三方包body-parser.**
+
+
+
+```js
+//引入body-parser模块
+eonst bodyParser = require('body parser') ;
+//配置body-parser模块
+app.use(bodyParser.urlencodedt extended: false })) ;
+//接收请求
+app.post(' /add', (req, res) => {
+//接收请求参数
+console. log (req.body) ;
+})
+```
+
+
+
+![image-20200927104914281](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927104914281.png)
+
+
+
+
+
+
+
+
+
+## app.use
+
+
+
+![image-20200927110657005](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927110657005.png)
+
+
+
+## Express路由参数
+
+
+
+```js
+app.get('/find/:id", (req,res) => {
+	console. log(req.params) ; // {id: 123}
+}) ;
+
+```
+
+
+
+```js
+localhost:3000/find/123
+```
+
+
+
+![image-20200927111430452](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927111430452.png)
+
+
+
+![image-20200927111506609](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927111506609.png)
+
+
+
+## 静态资源访问
+
+
+
+通过Expess内置的**express.static**可以方便地托管静态文件，**例如img. CSS. JavaScript 文件等。**
+
+
+
+```js
+app.use(express.static('public'));
+```
+
+
+
+现在，public目录下面的文件就可以访问了。
+
+* http://localhost:3000/images/kitten.jpg
+* http://localhost:3000/css/style.css 
+* http://localhost:3000/js/app.js
+* http://localhost:3000/images/bg.png
+* http://localhost:30000/hello.html
+
+
+
+```js
+//引入Express框架
+const express = require('express');
+//路径拼接
+const path = require('path');
+//创建网站服务器(app 变量)
+const app = express();
+
+//获取当前文件路径__dirname
+// path.join(__dirname, 'public');
+
+//实现静态资源访问功能
+app.use(express.static(path.join(__dirname, 'public')));
+//访问路径   http://localhost:3000/default.html
+
+// app.use('/index', express.static(path.join(__dirname, 'public')));
+//访问路径  http://localhost:3000/index/default.html
+
+
+
+
+
+//监听端口
+app.listen(3000);
+console.log('服务器启动成功');
+```
+
+
+
+
+
+![image-20200927113723836](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927113723836.png)
+
+
+
+
+
+## 模板引擎
+
+* 为了使art-template模板引擎能够更好的和Express框架配合，模板引擎官方在原art-template模板引擎的基础.上封装了express art template.
+
+* 使用npm install art-template express-art-template命令进行安装。
+
+```js
+//当渲染后缀为art的模板时使用express-art-template
+app.engine('art',require('express-art-template'));
+
+//设置模板存放目录
+app.set('views'，path.join(_ dirname, 'views')) ;
+
+//渲染模板时不写后缀 默认拼接art后缀(允许使用多个模板引擎)
+app.set( view engine'，'art');
+
+app.get('/', (reg, res) =>(
+	//渲染模板
+	res.render(‘index')
+}) ;
+
+             
+```
+
+
+
+![image-20200927140843046](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927140843046.png)
+
+
+
+
+
+### express-art-template模板引擎
+
+
+
+#### app.locals对象
+
+将变量设置到app.locals对象下面，这个数据在所有的模板中都可以获取到
+
+```js
+app.locals.users=[{
+    name:'张三',
+    age:20
+},{
+    name:'李四',
+    age:20
+}]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
