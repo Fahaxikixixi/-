@@ -15057,7 +15057,7 @@ router.push({path:'/register', query: { uname: 'lisi' }})
 
 
 
-# 模块化
+# 模块化（babel）
 
 
 
@@ -15197,94 +15197,6 @@ for(let i = 0; i < 3 ; i++){
 import './m2.js"
 
 ```
-
-
-
-# webpack
-
-
-
-## 概述
-
-
-
-**webpack**是一个流行的**前端项目构建工具 (打包工具)** ,可以解决当前web开发中所面临的困境。
-webpack提供了友好的**模块化支持**，以及**代码压缩混淆**、**处理js兼容问题**、**性能优化**等强大的功能，从而让程序员把
-工作的重心放到具体的功能实现上，提高了开发效率和项目的可维护性。
-
-
-
-![image-20200927162940210](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927162940210.png)
-
-
-
-## 基本使用
-
-
-
-### 1.创建列表隔行变色项目
-
-
-
-1.新建项目空白日录，并运行npm init -y命令，初始化包管理配置文件package. json
-2.新建src源代码目录
-3.新建src ---> index .html首页
-4.初始化首页基本的结构
-5.运行npm install jquery -s命令，安装jquery
-6.通过横块化的形式，实现列表隔行变色效果
-
-
-
-
-
-### 2.项目中安装和配置webpack
-
-1.运行npm  install  webpack  webpack-cli  -D命令，安装webpack 相关的包
-2.在项目根目录中，创建名为webpack. config.js的webpack 配置文件
-3.在webpack的配置文件中，初始化如下基本配置.
-
-
-
-```js
-module.exports = {
-    //开发模式时都把mode 的值设置为这个， 只有要上线的时候才改为其他值
-	mode: 'development' // mode 用来指定构建模式
-}
-
-```
-
-4.在package.json 配置文件中的scripts 节点下，新增dev脚本如下:
-
-```js
-"scripts": {
-	"dev": "webpack" // script节点下的脚本，可以通过npm run执行
-}
-
-```
-
-5.在终端中运行npm run dev命令，启动webpack进行项目打包。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -16084,6 +15996,209 @@ app.locals.users=[{
 
 
 
+# webpack
+
+
+
+## 概述
+
+
+
+**webpack**是一个流行的**前端项目构建工具 (打包工具)** ,可以解决当前web开发中所面临的困境。
+webpack提供了友好的**模块化支持**，以及**代码压缩混淆**、**处理js兼容问题**、**性能优化**等强大的功能，从而让程序员把
+工作的重心放到具体的功能实现上，提高了开发效率和项目的可维护性。
+
+
+
+![image-20200927162940210](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927162940210.png)
+
+
+
+## 基本使用
+
+包 ==>  引入包， 获取构造函数，实例化对象  ，
+
+### 1.创建列表隔行变色项目
+
+
+
+1.新建项目空白日录，并运行npm init -y命令，初始化包管理配置文件package. json
+2.新建src源代码目录
+3.新建src ---> index .html首页
+4.初始化首页基本的结构
+5.运行npm install jquery -s命令，安装jquery
+6.通过横块化的形式，实现列表隔行变色效果
+
+
+
+
+
+### 2.项目中安装和配置webpack
+
+1.运行npm  install  webpack  webpack-cli  -D命令，安装webpack 相关的包
+2.在项目根目录中，创建名为webpack. config.js的webpack 配置文件
+3.在webpack的配置文件中，初始化如下基本配置.
+
+
+
+```js
+module.exports = {
+    //开发模式时都把mode 的值设置为这个， 只有要上线的时候才改为其他值
+	mode: 'development' // mode 用来指定构建模式
+}
+
+```
+
+4.在package.json 配置文件中的scripts 节点下，新增dev脚本如下:
+
+```js
+"scripts": {
+	"dev": "webpack" // script节点下的脚本，可以通过npm run执行
+}
+
+```
+
+5.在终端中运行npm run dev命令，启动webpack进行项目打包。
+
+
+
+
+
+### 3.配置打包的入口与出口
+
+
+
+webpack 的 4.x 版本中默认约定：、
+
+* 打包的**入口文件**为 src --->  index.js
+* 打包的**输出文件**为 dist -->  main.js
+
+
+
+
+
+如果要修改打包的入口与出口，可以在webpack.config.js 中新增如下配置信息：
+
+```js
+const path=require('path')//导入 node.js中专门路径拼接模块
+module.exports={
+    entry:path.join(__dirname,'./scr/index.js'), //打包入口文件路径
+    output:{
+        path:path.join(__dirname,'./dist'), //输出文件的存放路径
+        filename:'bundle.js'  //输出文件的名称
+    }
+}
+```
+
+
+
+
+
+### 4.配置webpack自动打包功能
+
+
+
+**因为引用的是打包之后的js等，所以在修改过代码后，没有打包重新打包的话，引用的js就是旧的，就没有包含修改之后的代码，所以需要配置自动打包**
+
+
+
+1. 运行  npm install webpack-dev-server -D 命令 ,安装支持项目自动打包工具
+
+2. 修改 package.json  ->  scripts  中的dev命令   如下：
+
+   ```js
+   "scripts":{
+       "dev":"webpack-dev-server" //script 节点下的脚本，可以通过npm run执行
+   }
+   ```
+
+3. 将 src  --> index.html 中 ，js   路径修改为  "/buldle.js"   
+
+4. 运行 npm run dev 命令  ，重新打包
+
+5. 在浏览器访问 http://localhos:8080 地址   查看自动打包效果
+
+
+
+**注意：**
+
+* webpack-dev-server  会启动一个实时打包的http  服务器
+* webpack-dev-server  打包生成的输出文件，默认放到项目根目录中，而且是虚拟的，看不见的
+
+
+
+### 5.配置html-webpack-plugin生成预览页面
+
+
+
+1.运行 npm install  html-webpack-plugin  -D 命令，安装生成预览页面的插件
+
+2.修改 webpack.config.js  文件头部区域 （就是引入 html-webpack-plugin包），添加如下配置信息
+
+```js
+//导入生成预览页面的插件，得到一个构造函数
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const htmlPlugin = new HtmlWebpackPlugin({//创建插件的实例对象
+    template:'./src/index.html',//指定要用到的模板文件路径
+    filename:'index.html' //指定生成的文件的名称，该文件存在于内存中，在目录中不显示
+})
+```
+
+3.修改 webpack.config.js 文件中向外暴露的配置对象，新增如下配置节点
+
+```js
+module.exports = {
+    plugins:[ htmlPlugin ] //plugins 数组是 webpack 打包期间会用到的一些插件列表
+}
+```
+
+
+
+
+
+### 6.配置自动打包后自动打开页面
+
+
+
+```js
+//package.json 中的配置
+// --open  打包完成后自动在浏览器打开页面
+// --host  配置 IP 地址
+// --port  配置端口
+
+"scripts":{
+    "dev":"webpack-dev-server --open --host 127.0.0.1 --post 8888"
+    //"dev":"webpack-dev-server --open“  这样写也是可以的
+}
+```
+
+
+
+## webpack 中的加载器
+
+### 通过loader打包非js模块
+
+
+
+在实际开发过程中，**webpack默认只能打包处理以.js 后缀名结尾的模块**，其他**非.js 后缀名结**
+**尾的模块**，webpack 默认处理不了，**需要调用loader 加载器才可以正常打包**，否则会报错!
+
+
+
+
+
+loader 加载器可以协助  webpack 打包处理待定的文件模块，
+
+* less-loader	可以打包处理	.less 相关的文件
+
+* sass-loader    可以打包处理   .scss 相关的文件
+* url-loader       可以打包处理   css  中与  url  路径相关的文件
+
+
+
+
+
+![image-20200928134536603](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200928134536603.png)
 
 
 
@@ -16095,56 +16210,276 @@ app.locals.users=[{
 
 
 
+### 1.打包处理css文件
+
+
+
+1.运行 npm install style-loader   css-loader  -D 命令，安装处理css  文件的 loader
+
+2.在  webpack.config.js  的 module -> rules  数组中，添加 loader  规则如下：
+
+```js
+//所有第三方文件模块的匹配规则
+module：{
+    rules:[
+        {test:/\.css$/,
+         use:['style-loader','css-loader']}
+    ]
+}
+```
+
+test 表示匹配的文件类型，use 表示对应要调用的loader
+
+3. 运行 例：  npm run  dev 
+
+
+
+**注意：**
+
+**1.use 数组中loader 顺序是固定的，先style-loader  后css-loader**
+
+**2.多个loader的调用顺序是：从后往前调用**
+
+例：先 调用css-loader  ==> style-loader ==>若没有其他loader 就让webpack大包
 
 
 
 
 
+### 2.打包处理less文件
+
+1.运行 npm install style-loader  css-loader  less-loader less -D 命令   
+
+**（处理less也是需要依赖 style-loader  css-loader的，所以也需要装，）**
+
+
+
+2.在webpack.config.js的module --> rules  数组中添加  loader，如下：
+
+**//注意看两个test 的不同，一个是处理css  一个是less**
+
+```js
+//所有第三方文件模块的匹配规则
+module：{
+    rules:[
+        {test:/\.css$/,use:['style-loader','css-loader']},
+        //注意看两个test 的不同，一个是处理css  一个是less
+        {test:/\.less$/,use:['style-loader','css-loader','less-loader']}
+    ]
+}
+```
+
+
+
+### 3.打包处理scss文件
+
+
+
+1.运行 npm install style-loader  css-loader  sass-loader node-sass -D 命令   
+
+**（处理scss也是需要依赖 style-loader  css-loader的，所以也需要装，）**
+
+
+
+2.在webpack.config.js的module --> rules  数组中添加  loader，如下：
+
+**//注意看test 的不同，分别是：处理css  less scss**
+
+```js
+//所有第三方文件模块的匹配规则
+module：{
+    rules:[
+        {test:/\.css$/,use:['style-loader','css-loader']},
+        
+        {test:/\.less$/,use:['style-loader','css-loader','less-loader']},
+        
+        {test:/\.scss$/,use:['style-loader','css-loader','sass-loader']}
+    ]
+}
+```
+
+
+
+### 4.配置postCSS自动添加css的兼容前缀
+
+
+
+1.运行 npm install style-loader  css-loader postcss-loader  autoprefixer  -D 命令
+
+**也是依赖 style-loader  css-loader**
+
+2.在项目根目录中创建 postcss  的配置文件  postcss.config.js    并初始化如下配置：
+
+```js
+const autoprefixer = require('autoprefixer') //导入自动添加前缀的插件
+module.exprots = {
+    plugins:[ autoprefixer ] //挂载插件
+}
+```
+
+
+
+3.在 webpack.config.js 的 module -> rules  数组中，修改  css 的  loader  规则如下
+
+```js
+module:{
+    rules:[
+       {text:/\.css$/,use:['style-loader','css-loader','postcss-loader']}
+    ]
+}
+```
+
+
+
+### 5.打包样式表中的图片和字体文件
+
+
+
+1.运行 npm  i  url-loader   file-loader  -D命令
+
+2.在 webpack.config.js  的  module  -> rules 数组中，添加 loader  规则如下：
+
+```js
+module:{
+    rules:[
+        {tes:/\.jpg|png|gif|bmp|ttf|eot|svg|woff|woff2$/,
+        use:'url-loader?limit=16940'}//16940是kb  既图片大小
+    ]
+}
+```
+
+**其中 ？之后的是loader的参数项**
+
+**limit 用来指定图片大小，单位是字节（byte），只有小于limit大小的图片，才会被转为base64图片**
+
+
+
+### 6.打包处理js文件的高级语法
+
+
+
+1.安装babel转换器相关的包: npm i babel-loader @babel/core @babel/runtime -D
+2.安装babel语法插件相关的包: 
+
+npm i @babel/preset-env @babel/plugin-transform-runtime   @babel/plugin-proposal-class-properties  -D
+3.在项目根目录中，创建babel配置文件babel. config.js并初始化基本配置如下:
+
+```js
+module.exports = {
+	presets: [ ' @babel/preset-env' ],
+	plugins: [ ' @babel/p1ugin-transform-runtime'，' @babel/plugin- 					proposal-class-properties' ]
+}
+```
+
+
+
+4.在webpack.config.js 的 module ->  rules  数组中，添加loader 规则如下：
+
+```js
+// exclude  为排除项，表示 babel-loader  不需要处理 node_modules中的js文件,因为node_modules是第三方的不需要我们处理，  exclude一定要加上，不然会报错
+
+{test：/\.js$/,use:'babel-loader',exclude:/node_modules/}
+```
 
 
 
 
 
+## Vue单文件组件
 
 
 
+### 传统组件的问题和解决方案
+
+![image-20200928173031699](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200928173031699.png)
 
 
 
+### Vue单文件组件的基本用法
 
 
 
+#### 单文件组件的组成结构
+
+* template   组件的模板区域
+* script         业务逻辑区域
+* style           样式区域
 
 
 
+```js
+<template>
+	<!--这里用于定义vue组件的模板内容-->
+</template>
+
+<script>
+	//这里用于定义vue组件的业务逻辑
+	export default {
+		data: () { return {} }，11私有数据
+		methods: {} //处理函数
+		// ...其它业务逻辑
+</script>
+
+<style scoped>
+		/*这里用于定义组件的样式*/
+</style>
+
+```
 
 
 
+### webpack 中配置 Vue 组件的加载器
 
 
 
+1.运行 npm i vue-loader vue-template-compiler -D 命令
+
+2.在webpack.config.js 配置文件中，添加 vue-loader的配置如下：
+
+```js
+const VueLoaderPlugin = require ('vue-loader/lib/plugin' )
+
+module .exports = {
+		module: {
+		rules:[
+			// ...其它规则
+			{ test:/\.vue$/,loader: 'vue-loader' }
+		]
+ },
+	plugins: [
+			//...其它插件
+		new VueLoaderPlugin() //请确保引入这个插件!
+	]
+}
+
+```
 
 
 
+### 在webpack项目中使用Vue
 
+1.运行npm i vue -s 安装vue
 
+2.在 src -> index.js 入口文件中 ，通过import   Vue   from   ‘vue’  来导入vue构造函数
 
+3.创建vue的治理对象，并制定要控制的 el 区域
 
+4.通过render 函数渲染App 根组件
 
+```js
+// 1.导入vue构造函数
+import Vue from 'vue'
+// 2.导入ApP根组件
+import App from ' ./components/ App. vue '
 
+const vm=new Vue({
+// 3.指定vIm实例要控制的页面区域
+el: '#app',
+// 4.通过render函数，把指定的组件渲染到el区域中
+render: h => h (App)
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 
