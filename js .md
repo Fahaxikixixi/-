@@ -16470,7 +16470,7 @@ module .exports = {
 // 1.导入vue构造函数
 import Vue from 'vue'
 // 2.导入ApP根组件
-import App from ' ./components/ App. vue '
+import App from ' ./components/ App.vue '
 
 const vm=new Vue({
 // 3.指定vIm实例要控制的页面区域
@@ -16480,6 +16480,355 @@ render: h => h (App)
 })
 
 ```
+
+
+
+
+
+## webpack 打包发布
+
+上线之前需要通过webpack将应用进行整体打包，可以通过package.json  文件配置打包命令
+
+
+
+```js
+//在package.json 文件中配置 webpack 打包命令  "build":"webpack -p",
+//该命令默认加载根目录中的webpack.config.js 配置文件
+
+"script":{
+    //用于打包的命令
+    "build":"webpack -p",
+    //用于开发调试的命令
+    "dev":"webpack-dev-server --open --host 127.0.0.1 --port 3000"
+},
+```
+
+需要打包时  运行   npm  run build
+
+
+
+打包之后就会生成一个 dist  文件夹，打包的都在里面 就可以拿来发布，公布等操作
+
+
+
+
+
+# Vue-Cli
+
+
+
+## 使用步骤
+
+1.安装 3.x 版本的Vue脚手架
+
+npm  install  -g   @vue/cli
+
+
+
+vue  -V  查看版本
+
+
+
+
+
+## 基于3.x版本的脚手架创建vue项目
+
+前两种需要掌握，第三种了解就行
+
+
+
+### 1.基于 **交互式命令行** 的方式，创建 新版vue 项目
+
+```js
+vue  create my-project	//my-project  指的是项目名称
+```
+
+
+
+![image-20200930094149824](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930094149824.png)
+
+
+
+
+
+![image-20200930094401788](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930094401788.png)
+
+
+
+![image-20200930094556530](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930094556530.png)
+
+
+
+![image-20200930094628224](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930094628224.png)
+
+
+
+![image-20200930094747010](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930094747010.png)
+
+
+
+
+
+### 2.基于  **图形化界面**  的方式，创建新版  vue 项目
+
+```js
+veu  ui
+```
+
+
+
+![image-20200930101235608](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930101235608.png)
+
+
+
+
+
+
+
+
+
+
+
+### 3.基于   **2.x的旧模板**，创建  旧版  vue项目
+
+```js
+npm  insatll  -g  @vue/cli-init   （创建2.x的前提，安装@vue/cli-init）
+
+vue init webpack  my-project	//my-project  指的是项目名称
+```
+
+
+
+![image-20200930170647984](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930170647984.png)
+
+
+
+![image-20200930170759298](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930170759298.png)
+
+
+
+## Vue脚手架生成的项目解构分析
+
+
+
+![image-20200930102906741](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200930102906741.png)
+
+
+
+
+
+## Vue脚手架的自定义配置
+
+
+
+
+
+### 1.通过package.json配置项目（不推荐）
+
+
+
+```js
+//必须是符合规范的json语法
+"vue":{
+    "devServer":{
+        "port":"8888", //端口号设置
+        "open":true	   //打包成功之后自动打开浏览器
+    }
+}
+```
+
+
+
+**注意：**不推荐使用这种配置方式，因为package.json 主要用来管理包的配置信息，为了方便维护，推荐将vue脚手架相关配置，**单独定义到vue.config.js配置中**
+
+
+
+### 2.通过单独的配置文件配置项目(推荐)
+
+1.在项目的根目录创建文件 vue.config.js
+
+2.在该文件中进行相关配置，从而覆盖默认配置
+
+```js
+//vue.config.js
+
+module.exports={
+    devServer:{
+        port:8888
+    }
+}
+```
+
+
+
+# Element-UI
+
+
+
+## 基本使用
+
+
+
+## 基于命令行方式手动安装
+
+1.安装依赖包  npm  i element-ui  -S
+
+2.导入  Element-UI 相关资源
+
+```js
+//在打包入口文件 main.js 导入组件库
+import ElementUI  from 'element-ui';
+
+//在打包入口文件 main.js 导入组件相关样式
+import  'element-ui/lib/theme-chalk/index.css';
+
+//在打包入口文件 main.js 配置 vue  插件
+Vue.use(ElementUI);
+```
+
+
+
+去element-ui官网  组件找到需要的  复制代码
+
+在APP.vue 内粘贴使用
+
+
+
+## 基于图形化界面自动安装
+
+
+
+1.运行 vue ui  命令 ，打开vue-cli图形化界面
+
+2.通过 vue  项目管理器，进入机体的项目配置面板
+
+3.点击插件---> 添加插件， 进入插件查询面板
+
+4.搜索  vue-cli-pligin-element  并安装
+
+5.配置插件，实现按需导入，从而减少打包后的项目体积
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## eslint关闭
+
+如果eslint 没有关闭，则在根目录下创建的 vue.config.js添加如下：
+
+```js
+module.exports = {
+    lintOnSave: false
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
