@@ -13980,11 +13980,18 @@ Vue.component('alert-box', {
 
 > 应用场景：父组件对子组件的内容进行加工处理（可以获取到子组件的数据，和对子组件数据进行加工处理）
 
+```js
+//例：
+<template slot-scope="scope">{{scope.row}}</template>
+
+{{scope.row}}  输出的就是当前的全部数据
+```
 
 
 
 
-![image-20200918163443382](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918163443382.png)
+
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918163443382.png" alt="image-20200918163443382" style="zoom: 200%;" />
 
 
 
@@ -16720,20 +16727,6 @@ Vue.use(ElementUI);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## eslint关闭
 
 如果eslint 没有关闭，则在根目录下创建的 vue.config.js添加如下：
@@ -16742,6 +16735,101 @@ Vue.use(ElementUI);
 module.exports = {
     lintOnSave: false
 }
+```
+
+
+
+
+
+# 电商管理
+
+
+
+![QQ图片20201009095413](C:\Users\Administrator\Desktop\QQ图片20201009095413.jpg)
+
+
+
+
+
+
+
+![image-20201009095315018](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201009095315018.png)
+
+
+
+![image-20201009103754202](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201009103754202.png)
+
+
+
+## 登录
+
+
+
+![image-20201009114403032](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201009114403032.png)
+
+
+
+前端与服务器之间不存在跨域问题：用 cookie   session
+
+存在跨域问题： 用token（token由服务器生成）
+
+
+
+### 登录——token原理分析
+
+
+
+![image-20201009114954062](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201009114954062.png)
+
+
+
+
+
+## 创建子分支
+
+
+
+将一些功能都写在子分支中，等后期的时候在进行合并
+
+![image-20201009120127644](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201009120127644.png)
+
+
+
+## 路由导航守卫控制访问权限
+
+如果用户没有登录，但是直接通过url 访问特定页面，需要重新导航到登录页面进行登录
+
+
+
+```js
+//为路由对象，添加beforeEach 导航守卫
+//to 将要访问的页面路径   from  从那个页面跳转过来的    next 放行函数
+router.beforeEach((to,from,next) => {
+//如果用户访问的登录页，直接放行
+if (to.path === '/login') return next ()
+//从sessionStorage中获取到保存的token 值
+const tokenstr = window . sessionstor age. getItem( 'token')
+//没有token,强制跳转到登录页
+if (!tokenStr) return next('/login' )
+next ()
+}
+
+```
+
+
+
+# 退出
+
+基于token  的方式，只需要销毁本地的token即可，后续的请求就不会携带token，必须从新登录生成一个新的token之后才可以访问页面
+
+
+
+```js
+//清空token
+window.sessionStorag.clear()
+
+//跳转到登录页
+this.$router.push('/login')
 ```
 
 
@@ -16791,6 +16879,312 @@ module.exports = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# sessionStorage
+
+
+
+# 码云
+
+
+
+![image-20201009101709163](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201009101709163.png)
 
 
 
