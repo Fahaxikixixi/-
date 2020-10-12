@@ -12871,7 +12871,7 @@ new Vue({
 
 
 
-![image-20200911091729164](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200911091729164.png)
+![image-20200911091729164](https://s1.ax1x.com/2020/10/12/02MkQS.png)
 
 ### 1.全局过滤器
 
@@ -13659,7 +13659,7 @@ Vue.copponent('menu-item',{
 
 
 
-![image-20200918095751248](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918095751248.png)
+![image-20200918095751248](https://s1.ax1x.com/2020/10/12/02Meds.png)
 
 
 
@@ -13870,7 +13870,7 @@ B组件
 
 
 
-![image-20200918113021871](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918113021871.png)
+![image-20200918113021871](https://s1.ax1x.com/2020/10/12/02MELQ.png)
 
 #### 插槽的使用
 
@@ -13907,7 +13907,7 @@ Vue.component('alert-box', {
 
 
 
-![image-20200918114609217](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918114609217.png)
+![image-20200918114609217](https://s1.ax1x.com/2020/10/12/02MAsg.png)
 
 
 
@@ -13923,7 +13923,7 @@ Vue.component('alert-box', {
 
 
 
-![image-20200918135138670](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918135138670.png)
+![image-20200918135138670](https://s1.ax1x.com/2020/10/12/02MZZj.png)
 
 
 
@@ -13931,7 +13931,7 @@ Vue.component('alert-box', {
 
 #### 例
 
-![image-20200918140353423](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918140353423.png)
+![image-20200918140353423](https://s1.ax1x.com/2020/10/12/02Mmon.png)
 
 ```js
 <body>
@@ -13991,7 +13991,7 @@ Vue.component('alert-box', {
 
 
 
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200918163443382.png" alt="image-20200918163443382" style="zoom: 200%;" />
+![](https://s1.ax1x.com/2020/10/12/02MKJ0.png)
 
 
 
@@ -14372,7 +14372,7 @@ axios.put('http://localhost:3000/axios/132',{
 
 在请求或响应被 `then` 或 `catch` 处理前拦截它们进行一些信息的设置
 
-![image-20200924135530302](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924135530302.png)
+![image-20200924135530302](https://s1.ax1x.com/2020/10/12/02MMWV.png)
 
 
 
@@ -14418,7 +14418,7 @@ axios.interceptors.request.use(function(config){
 
 
 
-![image-20200924143446229](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924143446229.png)
+![image-20200924143446229](https://s1.ax1x.com/2020/10/12/02Muiq.png)
 
 
 
@@ -14505,11 +14505,11 @@ queryData. then(ret=>{
 
 
 
-![image-20200924163213553](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924163213553.png)
+![image-20200924163213553](https://s1.ax1x.com/2020/10/12/02MQzT.png)
 
 #### SPA
 
-![image-20200924163432719](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924163432719.png)
+![image-20200924163432719](https://s1.ax1x.com/2020/10/12/02M1QU.png)
 
 
 
@@ -14520,7 +14520,7 @@ queryData. then(ret=>{
 
 
 
-![image-20200924163658664](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200924163658664.png)
+![image-20200924163658664](https://s1.ax1x.com/2020/10/12/02M3yF.png)
 
 
 
@@ -14649,7 +14649,7 @@ new vue({
 
 
 
-![image-20200925093311580](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925093311580.png)
+![image-20200925093311580](https://s1.ax1x.com/2020/10/12/02M8L4.png)
 
 
 
@@ -14684,7 +14684,7 @@ var router = new VueRouter({
 
 **未重定向，默认跳转**
 
-![image-20200925095114519](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925095114519.png)
+![image-20200925095114519](https://s1.ax1x.com/2020/10/12/02MJeJ.png)
 
 
 
@@ -14694,7 +14694,7 @@ var router = new VueRouter({
 
 
 
-![image-20200925095153636](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925095153636.png)
+![image-20200925095153636](https://s1.ax1x.com/2020/10/12/02MYw9.png)
 
 
 
@@ -14716,7 +14716,7 @@ var router = new VueRouter({
 
 
 
-![image-20200925095649900](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925095649900.png)
+![image-20200925095649900](https://s1.ax1x.com/2020/10/12/02MtoR.png)
 
 
 
@@ -14889,7 +14889,7 @@ const User = {
 
 
 
-![image-20200925105215487](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200925105215487.png)
+![image-20200925105215487](https://s1.ax1x.com/2020/10/12/02MaJx.png)
 
 
 
@@ -15068,7 +15068,7 @@ router.push({path:'/register', query: { uname: 'lisi' }})
 
 
 
-![image-20200927145434903](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200927145434903.png)
+![image-20200927145434903](https://s1.ax1x.com/2020/10/12/02MUF1.png)
 
 
 
@@ -15283,17 +15283,17 @@ PowerShell  或者 cmd  切换到 文件所在目录  ，
 
 
 
-![image-20200926095715734](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926095715734.png)
+![image-20200926095715734](https://s1.ax1x.com/2020/10/12/02M0SK.png)
 
 
 
-![image-20200926101655990](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926101655990.png)
+![image-20200926101655990](https://s1.ax1x.com/2020/10/12/02MBQO.png)
 
 
 
 
 
-![image-20200926102009612](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926102009612.png)
+![image-20200926102009612](https://s1.ax1x.com/2020/10/12/02MDyD.png)
 
 
 
@@ -15314,7 +15314,7 @@ exports.add = add;  //.add 是自定义命名
 
 
 
-![image-20200926102044434](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926102044434.png)
+![image-20200926102044434](https://s1.ax1x.com/2020/10/12/02MrOe.png)
 
 ### 模块成员导出的另一种方式
 
@@ -15355,27 +15355,27 @@ console.log(a.add(10, 20)); //30
 
 
 
-![image-20200926102100066](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926102100066.png)
+![image-20200926102100066](https://s1.ax1x.com/2020/10/12/02MyeH.png)
 
 
 
 ## 系统模块
 
-![image-20200926110420945](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110420945.png)
+![image-20200926110420945](https://s1.ax1x.com/2020/10/12/02McTA.png)
 
 
 
 #### 前两个操作多需要引入const fs=require('fs')
 
-![image-20200926110535698](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110535698.png)
+![image-20200926110535698](https://s1.ax1x.com/2020/10/12/02M6wd.png)
 
-![image-20200926110713699](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110713699.png)
+![image-20200926110713699](https://s1.ax1x.com/2020/10/12/02M2FI.png)
 
 
 
 #### 读取的是文件的内容
 
-![image-20200926110726683](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926110726683.png)
+![image-20200926110726683](https://s1.ax1x.com/2020/10/12/02MRYt.png)
 
 
 
@@ -15383,7 +15383,7 @@ console.log(a.add(10, 20)); //30
 
 应用场景：错误日志
 
-![image-20200926111858505](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926111858505.png)
+![image-20200926111858505](https://s1.ax1x.com/2020/10/12/02MWfP.png)
 
 
 
@@ -15415,7 +15415,7 @@ path.join(__dirname)  ==>获取当前文件所在路径
 
 
 
-![image-20200926113000237](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200926113000237.png)
+![image-20200926113000237](https://s1.ax1x.com/2020/10/12/02MhSf.png)
 
 
 
