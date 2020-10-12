@@ -5014,6 +5014,29 @@ foo()
 
 
 
+```js
+/*当里面有错误时不抛出错误，而且运行catch里面的语句，try里面错误语句的后续代码不再运行，但是不影响后续代码运行*/
+		try{
+			console.log('a');
+			console.log(b);
+			console.log('c');
+		}
+		catch(e){
+			console.log(e.name + " :" + e.message );
+			//打印出错误类型和错误信息
+		}
+
+		console.log('照常运行');
+
+#六种错误类型
+
+//1.EvalError: eval()的使用与定义不一致
+//2.RangeError: 数值越界
+//3.ReferenceError:非法或者不能识别的引用数值
+//4.SyntaxError: 发生语法解析错误
+//5.TypeError: 操作数类型错误
+//6.URIError: URL处理函数使用不当
+```
 
 
 
@@ -5021,6 +5044,29 @@ foo()
 
 
 
+# .catch
+
+> .catch的作用是捕捉前一个函数的错误
+
+
+
+```js
+ async removeUserById(id){
+
+    // console.log(id);
+
+      // 弹框询问用户是否删除用户
+
+      const confirmResult= await this.$confirm('此操作将删除该用户, 是否继续?', '提示', {
+
+        confirmButtonText: '确定',
+
+        cancelButtonText: '取消',
+
+        type: 'warning'
+
+      }).catch(err=>err)
+```
 
 
 
@@ -16668,6 +16714,224 @@ module.exports={
 
 
 
+## eslint关闭
+
+如果eslint 没有关闭，则在根目录下创建的 vue.config.js添加如下：
+
+```js
+module.exports = {
+    lintOnSave: false
+}
+```
+
+
+
+# MongoDB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Element-UI
 
 
@@ -16726,16 +16990,6 @@ Vue.use(ElementUI);
 
 
 
-
-## eslint关闭
-
-如果eslint 没有关闭，则在根目录下创建的 vue.config.js添加如下：
-
-```js
-module.exports = {
-    lintOnSave: false
-}
-```
 
 
 
@@ -17190,13 +17444,13 @@ this.$router.push('/login')
 
 
 
+# uniapp
 
 
 
 
 
-
-
+![image-20201012114922290](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201012114922290.png)
 
 
 
